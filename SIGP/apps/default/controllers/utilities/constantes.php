@@ -1,0 +1,32 @@
+<?php
+/**
+ * Categoria de usuarios
+ * */
+define("CAT_USUARIO_ADMINISTRADOR", 1);
+define("CAT_USUARIO_EMPRESA", 2);
+define("CAT_USUARIO_PASANTE", 3);
+define("CAT_USUARIO_COORDINADOR", 4);
+define("CAT_USUARIO_TUTOR_EMP", 5);
+define("CAT_USUARIO_ANALISTA", 6);
+define("CAT_USUARIO_VISITANTE", 7);
+define("CAT_USUARIO_TUTOR_ACAD", 8);
+
+define("PAGINABLE_LIMIT", 10);
+define("PAGINABLE_START", 0);
+define("MAX_NOTICIAS_POR_PAGINA", 4);
+define("MAX_CARACTERES_PRELIMINAR_NOTICIA", 200);
+
+define("EVALUACION_INFORME_PASANTIA", 1);
+define("EVALUACION_EMPRESA_TUTOR_ACAD", 2);
+define("EVALUACION_EMPRESA_TUTOR_EMP", 3);
+
+define("NOTA_INDIVIDUAL_MINIMA", 0);
+define("NOTA_INDIVIDUAL_MAXIMA", 10);
+define("DIRECTORIO_CREACION_PDF", $_SERVER['DOCUMENT_ROOT'].'SIGP/public/temp');
+define("DIRECTORIO_PLANTILLAS", $_SERVER['DOCUMENT_ROOT'].'SIGP/apps/default/views/plantillas');
+define("DIRECTORIO_IMAGENES", $_SERVER['DOCUMENT_ROOT'].'SIGP/public/img');
+define("DIRECTORIO_PUBLICACION_PDF", 'http://'.$_SERVER['SERVER_NAME'].'/SIGP/public/temp');
+
+define("DECANATO_CIENCIAS", 1);
+
+?>

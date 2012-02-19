@@ -1,0 +1,26 @@
+<?php echo Tag::javascriptInclude('formularios/frmTutorAcademico.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmTutorAcademico') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelTutorAcademico.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelTutorAcademico') ?>
+
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTutoresAcademicos') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDepartamento') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var pTutorA = new panelTutorAcademico({
+        	renderTo: 'panel'
+	    });
+    	pTutorA.show();
+    	stTutoresAcademicos.load({params: {start: 0, limit: 10}}); 
+	});
+	
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

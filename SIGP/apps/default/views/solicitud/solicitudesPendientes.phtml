@@ -1,0 +1,27 @@
+<?php
+ echo Tag::javascriptMinifiedInclude('formularios/panelSolicitudesPasantesTutor.ui'); 
+ echo Tag::javascriptMinifiedInclude('formularios/panelSolicitudesPasantesTutor'); 
+ echo Tag::javascriptMinifiedInclude('formularios/dataStore/stSolicitudesPasanteTutor');
+ echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante.ui');
+ echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante'); 
+  ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pSolicitudes = new panelSolicitudesPasantesTutor({
+        	renderTo: 'panel'
+	     });
+    	 pSolicitudes.show();
+    	 stSolicitudesPasanteTutor.load({params: {start: 0, limit: 10}});
+	 });
+	
+	
+	
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.
+

@@ -1,0 +1,32 @@
+<?php
+echo Tag::javascriptMinifiedInclude('formularios/frmEmpresaResumen.ui');
+echo Tag::javascriptMinifiedInclude('formularios/frmEmpresaResumen');
+echo Tag::javascriptMinifiedInclude('formularios/panelEmpresas.ui');
+echo Tag::javascriptMinifiedInclude('formularios/panelEmpresas');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEmpresasFull');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stPasantias');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stOfertasEmpresa');
+echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ;
+echo Tag::javascriptMinifiedInclude('formularios/frmEmpresaCoord.ui');
+echo Tag::javascriptMinifiedInclude('formularios/frmEmpresaCoord') ;
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEstado');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCiudad') ;
+?>
+
+
+
+<DIV id="panelEmpresasV"></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute;
+del grid.
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var pEmpresa = new panelEmpresas();
+    	pEmpresa.show();
+    	stEmpresasFull.setBaseParam('pEstatus','T');
+    	stEmpresasFull.load({params: {start: 0, limit: 10}}); 
+	});
+
+</script>

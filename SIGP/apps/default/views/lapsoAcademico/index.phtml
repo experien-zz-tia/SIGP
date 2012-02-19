@@ -1,0 +1,29 @@
+<?php
+ 	echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones');
+	echo Tag::javascriptMinifiedInclude('formularios/panelLapso.ui'); 
+	echo Tag::javascriptMinifiedInclude('formularios/panellapso');
+	echo Tag::javascriptMinifiedInclude('formularios/frmLapsoAcademico.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/frmLapsoAcademico');
+	echo Tag::javascriptMinifiedInclude('formularios/frmEstadisticasGenerales.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/frmEstadisticasGenerales');
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stLapsosAcademicos') ;
+	echo Tag::javascriptMinifiedInclude('formularios/frmFinalizarLapso.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/frmFinalizarLapso');
+?>
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+		var pLapso = new panelLapso({
+        				renderTo: 'panel'
+	   				 });
+		pLapso.show();
+		stLapsosAcademicos.load({params: {start: 0, limit: 10}}); 
+	});
+	
+
+</script>
+
+<DIV id='panel'></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

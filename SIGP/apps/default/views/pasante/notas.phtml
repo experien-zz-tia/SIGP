@@ -1,0 +1,70 @@
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'SIGP/apps/default/controllers/utilities/constantes.php')  ?>
+<?php
+switch ($categoria) {
+	case CAT_USUARIO_COORDINADOR:
+		echo Tag::javascriptMinifiedInclude('formularios/panelNotas.ui'); 
+		echo Tag::javascriptMinifiedInclude('formularios/panelNotas'); 
+		echo Tag::javascriptMinifiedInclude('formularios/dataStore/stNotas');	
+		break;
+	case CAT_USUARIO_TUTOR_ACAD:
+		echo Tag::javascriptMinifiedInclude('formularios/panelNotasTA.ui'); 
+ 		echo Tag::javascriptMinifiedInclude('formularios/panelNotasTA'); 
+ 		echo Tag::javascriptMinifiedInclude('formularios/dataStore/stNotasTA');
+		break;
+	case CAT_USUARIO_TUTOR_EMP:
+		echo Tag::javascriptMinifiedInclude('formularios/panelNotasTE.ui'); 
+ 		echo Tag::javascriptMinifiedInclude('formularios/panelNotasTE'); 
+ 		echo Tag::javascriptMinifiedInclude('formularios/dataStore/stNotasTE');
+		break;
+} 
+
+  ?>
+<?php echo Tag::javascriptMinifiedInclude('ext-3.3.1/ux/SearchField') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmDetalleNotas.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmDetalleNotas') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/readerNotas') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stgDetalleNotas') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante.ui');?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante'); ?>
+
+
+<script type='text/javascript'>
+<?php  switch ($categoria) {
+	case CAT_USUARIO_COORDINADOR:
+	echo "Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pNotas = new panelNotas({
+        	renderTo: 'panel'
+	     });
+     	pNotas.show();
+	 });
+ 	stNotas.load({params: {start: 0, limit: 10}});";
+		break;
+		case CAT_USUARIO_TUTOR_ACAD:
+	echo "Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pNotasTA = new panelNotasTA({
+        	renderTo: 'panel'
+	     });
+     	pNotasTA.show();
+	 });
+ 	stNotasTA.load({params: {start: 0, limit: 10}});";
+		break;
+		case CAT_USUARIO_TUTOR_EMP:
+	echo "Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pNotasTE = new panelNotasTE({
+        	renderTo: 'panel'
+	     });
+     	pNotasTE.show();
+	 });
+ 	stNotasTE.load({params: {start: 0, limit: 10}});";
+		break;
+}
+	?>
+	
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

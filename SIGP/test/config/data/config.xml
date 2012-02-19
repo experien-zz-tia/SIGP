@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Test de adaptador XML de Config -->
+<config>
+	<example>
+		<variable>value</variable>
+	</example>
+	<development>
+		<database>
+			<host>localhost</host>
+			<username>jasmin</username>
+			<password>secret</password>
+		</database>
+	</development>
+</config>

@@ -1,0 +1,45 @@
+<CENTER><H3>.::&Uacute;ltimas Noticias::.</H3></CENTER><BR>
+<?php 
+    if(count($noticias)==0){
+		echo("No hay noticias registradas.");
+	}else{
+		echo '<table width="95%" align="center"  class="gris">';
+		foreach ($noticias as $noticia){
+			echo '	<tr>
+						<td  class="titulo"> <B>'.$noticia['titulo'].'</B></td>
+					</tr>
+					<tr>
+						<td > <p align="justify">'.$noticia['contenido'].'... </p>'
+							.'<P align="right">'.Tag::linkTo('noticia/ver?id='.($noticia['id']),'Ver m&aacute;s.').'</p></td>
+					</tr>
+					<tr >
+						<td> <B>Publicado el : </B> '.$noticia['fchPublicacion'].'
+						 <B> por: </B>'.$noticia['nombre'].', '.$noticia['apellido'].'.</td>
+					</tr>
+			';	
+		}
+		echo '</table><BR><CENTER>';
+		if ($pagina >=2){
+			echo Tag::linkTo('noticia?pagina='.($pagina-1),'<< Anterior');
+		}
+		for ($i = 1; $i <= $totalPaginas; $i++) {
+			if ($pagina==$i){
+				echo ' <B>'.$i.'</B> ';  
+			}else{
+				echo Tag::linkTo('noticia?pagina='.($i),' '.$i.' '); 
+			}
+			echo ' | ';
+		}
+		$sgtePagina= $pagina+1;
+		if (($sgtePagina)<=$totalPaginas) {
+			echo Tag::linkTo('noticia?pagina='.($sgtePagina),'Siguiente >> '); 
+		}
+		echo '</CENTER>';
+	}
+	
+
+?>
+
+	
+
+

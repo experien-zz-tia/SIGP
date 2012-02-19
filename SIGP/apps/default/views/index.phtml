@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv='Content-type' content='text/html; charset=UTF-8' />
+<title>EXPERIENTIA - Universidad Centroccidental "Lisandro Alvarado"</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="shortcut icon" href="/SIGP/public/img/imagesExperientia/favicon.ico" />
+<!-- Cargando estilos CSS -->
+<?php Tag::stylesheetLink('style') ?>
+<?php echo Tag::stylesheetLinkTags() ?>
+<?php  echo Tag::stylesheetLink('ext-3.3.1/resources/css/ext-all');
+	 echo Tag::stylesheetLink('ext-3.3.1/resources/css/xtheme-gray') 
+?>
+
+<?php echo Tag::stylesheetLink('experientia/style') ?>
+<!-- Cargando frameworks Javascript -->
+<?php echo Tag::javascriptLibrary('framework/scriptaculous/protoculous') ?>
+<?php echo Tag::javascriptBase() ?>
+
+<?php echo Tag::javascriptInclude('ext-3.3.1/adapter/ext/ext-base') ?>
+<?php echo Tag::javascriptInclude('ext-3.3.1/ext-all-debug') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/mensajes') ?>
+<?php echo Tag::javascriptMinifiedInclude('tools/validaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('ext-3.3.1/src/locale/ext-lang-es') ?>
+<?php echo Tag::javascriptMinifiedInclude('jshash-2.2/md5') ?>
+</head>
+
+<body>
+	<!-- CONTAINER FOR ENTIRE PAGE -->
+	<div class="container">
+		<!-- A. HEADER -->
+		<div class="header">
+			<div class="encabezado-top"></div>
+			<div class="header-top"></div>
+			<!-- A.4 BREADCRUMB and SEARCHFORM -->
+<div id="menu">
+			<div class="menu">
+				<ul>
+					<li><?php echo Tag::linkTo('','Inicio');?></li>
+					<li><a href="#">Quienes somos</a>
+						<ul>
+							<span></span>
+							<li><a href="#">Objetivos</a></li>
+							<li><a href="#">Visi&oacute;n&nbsp&nbsp</a></li>
+							<li><a href="#">Misi&oacute;n&nbsp&nbsp</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Recursos</a>
+						<ul>
+							<span></span>
+							<li><a href="#">Complemetarios</a></li>
+							<li><a href="#">Planillas&nbsp&nbsp</a></li>
+						</ul></li>
+					<!-- <li><a href="#">Iniciar sesi&oacute;n</a> -->
+
+
+					<li>
+						
+						<?php if (!Auth::isValid()){ 
+							//echo Tag::form(array("login/login","onsubmit"=>"return validaForm(this);","method"=>"post","name"=>"loginForm"));
+							echo '<form name="loginForm" method="post" onsubmit="return validaForm(this);" action="/SIGP/login/login">';
+							echo '	<label>Usuario: </label>
+	   								<input type="text" name="usuario" size="15"></input> 
+									<label>Contrase&ntilde;a: </label> <input type="password" name="clave" size="15"></input> 
+									<button type="submit" class="button" ">Login</button>
+									<button type="reset" class="button">Cancelar</button> ';
+							echo Tag::endForm(); 
+						}else {
+							echo Tag::linkTo('/login/logout','Cerrar Sesi&oacute;n');
+						}
+							?> 
+						
+					</li>
+
+				</ul>
+			</div>
+			 </div>
+			<!-- fin Menu -->
+			<!-- Fin del Menu -->
+
+
+	 
+			<div class="header-bottom">
+			
+				<ul>
+					<li class="nobullet">Bienvenido:&nbsp;</li>
+					<li><B><?php echo (Session::getData('nombre'))? utf8_encode(Session::getData('nombre')):'Visitante.' ?></B></li>
+				</ul>
+			
+			</div>
+	
+		</div>
+		<!-- Inicio del Main Contenido de la pagina. -->
+		<div class="main">
+		<!-- 	<div class="content"> -->
+			<?php View::getContent(); ?>
+				<!-- Menu acordeon-->
+
+
+				<!-- Fin de la Columna Derecha. Primera Division (Login del usuario)-->
+				<!-- Fin de la Columna Princial Columna Izquierda. -->
+				<!-- </div> -->
+				<!-- Incio de la Columna de la derecha. -->
+		 <!--	</div> -->
+		</div>
+		<div class="pie-main-bottom"></div>
+		<!-- Fin de la pagina de contenido -->
+
+		<!-- Inicio del Pie de Pagina -->
+
+		<!--  Contenido del Pie de pagina -->
+		<div class="footer">
+			<p>
+				Copyright &copy; 2011 EXPERIENTIA - Universidad Centroccidental
+				"Lisandro Alvarado" (UCLA)&nbsp;&nbsp;|&nbsp;&nbsp;Todos los
+				derechos reservados. <br /> Dise&ntilde;o por Coordinaci&oacute;n de
+				Pasant&iacute;as - DCyT
+			</p>
+
+		</div>
+		<div class="pie-bottom"></div>
+		<!-- Fin del contenido de Pie de pagina -->
+		<!-- Fin de Pie de Pagina -->
+	</div>
+
+</body>
+</html>

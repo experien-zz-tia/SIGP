@@ -1,0 +1,19 @@
+<?php echo Tag::javascriptInclude('formularios/frmVerNotas.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmVerNotas') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/readerNotas') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stgDetalleNotas') ?>
+
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pNotas = new frmVerNotas({
+        	renderTo: 'panel'
+	     });
+     	pNotas.show();
+	 });
+	 stgDetalleNotas.load();
+</script>
+
+
+<DIV  id='panel'  ></DIV>

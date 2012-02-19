@@ -1,0 +1,26 @@
+what,kind,bundleId,bundleVersion,description,time
+processors,sysinfo,,,"2",1300748504081
+java.runtime.name,sysinfo,,,"Java(TM) SE Runtime Environment",1300748504081
+java.runtime.version,sysinfo,,,"1.6.0_24-b07",1300748504081
+java.specification.name,sysinfo,,,"Java Platform API Specification",1300748504081
+java.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1300748504081
+java.specification.version,sysinfo,,,"1.6",1300748504081
+java.vendor,sysinfo,,,"Sun Microsystems Inc.",1300748504081
+java.version,sysinfo,,,"1.6.0_24",1300748504081
+java.vm.info,sysinfo,,,"mixed mode, sharing",1300748504081
+java.vm.name,sysinfo,,,"Java HotSpot(TM) Client VM",1300748504081
+java.vm.specification.name,sysinfo,,,"Java Virtual Machine Specification",1300748504081
+java.vm.specification.vendor,sysinfo,,,"Sun Microsystems Inc.",1300748504081
+java.vm.specification.version,sysinfo,,,"1.0",1300748504081
+java.vm.vendor,sysinfo,,,"Sun Microsystems Inc.",1300748504081
+java.vm.version,sysinfo,,,"19.1-b02",1300748504081
+started,bundle,org.eclipse.mylyn.commons.ui,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.commons.ui",1300748504196
+started,bundle,org.eclipse.mylyn.bugzilla.core,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.bugzilla.core",1300748504315
+started,bundle,org.eclipse.mylyn.bugzilla.ui,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.bugzilla.ui",1300748504373
+started,bundle,org.eclipse.mylyn.context.core,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.context.core",1300748504654
+started,bundle,org.eclipse.mylyn.context.ui,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.context.ui",1300748504717
+started,bundle,org.eclipse.mylyn.tasks.ui,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.tasks.ui",1300748505015
+started,bundle,org.eclipse.mylyn.team.ui,3.2.2.v20090912-0400-e3x,"org.eclipse.mylyn.team.ui",1300748505029
+started,bundle,org.eclipse.php.debug.daemon,2.1.1.v20090707-1108,"org.eclipse.php.debug.daemon",1300748505034
+started,bundle,org.eclipse.update.scheduler,3.2.200.v20081127,"org.eclipse.update.scheduler",1300748505047
+started,bundle,org.eclipse.update.core,3.2.300.v20090525,"org.eclipse.update.core",1300748505249

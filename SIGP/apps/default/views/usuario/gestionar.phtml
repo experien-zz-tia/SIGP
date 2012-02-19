@@ -1,0 +1,28 @@
+<?php
+	echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones'); 	
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionEmpleados.ui'); 
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionEmpleados'); 
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEmpleados');
+	echo Tag::javascriptMinifiedInclude('formularios/frmEmpleado.ui'); 
+	echo Tag::javascriptMinifiedInclude('formularios/frmEmpleado'); 	
+  ?>
+<?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
+
+
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pPasantes = new panelGestionEmpleados({
+        	renderTo: 'panel'
+	     });
+    	 pPasantes.show();
+	 });
+
+stEmpleados.load({params: {start: 0, limit: 10}});
+
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

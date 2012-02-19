@@ -1,0 +1,2 @@
+     <P>Quien suscribe, Prof.: {coordinador}, titular de la cédula de identidad Nro. {cedula}, Coordinador de Pasantías del Decanato de Ciencias y Tecnología, de la Universidad Centroccidental "Lisandro Alvarado" (UCLA), hace constar que el(la) ciudadano(a) <B>{apellidoTutor}, {nombreTutor} </B>, titular de la cédula de identidad Nro. <B>{cedulaTutor}</B> ha supervisado las pasantías que se especifican a continuación:</P>
+     <BR><BR><BR>

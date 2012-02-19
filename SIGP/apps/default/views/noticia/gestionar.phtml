@@ -1,0 +1,27 @@
+<?php
+echo Tag::javascriptMinifiedInclude('formularios/panelNoticias.ui');
+echo Tag::javascriptMinifiedInclude('formularios/panelNoticias');
+echo Tag::javascriptMinifiedInclude('formularios/frmNoticia.ui');
+echo Tag::javascriptMinifiedInclude('formularios/frmNoticia');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stNoticias');
+
+?>
+
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var pNoticias = new panelNoticias({
+        				renderTo: 'panelGestorNoticias'
+	   				 });
+    	pNoticias.show();
+    	stNoticias.load({params: {start: 0, limit: 10}});	
+	});
+	 
+	  
+</script>
+
+<DIV id="panelGestorNoticias"></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

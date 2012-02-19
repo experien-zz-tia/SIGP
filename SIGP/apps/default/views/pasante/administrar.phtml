@@ -1,0 +1,62 @@
+<?php
+if ($tipo=='A'){
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantesTA.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantesTA');
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stPasantesTA');
+	echo Tag::javascriptMinifiedInclude('formularios/frmVerDetalleTE.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/frmVerDEtalleTE');
+}else{
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantesTE.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantesTE');
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stPasantesTE');
+	echo Tag::javascriptMinifiedInclude('formularios/frmVerDetalleTA.ui');
+	echo Tag::javascriptMinifiedInclude('formularios/frmVerDEtalleTA');
+}
+
+?>
+<?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante.ui');?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante'); ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasantia.ui');?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasantia');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCarreraLight');
+?>
+
+
+
+<script type='text/javascript'>
+<?php
+if ($tipo=='A'){
+echo "
+	Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pPasantes = new panelGestionPasantesTA({
+        	renderTo: 'panel'
+	     });
+    	 pPasantes.show();
+    	 stPasantesTA.setBaseParam('pCarreraId','*');
+		stPasantesTA.load({params: {start: 0, limit: 10}});
+	 });
+
+";
+}else{
+echo "
+	Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pPasantes = new panelGestionPasantesTE({
+        	renderTo: 'panel'
+	     });
+    	 pPasantes.show();
+    	 stPasantesTE.setBaseParam('pCarreraId','*');
+		stPasantesTE.load({params: {start: 0, limit: 10}});
+	 });
+
+";
+	
+}?>
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute;
+del grid.

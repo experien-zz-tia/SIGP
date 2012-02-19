@@ -1,0 +1,10 @@
+# Archivo para adaptador Yaml
+
+example:
+  variable: value
+
+development:
+  database:
+    host: localhost
+    username: jasmin
+    password: secret

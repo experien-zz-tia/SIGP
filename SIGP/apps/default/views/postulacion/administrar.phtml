@@ -1,0 +1,31 @@
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/readerPostulaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stgPostulaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelPostulaciones.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelPostulaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmNotificarRechazo.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmNotificarRechazo') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmAceptarPostulacion.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmAceptarPostulacion') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTutorEmpLight') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante') ?>
+
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+   		 var pPostulaciones = new panelPostulaciones({
+        	renderTo: 'panel'
+	   	});    	
+   		pPostulaciones.show();
+   		stgPostulaciones.load(); 
+	});
+	
+
+</script>
+
+<DIV id='panel'></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

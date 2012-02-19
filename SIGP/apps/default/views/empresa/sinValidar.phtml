@@ -1,0 +1,29 @@
+<?php
+echo Tag::javascriptMinifiedInclude('formularios/panelEmpresasSinValidar.ui');
+echo Tag::javascriptMinifiedInclude('formularios/panelEmpresasSinValidar');
+echo Tag::javascriptMinifiedInclude('formularios/frmVerEmpresa.ui');
+echo Tag::javascriptMinifiedInclude('formularios/frmVerEmpresa');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEmpresasFull');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCiudades');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEstado');
+
+?>
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var pEmpresa = new panelEmpresasSinValidar({
+        				renderTo: 'panelEmpresaSV'
+	   				 });
+    	pEmpresa.show();
+    	stEmpresasFull.setBaseParam('pEstatus','SV');
+    	stEmpresasFull.load({params: {start: 0, limit: 10}}); 
+	});
+
+	  
+</script>
+
+<DIV id="panelEmpresaSV"></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute;
+del grid.

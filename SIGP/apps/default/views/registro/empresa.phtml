@@ -1,0 +1,26 @@
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmEmpresa.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmEmpresa') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptMinifiedInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+ 	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	Ext.get('btnIniciarRegistroEmpresa').on('click', function(e){
+    		var cmp1 = new frmEmpresa({
+            	renderTo: Ext.getBody()
+        	});
+        	cmp1.show();
+    	});
+	});
+</script>
+		
+<b>Registro de Empresas</b><br />
+    Para registrar su empresa  haga clic en el siguiente bot&oacute;n    
+ <button id="btnIniciarRegistroEmpresa" class="button">Registrar</button>.<BR>
+ <P>Una vez registrado recibir&aacute; un correo electr&oacute;nico en la direcc&oacute;n ingesada,
+ para confirmar su registro.
+ </P> 
+

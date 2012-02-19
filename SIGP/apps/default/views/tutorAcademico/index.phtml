@@ -1,0 +1,15 @@
+<?php echo Tag::javascriptInclude('formularios/frmTutorAcademico.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmTutorAcademico') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDepartamento') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+<script type='text/javascript'>
+ 		Ext.onReady(function() {
+    		Ext.QuickTips.init();
+    		var formT = new frmTutorAcademico({
+        		renderTo: Ext.getBody()
+    	});
+    		formT.show();
+		});
+</script>

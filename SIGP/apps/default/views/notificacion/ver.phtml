@@ -1,0 +1,22 @@
+<?php
+	echo Tag::javascriptMinifiedInclude('formularios/panelMensajes.ui'); 
+	echo Tag::javascriptMinifiedInclude('formularios/panelMensajes');
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stNotificaciones') ;
+?>
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+			var pNotif = new panelMensajes({
+        				renderTo: 'panel'
+	   				 });
+    	pNotif.show();
+    	stNotificaciones.load(); 
+	});
+	
+
+</script>
+
+<DIV id='panel'></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

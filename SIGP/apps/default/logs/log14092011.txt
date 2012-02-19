@@ -1,0 +1,8 @@
+[Wed, 14 Sep 11 21:46:09 -0500][ERROR] Error: 'Error al enviar correo: SMTP Error: Could not connect to SMTP host.'.
+				  Destinatario: robertarrieche@gmail.com
+[Wed, 14 Sep 11 22:40:59 -0500][ERROR] Error: 'Error al enviar correo: SMTP Error: Could not connect to SMTP host.'.
+				  Destinatario: robertarrieche@gmail.com
+[Wed, 14 Sep 11 22:47:58 -0500][ERROR] Error: 'Error al enviar correo: SMTP Error: Could not connect to SMTP host.'.
+				  Destinatario: robertarrieche@gmail.com
+[Wed, 14 Sep 11 22:48:49 -0500][ERROR] Error: 'Error al enviar correo: SMTP Error: Could not connect to SMTP host.'.
+				  Destinatario: robertarrieche@gmail.com

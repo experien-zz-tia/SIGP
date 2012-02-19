@@ -1,0 +1,25 @@
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ; ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmTutorEmpresarial.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmTutorEmpresarial') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelTutorEmpresarial.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelTutorEmpresarial') ?>
+
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTutoresEmpresariales') ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var pTutorE = new panelTutorEmpresarial({
+        	renderTo: 'panel'
+	    });
+    	pTutorE.show();
+    	stTutoresEmpresariales.setBaseParam('pEmpresa_id', <?php echo $idUsuario ?>);
+    	stTutoresEmpresariales.load({params: {start: 0, limit: 10}}); 
+	});
+
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

@@ -1,0 +1,24 @@
+<?php
+ echo Tag::javascriptMinifiedInclude('formularios/panelHistorialSolicitudes.ui'); 
+ echo Tag::javascriptMinifiedInclude('formularios/panelHistorialSolicitudes'); 
+ echo Tag::javascriptMinifiedInclude('formularios/dataStore/stSolicitudes');
+  ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pSolicitudes = new panelHistorialSolicitudes({
+        	renderTo: 'panel'
+	     });
+    	 pSolicitudes.show();
+    	 stSolicitudes.load({params: {start: 0, limit: 10}});
+	 });
+	
+	
+	
+</script>
+
+
+<DIV id='panel'></DIV>
+

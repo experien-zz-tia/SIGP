@@ -1,0 +1,17 @@
+<?php echo Tag::javascriptInclude('formularios/frmPerfil.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmPerfil') ?>
+<?php echo Tag::javascriptInclude('formularios/panelPerfil.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/panelPerfil') ?>
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+	Ext.QuickTips.init();
+		var perfilP = new frmPerfil({
+	    	renderTo: 'panel'
+	
+	    });
+		perfilP.show();
+	});
+</script>
+
+<div id='panel' margin-left=200px> </div>

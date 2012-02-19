@@ -1,0 +1,109 @@
+body {
+	font-family: "Verdana", "helvetica";
+	font-size: 11px;
+}
+
+/* Implements All Control Buttons */
+.controlButton {
+	
+}
+
+/* Cambia el Estilo las opciones de reportes en StandardForm */
+.report_options {
+	background: #F2F2F2;
+	border: 1px solid #969696;
+}
+
+/* Estilos de mensajes de Flash */
+.kumbiaDisplay {
+	font-size: 11px;
+	font-weight: bold;
+	margin: 0 auto;
+	padding: 2px 25px;
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	text-align: left;
+}
+
+.errorMessage {
+	background-image: url("/kumbia-ef/img/error.gif");
+	background-color: #FFDDDD;
+	color: #B30000;
+	border: 1px solid #FFB7B7;
+	margin: 2px;
+	text-align: left;
+}
+
+.noticeMessage {
+	background-image: url("/kumbia-ef/img/user.gif");
+	background-color: #CCDEFF;
+	color: #004A6F;
+	margin: 2px;
+	border: 1px solid #004A6F;
+	text-align: left;
+}
+
+.successMessage {
+	background-image: url("/kumbia-ef/img/ok.gif");
+	background-color: #CCFF99;
+	color: #008000;
+	border: 1px solid #008000;
+}
+
+.warningMessage {
+	background-image: url("/kumbia-ef/img/warning.gif");
+	background-color: #FFFFC6;
+	color: #000000;
+	border: 1px solid #DDDD00;
+}
+
+.highlight {
+	background: #FFFFDF;
+}
+
+/* Cambia los colores del Browse en StandardForm */
+.browse_primary {
+	background: #AEB9FF;
+}
+
+.browse_primary_active {
+	background: #AEB9FF;
+}
+
+.browse_secondary {
+	background: #FFFFFF;
+}
+
+.browse_secondary_active {
+	background: #F2F2F2;
+}
+
+div.autocomplete {
+	position: relative;
+	background-color: white;
+	border: 1px solid #888;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.autocomplete ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.autocomplete ul li.selected {
+	background-color: #ffb;
+}
+
+div.autocomplete ul li {
+	text-align: left;
+	list-style-type: none;
+	display: block;
+	margin: 0px;
+	padding: 1px;
+	cursor: pointer;
+	font-size: 10px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}

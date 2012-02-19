@@ -1,0 +1,46 @@
+<?php require_once($_SERVER['DOCUMENT_ROOT'].'SIGP/apps/default/controllers/utilities/constantes.php')  ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ?>
+<?php if ( $auth['categoriaUsuario_id']== CAT_USUARIO_EMPRESA ){
+		 echo Tag::javascriptMinifiedInclude('formularios/frmNuevaOferta.ui'); 
+		 echo Tag::javascriptMinifiedInclude('formularios/frmNuevaOferta'); 
+		 echo Tag::javascriptMinifiedInclude('formularios/PanelOfertaEmpleado.ui'); 
+		 echo Tag::javascriptMinifiedInclude('formularios/PanelOfertaEmpleado');
+	}else{
+		 echo Tag::javascriptMinifiedInclude('formularios/frmNuevaOfertaCoordinador.ui'); 
+		 echo Tag::javascriptMinifiedInclude('formularios/frmNuevaOfertaCoordinador'); 
+		 echo Tag::javascriptMinifiedInclude('formularios/PanelOfertaCoordinador.ui'); 
+		 echo Tag::javascriptMinifiedInclude('formularios/PanelOfertaCoordinador');
+	} 
+ ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stOfertas') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTipoOferta') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stAreas') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEmpresas') ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	<?php //echo "Ext.getCmp('gridOfertasEmpresa').getColumnModel().setHidden(3, true);";
+    		if ( $auth['categoriaUsuario_id']== CAT_USUARIO_EMPRESA )
+   				echo "var pOferta = new PanelOfertaEmpleado({
+        				renderTo: 'panel'
+	   				 });";
+   			else
+   				echo "var pOferta = new PanelOfertaCoordinador({
+        				renderTo: 'panel'
+	   				 });"; 
+   	?>
+    	
+    	
+    	pOferta.show();
+    	stOfertas.setBaseParam('pEmpresa_id', <?php echo $auth['idUsuario'] ?>);
+    	stOfertas.load({params: {start: 0, limit: 10}}); 
+	});
+	
+
+</script>
+
+<DIV id='panel'></DIV>
+
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

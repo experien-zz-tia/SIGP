@@ -1,0 +1,15 @@
+<?php echo Tag::javascriptInclude('formularios/frmConfiguracion.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmConfiguracion') ?>
+
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+	Ext.QuickTips.init();
+		var panelConfig = new frmConfiguracion({
+	    	renderTo: 'panel'
+	
+	    });
+		panelConfig.show();
+	});
+</script>
+<DIV align="center" id='panel'></DIV>

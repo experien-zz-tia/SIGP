@@ -1,0 +1,30 @@
+<?php
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantes.ui'); 
+	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantes'); 
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stPasantes');
+	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCarreraLight');		
+  ?>
+<?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante.ui');?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante'); ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasantia.ui');?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasantia'); ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmNotificacion.ui');?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmNotificacion'); ?>
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pPasantes = new panelGestionPasantes({
+        	renderTo: 'panel'
+	     });
+    	 pPasantes.show();
+	 });
+stPasantes.setBaseParam('pCarreraId','*');
+stPasantes.load({params: {start: 0, limit: 10}});
+
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.

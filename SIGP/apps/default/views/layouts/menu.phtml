@@ -1,0 +1,60 @@
+<?php echo Tag::stylesheetLink('jquery-ui/smoothness/jquery-ui-1.8.13.custom'); ?>
+<?php echo Tag::javascriptMinifiedInclude('jquery-1.6.1/jquery-1.6.1') ?>
+<?php echo Tag::javascriptInclude('jquery-ui/jquery-ui-1.8.13.custom.min')?>
+
+<script>
+   jQuery.noConflict();
+   (function($) { 
+     $(function() {
+    	 $(document).ready(function() {
+    		    $("#accordion").accordion({ collapsible: true,
+    		    	autoHeight: false,
+    				navigation: true,
+    				active: false 
+        		    });
+    		  });
+     });
+   })(jQuery);
+  
+  </script>
+
+<table width="100%">
+	<tr>
+		<td valign="top" width="20%"><b>Men&uacute; Principal:</b>
+			<div id="accordion">
+			<?php
+			$auth=Auth::getActiveIdentity();
+			$categoriaUsuario=$auth['categoriaUsuario_id']; 
+			$menu = new MenuCategoriaUsuario();
+			$menus =$menu->getMenus($categoriaUsuario);
+		
+			for ($i = 0; $i < count($menus); $i++) {
+				echo "<h3>";
+				echo Tag::linkTo( "#", $menus[$i][0]);
+				echo "</h3><div><ul>";
+				for ($j = 0; $j < count($menus[$i][1]['nombre']); $j++) {
+					echo "<li>";
+					echo "- ".Tag::linkTo( array($menus[$i][1]['ruta'][$j],"target"=>$menus[$i][1]['target'][$j],"text" =>$menus[$i][1]['nombre'][$j])) ;
+					echo "</li>";
+				}
+				echo "</ul></div>";
+			}
+			
+			?>
+				<h3>
+					<a href="#">Cerrar Sesi&oacute;n</a>
+				</h3>
+				<div>
+					<ul>
+						<li><?php echo "- ".Tag::linkTo("login/logout", "Salir de Experientia") ?>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</td>
+		<td><?php View::getContent() ?>
+		</td>
+	</tr>
+</table>
+
+

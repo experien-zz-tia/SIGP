@@ -1,0 +1,18 @@
+<?php echo Tag::javascriptInclude('formularios/frmConfirmacionEmpresa.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmConfirmacionEmpresa') ?>
+<?php echo Tag::javascriptInclude('formularios/validaciones/validaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+ 		Ext.onReady(function() {
+    		Ext.QuickTips.init();
+    		var cmp1 = new frmConfirmacionEmpresa({
+        		renderTo: 'panel'
+    	});
+    	Ext.getCmp('txtHash').setValue('<?php echo $hash?>');
+    	cmp1.show();
+		});
+ 	
+</script>
+<div id='panel' align="center"></div>

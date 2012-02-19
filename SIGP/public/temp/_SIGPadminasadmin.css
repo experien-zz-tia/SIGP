@@ -1,0 +1,130 @@
+body {
+	font-family: 'lucida grande', tahoma, arial, sans-serif;
+	font-size: 11px;
+	margin: 0px;
+}
+
+a {
+	color: #15428B;
+}
+
+a:link,a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#header {
+	background: #7F99BE url(/SIGP/img/admin/layout-browser-hd-bg.gif)
+		repeat-x center;
+}
+
+#header h1 {
+	font-size: 16px;
+	color: #fff;
+	font-weight: normal;
+	padding: 5px 10px;
+	margin: 0px;
+}
+
+#header-server-info {
+	background: #7F99BE;
+	color: white;
+	margin: 0px;
+	padding: 3px;
+}
+
+#start-div h2 {
+	font-size: 12px;
+	color: #555;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #C3D0DF;
+}
+
+#start-div p {
+	margin: 10px 0;
+}
+
+#details-panel h2 {
+	padding: 10px 10px 0;
+	font-size: 12px;
+	color: #15428B;
+}
+
+#details-panel p {
+	padding: 5px 5px 0;
+}
+
+#details-panel pre {
+	border-top: 1px dotted #ddd;
+	border-bottom: 1px dotted #ddd;
+	margin-top: 10px;
+	padding: 0 5px;
+	background: #f5f5f5;
+}
+
+#details-panel .details-info {
+	margin: 10px;
+	padding: 10px;
+	border: 1px dotted #999;
+	color: #555;
+	background: #f9f9f9;
+}
+
+.ux-layout-center-item {
+	margin: 0 auto;
+	text-align: left;
+}
+
+.ux-layout-center .x-panel-body, /* if the container is a panel */ body.ux-layout-center
+	{ /* if the container is the doc body (for viewport) */
+	text-align: center;
+}
+
+.node-logs {
+	background-image: url(/ext-2.2/examples/shared/icons/fam/book.png)
+		!important;
+}
+
+.node-models {
+	background-image: url(/ext-2.2/examples/shared/icons/fam/grid.png)
+		!important;
+}
+
+.node-conf {
+	background-image: url(/ext-2.2/examples/shared/icons/fam/cog.png)
+		!important;
+}
+
+.node-config {
+	background-image: url(/ext-2.2/examples/shared/icons/fam/cog_edit.png)
+		!important;
+}
+
+.node-apps {
+	background-image:
+		url(/ext-2.2/examples/shared/icons/fam/folder_wrench.png) !important;
+}
+
+.node-app {
+	background-image:
+		url(/ext-2.2/examples/shared/icons/fam/application_go.png) !important;
+}
+
+.node-plugin {
+	background-image: url(/ext-2.2/examples/shared/icons/fam/plugin.gif)
+		!important;
+}
+
+.node-monitor {
+	background-image:
+		url(/ext-2.2/examples/shared/icons/fam/table_refresh.png) !important;
+}
+
+h2 {
+	font-family: "Trebuchet MS", "Bitstream Vera Sans", verdana, lucida,
+		arial, helvetica, sans-serif;
+	font-size: 18px;
+}

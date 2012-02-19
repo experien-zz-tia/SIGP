@@ -1,0 +1,24 @@
+<?php
+ echo Tag::javascriptMinifiedInclude('formularios/panelSolTutorAcad.ui'); 
+ echo Tag::javascriptMinifiedInclude('formularios/panelSolTutorAcad'); 
+ echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTutoresAcadLight');
+ echo Tag::javascriptMinifiedInclude('ext-3.3.1/ux/SearchField') 
+ ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pSolTutor = new panelSolTutorAcad({
+        	renderTo: 'panel'
+	     });
+    	 pSolTutor.show();
+	 });
+	stTutoresAcadLight.load({params: {start: 0, limit: 10}});
+	
+	
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.
