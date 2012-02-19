@@ -20,7 +20,7 @@ frmDetalleNotasUi = Ext.extend(Ext.Window, {
 					anchor: '50%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtCedula'
 				},{
 					xtype: 'textfield',
@@ -28,7 +28,7 @@ frmDetalleNotasUi = Ext.extend(Ext.Window, {
 					anchor: '100%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtNombre'
 				},{
 					xtype: 'textfield',
@@ -36,7 +36,7 @@ frmDetalleNotasUi = Ext.extend(Ext.Window, {
 					anchor: '100%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtApellido'
 				},
 				 {

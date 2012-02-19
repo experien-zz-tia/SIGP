@@ -25,7 +25,7 @@ frmLapsoAcademicoUi = Ext.extend(Ext.Window, {
                                 anchor: '100%',
                                 maxLength: 10,
                                 allowBlank: false,
-                                disabled:true,
+                                readOnly:true,
                                 id: 'txtLapso'
                             },
                             {

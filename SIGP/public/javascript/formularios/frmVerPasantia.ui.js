@@ -17,13 +17,13 @@ frmVerPasantiaUi = Ext.extend(Ext.Window, {
 								fieldLabel : 'C&eacute;dula',
 								anchor : '50%',
 								allowBlank : false,
-								disabled : true,
+								readOnly : true,
 								id : 'txtCedula'
 							}, {
 								xtype : 'textfield',
 								width : 320,
 								anchor : '100%',
-								disabled : true,
+								readOnly : true,
 								fieldLabel : 'Nombre y Apellido',
 								allowBlank : false,
 								id : 'txtNombreApellido'
@@ -31,7 +31,7 @@ frmVerPasantiaUi = Ext.extend(Ext.Window, {
 								xtype : 'textfield',
 								width : 284,
 								anchor : '50%',
-								disabled : true,
+								readOnly : true,
 								fieldLabel : 'Lapso',
 								allowBlank : false,
 								id : 'txtLapso'
@@ -39,38 +39,38 @@ frmVerPasantiaUi = Ext.extend(Ext.Window, {
 								xtype : 'textfield',
 								fieldLabel : 'Raz&oacute;n Social',
 								anchor : '100%',
-								disabled : true,
+								readOnly : true,
 								allowBlank : false,
 								id : 'txtRazonSocial'
 							}, {
 								xtype : 'textfield',
 								fieldLabel : 'T&iacute;tulo',
 								anchor : '100%',
-								disabled : true,
+								readOnly : true,
 								id : 'txtTitulo'
 							}, {
 								xtype : 'textfield',
 								fieldLabel : 'Tipo Pasant&iacute;a',
 								anchor : '50%',
-								disabled : true,
+								readOnly : true,
 								id : 'txtTipoPasantia'
 							}, {
 								xtype : 'textfield',
 								fieldLabel : 'Modalidad Pasant&iacute;a',
 								anchor : '50%',
-								disabled : true,
+								readOnly : true,
 								id : 'txtModalidadPasantia'
 							}, {
 								xtype : 'textfield',
 								fieldLabel : 'Fecha de inicio estimada',
 								anchor : '50%',
-								disabled : true,
+								readOnly : true,
 								id : 'txtFchInicio'
 							}, {
 								xtype : 'textfield',
 								fieldLabel : 'Fecha culminaci&oacute;n estimada',
 								anchor : '50%',
-								disabled : true,
+								readOnly : true,
 								id : 'txtFchFin'
 							}]
 

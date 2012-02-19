@@ -21,7 +21,6 @@ h2 {
 <body>
 
 <?php
-
 if(stripos($_SERVER['SERVER_SOFTWARE'], "Apache")!==false){
 	if(!in_array('mod_rewrite', apache_get_modules())){
 		print "

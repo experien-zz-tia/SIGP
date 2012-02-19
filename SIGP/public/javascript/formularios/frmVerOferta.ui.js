@@ -17,7 +17,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         anchor: '100%',
                         maxLength: 40,
                         allowBlank: false,
-                        disabled: true,
+                        readOnly: true,
                         id: 'txtEmpresa'
                     },
                     {
@@ -26,7 +26,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         anchor: '100%',
                         maxLength: 40,
                         allowBlank: false,
-                        disabled: true,
+                        readOnly: true,
                         id: 'txtTitulo'
                     },
                      {
@@ -35,7 +35,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         anchor: '100%',
                         maxLength: 40,
                         allowBlank: false,
-                        disabled: true,
+                        readOnly: true,
                         id: 'txtArea'
                     },
                     {
@@ -55,7 +55,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         xtype: 'textfield',
                         fieldLabel: 'Tipo de oferta',
                         anchor: '50%',
-                        disabled: true,
+                        readOnly: true,
                         maxLength: 40,
                         allowBlank: false,
                         id: 'txtTipoOferta',
@@ -77,7 +77,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         maxValue: 100,
                         minValue: 1,
                         allowDecimals: false,
-                        disabled: true,
+                        readOnly: true,
                         decimalPrecision: 0,
                         allowNegative: false,
                         allowBlank: false,
@@ -86,7 +86,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                     {
                         xtype: 'textfield',
                         fieldLabel: 'Cupos disponibles',
-                        disabled: true,
+                        readOnly: true,
                         anchor: '50%',
                         id: 'txtDisponible'
                     },  
@@ -98,7 +98,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         allowBlank: false,
                         id: 'dateFechaCierre',
                         format:'d/m/Y',
-                        disabled:true
+                        readOnly:true
                     },
            			 {
                         xtype: 'datefield',
@@ -108,7 +108,7 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         allowBlank: false,
                         id: 'dateFechaInicioEst',
                        format:'d/m/Y',
-                       disabled:true
+                       readOnly:true
                     } ,
                     {
                         xtype: 'datefield',
@@ -118,12 +118,12 @@ frmVerOfertaUi = Ext.extend(Ext.Window, {
                         allowBlank: false,
                         id: 'dateFechaCulminacionEst',
                         format:'d/m/Y',
-                        disabled:true
+                        readOnly:true
                     },
                     {
                         xtype: 'textfield',
                         id: 'txtIdOferta',
-                        disabled: true,
+                        readOnly: true,
                         hidden: true
                     }
                 ]

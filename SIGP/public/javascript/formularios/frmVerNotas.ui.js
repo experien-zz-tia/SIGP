@@ -19,7 +19,7 @@ frmVerNotasUi = Ext.extend(Ext.Panel, {
 					anchor: '50%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtCedula'
 				},{
 					xtype: 'textfield',
@@ -27,7 +27,7 @@ frmVerNotasUi = Ext.extend(Ext.Panel, {
 					anchor: '100%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtNombreCompleto'
 				},{
 					xtype: 'textfield',
@@ -35,7 +35,7 @@ frmVerNotasUi = Ext.extend(Ext.Panel, {
 					anchor: '50%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtCarrera'
 				},{
 					xtype: 'textfield',
@@ -43,7 +43,7 @@ frmVerNotasUi = Ext.extend(Ext.Panel, {
 					anchor: '50%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtNotaFinal'
 				}       
 				

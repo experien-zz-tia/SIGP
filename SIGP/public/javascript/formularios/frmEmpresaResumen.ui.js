@@ -20,7 +20,7 @@ frmEmpresaResumenUi = Ext.extend(Ext.Window, {
 					anchor: '100%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtRif'
 				},{
 					xtype: 'textfield',
@@ -28,7 +28,7 @@ frmEmpresaResumenUi = Ext.extend(Ext.Window, {
 					anchor: '100%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtRazonSocial'
 				},{
 					xtype: 'textfield',
@@ -36,7 +36,7 @@ frmEmpresaResumenUi = Ext.extend(Ext.Window, {
 					anchor: '100%',
 					maxLength: 40,
 					allowBlank: false,
-					disabled:true,
+					readOnly:true,
 					id: 'txtContacto'
 				}
 			 ,{

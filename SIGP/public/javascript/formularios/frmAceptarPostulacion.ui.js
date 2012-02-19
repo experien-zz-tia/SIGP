@@ -25,7 +25,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 fieldLabel: 'C&eacute;dula',
                                 anchor: '50%',
                                 maxLength: 40,
-                                disabled:true,
+                                readOnly:true,
                                 submitValue: false,
                                 allowBlank: false,
                                 id: 'txtCedula'
@@ -36,7 +36,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 anchor: '100%',
                                 maxLength: 40,
                                 allowBlank: false,
-                                disabled:true,
+                                readOnly:true,
                                 submitValue: false,
                                 id: 'txtNombreApellido'
                             },
@@ -46,7 +46,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 anchor: '100%',
                                 maxLength: 40,
                                 submitValue: false,
-                                disabled:true,
+                                readOnly:true,
                                 allowBlank: false,
                                 id: 'txtCarrera'
                             },
@@ -66,7 +66,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 xtype: 'textfield',
                                 fieldLabel: 'T&iacute;tulo',
                                 anchor: '100%',
-                                disabled:true,
+                                readOnly:true,
                                 submitValue: false,
                                 allowBlank: false,
                                 id: 'txtTitulo'
@@ -77,7 +77,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 anchor: '50%',
                                 editable: false,
                                 allowBlank: false,
-                                disabled:true,
+                                readOnly:true,
                                 submitValue: false,
                                 id: 'dateFechaCierre',
                                 format:'d/m/Y'
@@ -93,7 +93,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 xtype: 'textfield',
                                 fieldLabel: 'Tipo',
                                 anchor: '50%',
-                                disabled:true,
+                                readOnly:true,
                                 submitValue: false,
                                 allowBlank: false,
                                 id: 'txtTipo'
@@ -102,7 +102,7 @@ frmAceptarPostulacionUi = Ext.extend(Ext.Window, {
                                 xtype: 'textfield',
                                 fieldLabel: 'Modalidad',
                                 anchor: '50%',
-                                disabled:true,
+                                readOnly:true,
                                 submitValue: false,
                                 allowBlank: false,
                                 id: 'txtModalidad'

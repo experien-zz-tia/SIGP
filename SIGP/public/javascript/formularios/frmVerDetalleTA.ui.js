@@ -16,7 +16,7 @@ frmVerDetalleTAUi = Ext.extend(Ext.Window, {
 								xtype : 'textfield',
 								width : 320,
 								anchor : '100%',
-								disabled : true,
+								readOnly : true,
 								fieldLabel : 'Departamento',
 								allowBlank : false,
 								id : 'txtDepartamento'
@@ -24,7 +24,7 @@ frmVerDetalleTAUi = Ext.extend(Ext.Window, {
 								xtype : 'textfield',
 								width : 320,
 								anchor : '100%',
-								disabled : true,
+								readOnly : true,
 								fieldLabel : 'Nombre y Apellido',
 								allowBlank : false,
 								id : 'txtNombreApellido'
@@ -32,7 +32,7 @@ frmVerDetalleTAUi = Ext.extend(Ext.Window, {
 								xtype : 'textfield',
 								width : 284,
 								anchor : '100%',
-								disabled : true,
+								readOnly : true,
 								fieldLabel : 'Correo electronico',
 								allowBlank : false,
 								id : 'txtCorreo'
@@ -40,7 +40,7 @@ frmVerDetalleTAUi = Ext.extend(Ext.Window, {
 								xtype : 'textfield',
 								fieldLabel : 'Tel&eacute;fono',
 								anchor : '50%',
-								disabled : true,
+								readOnly : true,
 								allowBlank : false,
 								id : 'txtTelefono'
 							}]

@@ -84,7 +84,7 @@ panelEmpresasUi = Ext.extend(Ext.Panel, {
                         width: 100,
                         editable: false,
                         tooltip: 'Estatus actual.'
-                    },
+                    }
                 ],
                 tbar: {
                     xtype: 'toolbar',

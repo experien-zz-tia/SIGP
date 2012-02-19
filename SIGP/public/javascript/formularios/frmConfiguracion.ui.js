@@ -18,7 +18,7 @@ frmConfiguracionUi = Ext.extend(Ext.Panel, {
 								fieldLabel : 'Coordinador',
 								anchor : '100%',
 								allowBlank : false,
-								disabled:true,
+								readOnly:true,
 								id : 'txtCoordinador'
 							},
 							{
@@ -26,7 +26,7 @@ frmConfiguracionUi = Ext.extend(Ext.Panel, {
 								fieldLabel : 'C&eacute;dula',
 								anchor : '100%',
 								allowBlank : false,
-								disabled:true,
+								readOnly:true,
 								id : 'txtCedula'
 							}]
 				}, {

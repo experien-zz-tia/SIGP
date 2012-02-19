@@ -40,7 +40,7 @@ panelNoticiasUi = Ext.extend(Ext.Panel, {
                         dataIndex: 'empleado_id',
                         hidden: true,
                         hideable: false,
-                        format: '0',
+                        format: '0'
                     },
                     {
                         xtype: 'gridcolumn',

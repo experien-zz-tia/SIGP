@@ -28,7 +28,7 @@ frmNotificarRechazoUi = Ext.extend(Ext.Window, {
                                 maxLength: 40,
                                 allowBlank: false,
                                 submitValue: false,
-                                disabled: true,
+                                readOnly: true,
                                 id: 'txtTitulo'
                             },
                              {
@@ -43,7 +43,7 @@ frmNotificarRechazoUi = Ext.extend(Ext.Window, {
                                 maxLength: 40,
                                 allowBlank: false,
                                 submitValue: false,
-                                disabled: true,
+                                readOnly: true,
                                 id: 'txtNombreApellido'
                             },
                               {
@@ -52,7 +52,7 @@ frmNotificarRechazoUi = Ext.extend(Ext.Window, {
                                 anchor: '100%',
                                 submitValue: false,
                                 maxLength: 40,
-								disabled: true,
+								readOnly: true,
                                 allowBlank: false,
                                 id: 'txtCarrera'
                             }                          

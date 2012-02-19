@@ -22,7 +22,7 @@ frmNotificacionUi = Ext.extend(Ext.Window, {
 							anchor : '100%',
 							maxLength : 60,
 							allowBlank : false,
-							disabled : true,
+							readOnly : true,
 							id : 'txtPara'
 						}, {
 							xtype : 'htmleditor',
