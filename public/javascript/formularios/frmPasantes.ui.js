@@ -10,534 +10,617 @@
  * Do NOT hand edit this file.
  */
 
-frmPasantesUi = Ext.extend(Ext.Window, {
-    title: 'Pasante',
-    width: 461,
-    height: 359,
-    layout: 'absolute',
-    modal: true,
-    resizable: false,
-    activeItem: 1,
-    id: 'frmPasantesWin',
-    
-    initComponent: function() {
-        this.items = [
-            {
-                xtype: 'form',
-                layout: 'anchor',
-                width: 450,
-                height: 310,
-                title: 'Formulario de Registro',
-                headerAsText: false,
-                unstyled: true,
-                method: 'POST',
-                waitTitle: 'Por favor espere...',
-                url: '/SIGP/pasante/registrarPasante',
-                fieldLabel: '',
-                id: 'registroPasanteForm',
-                
-                items: [
-                    {
-                        xtype: 'tabpanel',
-                        activeTab: 0,
-                        height: 308,
-                        id: 'panelPasante',
-                        items: [
-                            {
-                                xtype: 'panel',
-                                title: 'Identificación',
-                                height: 193,
-                                width: 524,
-                                layout: 'absolute',
-                                id: 'ptnIdentificacion',
-                                items: [
-                                    {
-                                        xtype: 'fieldset',
-                                        title: 'Información Escencial',
-                                        height: 150,
-                                        layout: 'absolute',
-                                        width: 475,
-                                        x: -1,
-                                        y: 30,
-                                        items: [
-                                            {
-                                                xtype: 'label',
-                                                text: 'Cédula de Identidad*:',
-                                                width: 120,
-                                                x: 50,
-                                                y: 30
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Fecha de Nacimiento*:',
-                                                width: 120,
-                                                x: 50,
-                                                y: 70
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 180,
-                                                y: 30,
-                                                name: 'txtCedula',
-                                                vtype: 'soloNumero',
-                                                id: 'txtCedula'
-                                            },
-                                            {
-                                                xtype: 'datefield',
-                                                x: 180,
-                                                y: 65,
-                                                width: 130,
-                                                name: 'dataFecha',
-                                                id: 'dataFecha'
-                                            },
-                                            {
-                                                xtype: 'button',
-                                                text: 'Buscar',
-                                                width: 75,
-                                                height: 22,
-                                                x: 330,
-                                                y: 45,
-                                                id: 'btnBuscar'
-                                            }
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                title: 'Personal',
-                                height: 258,
-                                disabled: true,
-                                layout: 'absolute',
-                                id: 'ptnPersonal',
-                                items: [
-                                    {
-                                        xtype: 'fieldset',
-                                        title: 'Información Personal',
-                                        layout: 'absolute',
-                                        height: 240,
-                                        items: [
-                                            {
-                                                xtype: 'label',
-                                                text: 'Decanato*:',
-                                                x: 5,
-                                                y: 85,
-                                                width: 95
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Carrera*:',
-                                                x: 5,
-                                                y: 115,
-                                                width: 95
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Indice Acaémico*:',
-                                                x: 5,
-                                                y: 175,
-                                                width: 95
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Semestre*:',
-                                                x: 5,
-                                                y: 145,
-                                                width: 95
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 100,
-                                                y: 175,
-                                                width: 60,
-                                                submitValue: false,
-                                                name: 'txtIndice',
-                                                vtype: 'soloNumero',
-                                                disabled: true,
-                                                id: 'txtIndice'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 100,
-                                                y: 145,
-                                                width: 120,
-                                                name: 'txtSemestre',
-                                                vtype: 'soloNumero',
-                                                submitValue: false,
-                                                disabled: true,
-                                                id: 'txtSemestre'
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Nombre(s)*:',
-                                                width: 80,
-                                                x: 5,
-                                                y: 5
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Apellido(s)*:',
-                                                width: 120,
-                                                x: 5,
-                                                y: 35
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Sexo*:',
-                                                width: 120,
-                                                x: 5,
-                                                y: 60
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                width: 280,
-                                                name: 'txtApellido',
-                                                disabled: true,
-                                                submitValue: false,
-                                                x: 100,
-                                                y: 35,
-                                                id: 'txtApellido'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                width: 280,
-                                                name: 'txtDecanato',
-                                                disabled: true,
-                                                valueField: 'id',
-                                                submitValue: false,
-                                                x: 100,
-                                                y: 85,
-                                                id: 'txtDecanato'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                width: 230,
-                                                name: 'txtCarrera',
-                                                x: 100,
-                                                y: 115,
-                                                id: 'txtCarrera',
-                                                disabled: true,
-                                                submitValue: false,
-                                                queryParam: 'idDecanato',
-                                                valueField: 'id'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                width: 280,
-                                                name: 'txtNombre',
-                                                x: 100,
-                                                y: 5,
-                                                disabled: true,
-                                                submitValue: false,
-                                                id: 'txtNombre'
-                                            },
-                                            {
-                                                xtype: 'radio',
-                                                boxLabel: 'Femenino',
-                                                name: 'opcSexo',
-                                                //editable: false,
-                                                x: 110,
-                                                y: 60,
-                                                submitValue: false,
-                                                id: 'opcFemenino'
-                                            },
-                                            {
-                                                xtype: 'radio',
-                                                x: 200,
-                                                y: 60,
-                                                boxLabel: 'Masculino',
-                                                name: 'opcSexo',
-                                                submitValue: false,
-                                                id: 'opcMasculino'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Atrás',
-                                        x: 250,
-                                        y: 250,
-                                        width: 85,
-                                        id: 'btnAtrasPersonal'
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Adelante',
-                                        x: 340,
-                                        y: 250,
-                                        width: 85,
-                                        id: 'btnAdelantePersonal'
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                title: 'Contacto',
-                                height: 258,
-                                width: 427,
-                                disabled: true,
-                                layout: 'absolute',
-                                id: 'ptnContacto',
-                                items: [
-                                    {
-                                        xtype: 'fieldset',
-                                        title: 'Información de Contacto',
-                                        layout: 'absolute',
-                                        height: 240,
-                                        width: 447,
-                                        items: [
-                                            {
-                                                xtype: 'label',
-                                                text: 'Dirección*:',
-                                                x: 5,
-                                                y: 5,
-                                                width: 115
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Estado*:',
-                                                x: 5,
-                                                y: 55,
-                                                width: 115
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Ciudad*:',
-                                                x: 5,
-                                                y: 85,
-                                                width: 115
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Teléfono:',
-                                                x: 5,
-                                                y: 115,
-                                                width: 115
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Correo eletcrónico*:',
-                                                x: 5,
-                                                y: 145,
-                                                width: 115
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Repetir correo eletcrónico*:',
-                                                x: 5,
-                                                y: 175,
-                                                width: 115
-                                            },
-                                            {
-                                                xtype: 'textarea',
-                                                anchor: '',
-                                                x: 120,
-                                                y: 5,
-                                                height: 40,
-                                                width: 300,
-                                                name: 'txtDireccion',
-                                                id: 'txtDireccion'
-                                            },
-                                            {
-                                                xtype: 'combo',
-                                                x: 120,
-                                                y: 55,
-                                                name: 'cmbEstado',
-                                                id: 'cmbEstado',
-                                                store: 'stEstado',
-                                                editable: false,
-                                                displayField: 'nombre',
-                                                valueField: 'id',
-                                                emptyText: '-Seleccione-',
-                                                triggerAction: 'all',
-                                                allowBlank: false,
-                                                forceSelection: true,
-                                                loadingText: 'Cargando...',
-                                                blankText: 'Seleccione un estado'
-                                            },
-                                            {
-                                                xtype: 'combo',
-                                                x: 120,
-                                                y: 85,
-                                                name: 'cmbCiudad',
-                                                id: 'cmbCiudad',
-                                                editable: false,
-                                                store: 'stCiudad',
-                                                displayField: 'nombre',
-                                                valueField: 'id',
-                                                triggerAction: 'all',
-                                                queryParam: 'idEstado',
-                                                allowBlank: false,
-                                                loadingText: 'Cargando...',
-                                                forceSelection: true,
-                                                emptyText: '-Seleccione-',
-                                                blankText: 'Seleccione una ciudad.',
-                                                mode: 'local',
-                                                submitValue: false
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 120,
-                                                y: 115,
-                                                width: 165,
-                                                id: 'txtTelefono'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 120,
-                                                y: 145,
-                                                width: 300,
-                                                name: 'txtCorreo',
-                                                id: 'txtCorreo'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 120,
-                                                y: 175,
-                                                width: 300,
-                                                name: 'txtRepetirCorreo',
-                                                id: 'txtRepetirCorreo'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Atrás',
-                                        x: 250,
-                                        y: 250,
-                                        width: 85,
-                                        id: 'btnAtrasContacto'
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Adelante',
-                                        x: 340,
-                                        y: 250,
-                                        width: 85,
-                                        id: 'btnAdelanteContacto'
-                                    },
-                                    {
-                                        xtype: 'label',
-                                        text: '(*) Campos obligatorios',
-                                        x: 10,
-                                        y: 260,
-                                        width: 145
-                                    }
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                title: 'Acceso',
-                                height: 137,
-                                disabled: true,
-                                layout: 'absolute',
-                                id: 'ptnAcceso',
-                                items: [
-                                    {
-                                        xtype: 'fieldset',
-                                        title: 'Información de Acceso al Sistema',
-                                        layout: 'absolute',
-                                        height: 140,
-                                        x: -2,
-                                        y: 0,
-                                        items: [
-                                            {
-                                                xtype: 'label',
-                                                text: 'Usuario*:',
-                                                x: 5,
-                                                y: 10,
-                                                width: 75
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Clave*:',
-                                                x: 5,
-                                                y: 40,
-                                                width: 75
-                                            },
-                                            {
-                                                xtype: 'label',
-                                                text: 'Repetir clave*:',
-                                                x: 5,
-                                                y: 70,
-                                                width: 75
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 80,
-                                                y: 10,
-                                                width: 190,
-                                                vtype: 'soloLetrasNumeros',
-                                                name: 'txtUsuario',
-                                                id: 'txtUsuario'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 80,
-                                                y: 40,
-                                                width: 340,
-                                                inputType: 'password',
-                                                allowBlank: false,
-                                                minLength: 6,
-                                                submitValue: false,
-                                                name: 'txtClave',
-                                                id: 'txtClave'
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                x: 80,
-                                                y: 70,
-                                                width: 340,
-                                                inputType: 'password',
-                                                allowBlank: false,
-                                                minLength: 6,
-                                                vtype: 'password',
-                                                campoInicialClave:'txtClave',
-                                                submitValue: false,
-                                                name: 'txtRepetirClave',
-                                                id: 'txtRepetirClave'
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Atrás',
-                                        x: 160,
-                                        y: 250,
-                                        width: 85,
-                                        id: 'btnAtrasAcceso'
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Guardar',
-                                        width: 85,
-                                        height: 22,
-                                        x: 250,
-                                        y: 250,
-                                        id: 'btnGuardar'
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        text: 'Limpiar',
-                                        x: 340,
-                                        y: 250,
-                                        width: 85,
-                                        id: 'btnCancelar'
-                                    },
-                                    {
-                                        xtype: 'label',
-                                        text: '(*) Campos obligatorios',
-                                        x: 10,
-                                        y: 260,
-                                        width: 145
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ];
-        frmPasantesUi.superclass.initComponent.call(this);
-    }
-});
+frmPasantesUi = Ext
+		.extend(
+				Ext.Window,
+				{
+					title : 'Pasante',
+					width : 460,
+					height : 400,
+					layout : 'absolute',
+					modal : true,
+					resizable : false,
+					activeItem : 1,
+					id : 'frmPasantesWin',
+
+					initComponent : function() {
+						this.items = [ {
+							xtype : 'form',
+							layout : 'anchor',
+							width : 450,
+							height : 400,
+							title : 'Formulario de Registro',
+							headerAsText : false,
+							unstyled : true,
+							method : 'POST',
+							waitTitle : 'Por favor espere...',
+							url : '/SIGP/pasante/registrarPasante',
+							fieldLabel : '',
+							id : 'registroPasanteForm',
+
+							items : [ {
+								xtype : 'tabpanel',
+								activeTab : 0,
+								height : 400,
+								id : 'panelPasante',
+								items : [
+										{
+											xtype : 'panel',
+											title : 'Identificación',
+											height : 150,
+											width : 441,
+											layout : 'absolute',
+											id : 'ptnIdentificacion',
+											items : [ {
+												xtype : 'fieldset',
+												title : 'Información Escencial',
+												height : 150,
+												layout : 'absolute',
+												width : 441,
+												x : 2,
+												y : 50,
+												items : [
+														{
+															xtype : 'label',
+															text : 'Cédula de Identidad*:',
+															width : 120,
+															x : 50,
+															y : 20
+														},
+														{
+															xtype : 'label',
+															text : 'Fecha de Nacimiento*:',
+															width : 120,
+															x : 50,
+															y : 60
+														},
+														{
+															xtype : 'textfield',
+															x : 180,
+															y : 20,
+															name : 'txtCedula',
+															vtype : 'soloNumero',
+															id : 'txtCedula'
+														},
+														{
+															xtype : 'datefield',
+															x : 180,
+															y : 55,
+															width : 130,
+															name : 'dataFecha',
+															id : 'dataFecha'
+														},
+														{
+															xtype : 'button',
+															text : 'Buscar',
+															width : 75,
+															height : 22,
+															x : 330,
+															y : 35,
+															id : 'btnBuscar'
+														},
+														{
+															xtype : 'label',
+															text : '(*) Campos obligatorios para buscar datos.',
+															x : 2,
+															y : 100,
+															width : 300
+														} ]
+											} ]
+										},
+										{
+											xtype : 'panel',
+											title : 'Básica',
+											height : 300,
+											disabled : true,
+											layout : 'absolute',
+											id : 'ptnPersonal',
+											items : [
+													{
+														xtype : 'fieldset',
+														title : 'Información Personal',
+														layout : 'absolute',
+														x : 2,
+														y : 5,
+														height : 300,
+														width : 441,
+														items : [
+																{
+																	xtype : 'label',
+																	text : 'Decanato:',
+																	x : 5,
+																	y : 85,
+																	width : 95
+																},
+																{
+																	xtype : 'label',
+																	text : 'Carrera:',
+																	x : 5,
+																	y : 115,
+																	width : 95
+																},
+																{
+																	xtype : 'label',
+																	text : 'Indice Académico:',
+																	x : 5,
+																	y : 175,
+																	width : 95
+																},
+																{
+																	xtype : 'label',
+																	text : 'Semestre:',
+																	x : 5,
+																	y : 145,
+																	width : 95
+																},
+																{
+																	xtype : 'label',
+																	text : 'Tipo de Pasantía*:',
+																	x : 5,
+																	y : 205,
+																	width : 125
+																},
+																{
+																	xtype : 'label',
+																	text : 'Modalidad de Pasantía*:',
+																	x : 5,
+																	y : 235,
+																	width : 125
+																},																
+																{
+																	xtype : 'label',
+																	text : 'Nombre(s):',
+																	width : 80,
+																	x : 5,
+																	y : 5
+																},
+																{
+																	xtype : 'textfield',
+																	width : 280,
+																	name : 'txtNombre',
+																	x : 130,
+																	y : 5,
+																	disabled : true,
+																	// submitValue
+																	// : false,
+																	id : 'txtNombre'
+																},
+																{
+																	xtype : 'label',
+																	text : 'Apellido(s):',
+																	width : 120,
+																	x : 5,
+																	y : 35
+																},
+																{
+																	xtype : 'textfield',
+																	width : 280,
+																	name : 'txtApellido',
+																	disabled : true,
+																	// submitValue
+																	// : false,
+																	x : 130,
+																	y : 35,
+																	id : 'txtApellido'
+																},
+																{
+																	xtype : 'label',
+																	text : 'Sexo:',
+																	width : 120,
+																	x : 5,
+																	y : 60
+																},
+																{
+																	xtype : 'radio',
+																	boxLabel : 'Femenino',
+																	name : 'opcSexo',
+																	// editable:
+																	// false,
+																	x : 140,
+																	y : 60,
+																	submitValue : false,
+																	id : 'opcFemenino'
+																},
+																{
+																	xtype : 'radio',
+																	x : 230,
+																	y : 60,
+																	boxLabel : 'Masculino',
+																	name : 'opcSexo',
+																	//submitValue : false,
+																	id : 'opcMasculino'
+																} ,
+																
+																{
+																	xtype : 'combo',
+																	width : 280,
+																	name : 'cmbDecanato',
+																	triggerAction : 'all',
+																	disabled : true,
+																	editable : false,
+																	store : 'stDecanato',
+																	displayField : 'nombre',
+																	valueField : 'id',
+																	submitValue : false,
+																	allowBlank : false,
+																	loadingText : 'Cargando...',
+																	emptyText : '-Seleccione-',
+																	blankText : 'Seleccione un decanato.',
+																	x : 130,
+																	y : 85,
+																	id : 'cmbDecanato'
+																},
+																{
+																	xtype : 'combo',
+																	x : 130,
+																	y : 115,
+																	width : 280,
+																	id : 'cmbCarrera',
+																	editable : false,
+																	store : 'stCarrera',
+																	displayField : 'nombre',
+																	valueField : 'id',
+																	triggerAction : 'all',
+																	queryParam : 'idDecanato',
+																	allowBlank : false,
+																	loadingText : 'Cargando...',
+																	// forceSelection
+																	// : true,
+																	emptyText : '-Seleccione-',
+																	blankText : 'Seleccione una carrera.',
+																	mode : 'local',
+																	submitValue : false
+																},{
+																	xtype : 'textfield',
+																	x : 130,
+																	y : 145,
+																	width : 120,
+																	name : 'txtSemestre',
+																	vtype : 'soloNumero',
+																	//submitValue : false,
+																	disabled : true,
+																	id : 'txtSemestre'
+																},
+																{
+																	xtype : 'textfield',
+																	x : 130,
+																	y : 175,
+																	width : 60,
+																	//submitValue : false,
+																	name : 'txtIndice',
+																	vtype : 'soloNumero',
+																	disabled : true,
+																	id : 'txtIndice'
+																},
+																{
+																	xtype : 'combo',
+																	width : 280,
+																	name : 'cmbTipoPasantia',
+																	editable : false,
+																	store : 'stTipoPasantia',
+																	displayField : 'descripcion',
+																	valueField : 'id',
+																	submitValue : false,
+																	allowBlank : false,
+																	loadingText : 'Cargando...',
+																	emptyText : '-Seleccione-',
+																	triggerAction : 'all',
+																	blankText : 'Seleccione el Tipo de Pasantía que desea realizar.',
+																	x : 130,
+																	y : 205,
+
+																	id : 'cmbTipoPasantia'
+																},
+																{
+																	xtype : 'combo',
+																	width : 280,
+																	name : 'cmbModalidadPasantia',
+																	editable : false,
+																	store : 'stModalidadPasantia',
+																	displayField : 'descripcion',
+																	valueField : 'id',
+																	submitValue : false,
+																	allowBlank : false,
+																	loadingText : 'Cargando...',
+																	emptyText : '-Seleccione-',
+																	blankText : 'Seleccione la Modalidad que desea para su pasantía.',
+																	triggerAction : 'all',
+																	x : 130,
+																	y : 235,
+																	id : 'cmbModalidadPasantia'
+																}
+																]
+													},
+													{
+														xtype : 'button',
+														text : 'Atrás',
+														x : 250,
+														y : 310,
+														width : 85,
+														id : 'btnAtrasPersonal'
+													},
+													{
+														xtype : 'button',
+														text : 'Adelante',
+														x : 340,
+														y : 310,
+														width : 85,
+														id : 'btnAdelantePersonal'
+													},
+													{
+														xtype : 'label',
+														text : '(*) Campos obligatorios',
+														x : 10,
+														y : 320,
+														width : 145
+													} ]
+										},
+										{
+											xtype : 'panel',
+											title : 'Contacto',
+											height : 250,
+											width : 441,
+											disabled : true,
+											layout : 'absolute',
+											id : 'ptnContacto',
+											items : [
+													{
+														xtype : 'fieldset',
+														title : 'Información de Contacto',
+														layout : 'absolute',
+														height : 250,
+														width : 441,
+														x : 2,
+														y : 5,
+														items : [
+																{
+																	xtype : 'label',
+																	text : 'Dirección*:',
+																	x : 5,
+																	y : 5,
+																	width : 115
+																},
+																{
+																	xtype : 'label',
+																	text : 'Estado*:',
+																	x : 5,
+																	y : 65,
+																	width : 115
+																},
+																{
+																	xtype : 'label',
+																	text : 'Ciudad*:',
+																	x : 5,
+																	y : 95,
+																	width : 115
+																},
+																{
+																	xtype : 'label',
+																	text : 'Teléfono:',
+																	x : 5,
+																	y : 125,
+																	width : 115
+																},
+																{
+																	xtype : 'label',
+																	text : 'Correo eletcrónico*:',
+																	x : 5,
+																	y : 155,
+																	width : 115
+																},
+																{
+																	xtype : 'label',
+																	text : 'Repetir correo eletcrónico*:',
+																	x : 5,
+																	y : 180,
+																	width : 115
+																},
+																{
+																	xtype : 'textarea',
+																	anchor : '',
+																	x : 130,
+																	y : 5,
+																	height : 50,
+																	width : 280,
+																	name : 'txtDireccion',
+																	id : 'txtDireccion'
+																},
+																{
+																	xtype : 'combo',
+																	x : 130,
+																	y : 65,
+																	name : 'cmbEstado',
+																	id : 'cmbEstado',
+																	store : 'stEstado',
+																	editable : false,
+																	displayField : 'nombre',
+																	valueField : 'id',
+																	emptyText : '-Seleccione-',
+																	triggerAction : 'all',
+																	allowBlank : false,
+																	forceSelection : true,
+																	submitValue : false,
+																	loadingText : 'Cargando...',
+																	blankText : 'Seleccione un estado'
+																},
+																{
+																	xtype : 'combo',
+																	x : 130,
+																	y : 95,
+																	name : 'cmbCiudad',
+																	id : 'cmbCiudad',
+																	editable : false,
+																	store : 'stCiudad',
+																	displayField : 'nombre',
+																	valueField : 'id',
+																	triggerAction : 'all',
+																	queryParam : 'idEstado',
+																	allowBlank : false,
+																	loadingText : 'Cargando...',
+																	forceSelection : true,
+																	emptyText : '-Seleccione-',
+																	blankText : 'Seleccione una ciudad.',
+																	mode : 'local',
+																	submitValue : false
+																},
+																{
+																	xtype : 'textfield',
+																	x : 130,
+																	y : 125,
+																	width : 165,
+																	vtype : 'soloNumero',
+																	id : 'txtTelefono'
+																},
+																{
+																	xtype : 'textfield',
+																	x : 130,
+																	y : 155,
+																	width : 280,
+																	name : 'txtCorreo',
+																	id : 'txtCorreo'
+																},
+																{
+																	xtype : 'textfield',
+																	x : 130,
+																	y : 185,
+																	width : 280,
+																	name : 'txtRepetirCorreo',
+																	id : 'txtRepetirCorreo'
+																} ]
+													},
+													{
+														xtype : 'button',
+														text : 'Atrás',
+														x : 250,
+														y : 310,
+														width : 85,
+														id : 'btnAtrasContacto'
+													},
+													{
+														xtype : 'button',
+														text : 'Adelante',
+														x : 340,
+														y : 310,
+														width : 85,
+														id : 'btnAdelanteContacto'
+													},
+													{
+														xtype : 'label',
+														text : '(*) Campos obligatorios',
+														x : 10,
+														y : 320,
+														width : 145
+													} ]
+										},
+										{
+											xtype : 'panel',
+											title : 'Acceso',
+											height : 140,
+											disabled : true,
+											layout : 'absolute',
+											id : 'ptnAcceso',
+											items : [
+													{
+														xtype : 'fieldset',
+														title : 'Información de Acceso al Sistema',
+														layout : 'absolute',
+														height : 140,
+														width : 441,
+														x : 2,
+														y : 5,
+														items : [
+																{
+																	xtype : 'label',
+																	text : 'Usuario*:',
+																	x : 5,
+																	y : 10,
+																	width : 75
+																},
+																{
+																	xtype : 'label',
+																	text : 'Clave*:',
+																	x : 5,
+																	y : 40,
+																	width : 75
+																},
+																{
+																	xtype : 'label',
+																	text : 'Repetir clave*:',
+																	x : 5,
+																	y : 70,
+																	width : 75
+																},
+																{
+																	xtype : 'textfield',
+																	x : 100,
+																	y : 10,
+																	width : 190,
+																	vtype : 'soloLetrasNumeros',
+																	name : 'txtUsuario',
+																	id : 'txtUsuario'
+																},
+																{
+																	xtype : 'textfield',
+																	x : 100,
+																	y : 40,
+																	width : 310,
+																	inputType : 'password',
+																	allowBlank : false,
+																	minLength : 6,
+																	submitValue : false,
+																	name : 'txtClave',
+																	id : 'txtClave'
+																},
+																{
+																	xtype : 'textfield',
+																	x : 100,
+																	y : 70,
+																	width : 310,
+																	inputType : 'password',
+																	allowBlank : false,
+																	minLength : 6,
+																	vtype : 'password',
+																	campoInicialClave : 'txtClave',
+																	submitValue : false,
+																	name : 'txtRepetirClave',
+																	id : 'txtRepetirClave'
+																} ]
+													},
+													{
+														xtype : 'button',
+														text : 'Atrás',
+														x : 160,
+														y : 310,
+														width : 85,
+														id : 'btnAtrasAcceso'
+													},
+													{
+														xtype : 'button',
+														text : 'Guardar',
+														width : 85,
+														height : 22,
+														x : 250,
+														y : 310,
+														id : 'btnGuardar'
+													},
+													{
+														xtype : 'button',
+														text : 'Limpiar',
+														x : 340,
+														y : 310,
+														width : 85,
+														id : 'btnCancelar'
+													},
+													{
+														xtype : 'label',
+														text : '(*) Campos obligatorios',
+														x : 10,
+														y : 320,
+														width : 145
+													} ]
+										} ]
+							} ]
+						} ];
+						frmPasantesUi.superclass.initComponent.call(this);
+					}
+				});

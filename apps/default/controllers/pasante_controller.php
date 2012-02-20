@@ -16,7 +16,7 @@ class PasanteController extends ApplicationController{
 	}
 
 	public function gestionarAction(){
-		
+
 	}
 	//-----------------------------------------------------------------------------------------
 	public function indexAction(){}
@@ -34,24 +34,43 @@ class PasanteController extends ApplicationController{
 			
 		$cedula = $this->getRequestParam('txtCedula');
 		$fchNacimiento = $this->getRequestParam('dataFecha');
+		$nombre = $this->getRequestParam('txtNombre');
+		$apellido = $this->getRequestParam('txtApellido');
+		$opcF = $this->getRequestParam('opcF');
+
+		$sexo = '';
+		if ($opcF==true){
+			$sexo = 'F';
+		} else {$sexo == 'M';}
+
 		$telefono = $this->getRequestParam('txtTelefono');
 		$direccion = $this->getRequestParam('txtDireccion');
-		$ciudad_id = $this->getRequestParam('ciudad');
-		$ciudad_estado_id = $this->getRequestParam('estado');
+		$decanato = $this->getRequestParam('decanato');
+		$carrera = $this->getRequestParam('carrera');
+		$semestre = $this->getRequestParam('semestre');
+		$indice = $this->getRequestParam('txtIndice');
+		$tipoPasantia = $this->getRequestParam('tipoPasantia');
+		$modalidad = $this->getRequestParam('modalidad');
+		$ciudad = $this->getRequestParam('ciudad');
+		$estado = $this->getRequestParam('estado');
 		$email = $this->getRequestParam('txtCorreo');
 		$usuario = $this->getRequestParam('txtUsuario');
 		$clave=$this->getRequestParam('clave');
-		$carrera = new Carrera();
-		$carrera_id = $carrera->getCarrerasbyNombre($this->getRequestParam('carrera'));
 
-		$successPasante = $pasante->registrarPasante($cedula,$telefono,$direccion,$ciudad_id,$ciudad_estado_id,$email);
+		$successPasante = true;
+		$successRegistro = false;
+		$successUsuario = false;
+		$idUsuario = 0;
+		$successPasante = $pasante->registrarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
+		$carrera,$semestre,$indice,$tipoPasantia,$modalidad,$direccion,$estado,$ciudad,$telefono,
+		$email);
 
 		if ($successPasante){
 			$usuario = new Usuario();
 			$nombreUsuario=$this->getRequestParam('txtUsuario');
 			$clave=$this->getRequestParam('clave');
 			$categoria=CAT_USUARIO_PASANTE;	//3:Pasante
-			$idUsuario = $pasante->buscarPasanteId($cedula, $fchNacimiento);
+			$idUsuario = $pasante->buscarId($cedula, $fchNacimiento);
 			$estatusUsuario='P';
 			$successUsuario = $usuario->registrarUsuario($nombreUsuario,$clave,$categoria,$idUsuario,$estatusUsuario);
 			if ($successUsuario){
@@ -77,7 +96,8 @@ class PasanteController extends ApplicationController{
 		}
 			
 
-		$this->renderText(json_encode(array("success"=>$success)));
+		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante, "usuario"=>$successUsuario, "registro"=>$successRegistro,
+		"id"=>$idUsuario)));		
 	}
 	//-----------------------------------------------------------------------------------------
 	public function confirmarRegistroPasanteAction(){
@@ -278,7 +298,7 @@ class PasanteController extends ApplicationController{
 				$resultado['cursos']=$datosPerfil['cursos'];
 			}
 			$success= ($resultado)?true:false;
-				
+
 		}
 		$this->setResponse('ajax');
 		$this->renderText(json_encode(array("success"=>$success,
@@ -293,8 +313,8 @@ class PasanteController extends ApplicationController{
 			$this->routeTo('controller: pasante','action: consultaSinHabilitar');
 		}
 	}
-	
-public function getDatosPasanteAction() {
+
+	public function getDatosPasanteAction() {
 		$resultado=array();
 		$conf= new Configuracion();
 		$categoria=$this->auth['categoriaUsuario_id'];
@@ -319,11 +339,11 @@ public function getDatosPasanteAction() {
 		$this->setResponse('ajax');
 		$this->renderText(json_encode(array("success"=>$success,
 											"datos"=>$resultado)));
-		
+
 	}
-	
+
 	public function consultaSinHabilitarAction(){
-		
+
 	}
 	public function consultarPasantiasAction(){
 		$resp = array();
@@ -348,13 +368,13 @@ public function getDatosPasanteAction() {
 		$tipo='';
 		$categoria=$this->auth['categoriaUsuario_id'];
 		if ($categoria==CAT_USUARIO_TUTOR_ACAD){
-			$tipo='A';	
+			$tipo='A';
 		}else{
 			$tipo='E';
 		}
-		$this->setParamToView('tipo', $tipo); 
+		$this->setParamToView('tipo', $tipo);
 	}
-public function consultarPasantiasTAAction(){
+	public function consultarPasantiasTAAction(){
 		$resp = array();
 		$errorMsj= '';
 		$this->setResponse('ajax');
@@ -377,7 +397,7 @@ public function consultarPasantiasTAAction(){
 
 
 
-public function consultarPasantiasTEAction(){
+	public function consultarPasantiasTEAction(){
 		$resp = array();
 		$errorMsj= '';
 		$this->setResponse('ajax');

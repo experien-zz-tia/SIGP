@@ -22,9 +22,9 @@ soloLetrasNumerosText: 'Solo debe contener A-Z,a-z,0-9 .<br/>Por favor, verifiqu
 
 
 Ext.apply(Ext.form.VTypes, {
-	soloNumeroMask: /[ \d\-\(\)]/,
+	soloNumeroMask: /[ \d\.\(\)]/,
 	soloNumero: function(value,field){  
-    return value.replace(/[ \-\(\)]/g,'').length == 12 ;
+    return value.replace(/[ \.\(\)]/g,'').length == 12 ;
 }
 
 });
@@ -35,6 +35,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     initComponent: function() {
         frmPasantes.superclass.initComponent.call(this);
         Ext.getCmp('cmbEstado').on('select',this.cargarCiudades);
+        Ext.getCmp('cmbDecanato').on('select',this.buscarCarreras);
         //this.buscarCarrera;
         Ext.getCmp('btnBuscar').on('click',this.buscarPasante);
         Ext.getCmp('btnGuardar').on('click',this.registrar);
@@ -88,9 +89,9 @@ frmPasantes = Ext.extend(frmPasantesUi, {
   	  	Ext.getCmp('cmbCiudad').store.reload({params: {idEstado: Ext.getCmp('cmbEstado').getValue()}});
     },
     
-    buscarCarrera:function(){
-    	Ext.getCmp('txtCarrera').clearValue();
-    	Ext.getCmp('txtCarrera').setValue({params: {idDecanato: Ext.getCmp('txtDecanato').getValue()}});
+    buscarCarreras:function(){
+    	Ext.getCmp('cmbCarrera').clearValue();
+  	  	Ext.getCmp('cmbCarrera').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
     },
     
     registrar:function(){
@@ -99,7 +100,12 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 				  { waitMsg : 'Enviando datos...', 
 					params:{estado:Ext.getCmp('cmbEstado').getValue(),
 					  		ciudad:Ext.getCmp('cmbCiudad').getValue(),
-//					  		carrera: Ext.getCmp('txtCarrera').getValue(),
+					  		carrera: Ext.getCmp('cmbCarrera').getValue(),
+					  		decanato: Ext.getCmp('cmbDecanato').getValue(),
+					  		tipoPasantia: Ext.getCmp('cmbTipoPasantia').getValue(),
+					  		modalidad: Ext.getCmp('cmbModalidadPasantia').getValue(),
+					  		opcF: Ext.getCmp('opcFemenino').getValue(),
+					  		opcM: Ext.getCmp('opcMasculino').getValue(),
 					  		clave:hex_md5(Ext.getCmp('txtClave').getValue())
 				   			},
 				   
@@ -167,47 +173,21 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     	      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
     	      				
     	      				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
+	         	        			
+         	        			Ext.getCmp('ptnPersonal').enable();
+         	        			Ext.getCmp('ptnIdentificacion').disable();
+         	        			
+         	        			habilitarCampos(true);
+         	        			Ext.getCmp('panelPasante').setActiveTab(1);
+    	      					
+    	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){
     	      					Ext.MessageBox.show({
     	      						title: "Error",
-    	      						msg: "Estudiante no encontrado, por favor verifique.",
+    	      						msg: "Estudiante ya se encuentra registrado. Por favor verifique.",
     	      						width:400,
     	      						buttons: Ext.MessageBox.OK,
     	      						icon: Ext.MessageBox.ERROR
     	      			    });
-    	      					
-    	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){    	      					
-             	        				var datos = jsonData.datos;
-             	        				
-             	        				Ext.getCmp('registroPasanteForm').getForm().reset();
-             	        				Ext.getCmp('txtCedula').setValue(ced);
-    	         	        			Ext.getCmp('dataFecha').setValue(fech);
-             	        				
-    	         	        			Ext.getCmp('txtNombre').setValue(datos.nombre);
-    	         	        			Ext.getCmp('txtApellido').setValue(datos.apellido);
-    	         	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
-    	         	        			Ext.getCmp('txtCorreo').setValue(datos.email);
-    	         	        			Ext.getCmp('txtRepetirCorreo').setValue(datos.email);
-    	         	        			Ext.getCmp('txtDecanato').setValue(datos.decanato);
-    	         	        			Ext.getCmp('txtIndice').setValue(datos.indiceAcademico);
-    	         	        			Ext.getCmp('txtSemestre').setValue(datos.semestre);
-    	         	        			Ext.getCmp('txtCarrera').setValue(datos.carrera);
-    	         	        			Ext.getCmp('txtDireccion').setValue(datos.direccion);
-    	         	        			Ext.getCmp('cmbEstado').setValue(datos.estado);
-    	         	        			Ext.getCmp('cmbCiudad').setValue(datos.ciudad);
-    	         	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
-    	         	        			
-    	         	        			if (datos.sexo=='F'){
-    	         	        				Ext.getCmp('opcFemenino').setValue(true);
-    	         	        			} else {
-    	         	        				Ext.getCmp('opcMasculino').setValue(true);
-    	         	        			}
-    	         	        			
-    	         	        			
-    	         	        			Ext.getCmp('ptnPersonal').enable();
-    	         	        			Ext.getCmp('ptnIdentificacion').disable();
-    	         	        			
-    	         	        			habilitarCampos(false);
-    	         	        			Ext.getCmp('panelPasante').setActiveTab(1);
     	         	        			
     	      				};
              	        
@@ -245,8 +225,8 @@ function habilitarCampos(flag){
 	if (flag==true){
 		Ext.getCmp('txtNombre').enable();
 		Ext.getCmp('txtApellido').enable();
-		Ext.getCmp('txtDecanato').enable();
-		Ext.getCmp('txtCarrera').enable();
+		Ext.getCmp('cmbDecanato').enable();
+		Ext.getCmp('cmbCarrera').enable();
 		Ext.getCmp('txtIndice').enable();
      	Ext.getCmp('txtSemestre').enable();
      	Ext.getCmp('opcFemenino').enable();
