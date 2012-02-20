@@ -1,0 +1,29 @@
+<?php echo Tag::javascriptInclude('formularios/frmPasantes.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmPasantes') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCarrera') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stTipoPasantia') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stModalidadPasantia') ?>
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+<script type='text/javascript'>
+ 	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	Ext.get('btnIniciarRegistroPasante').on('click', function(e){
+    		var formPas = new frmPasantes({
+        		renderTo: Ext.getBody()
+    	});
+    		formPas.show();
+    	});
+	});
+</script>
+		
+<b>Registro de Pasantes</b><br />
+    Para registrarse como Pasante haga click en el siguiente bot&oacute;n    
+ <button id="btnIniciarRegistroPasante" class="button">Registrar</button>.<BR>
+ <P>Una vez registrado recibir&aacute; un correo electr&oacute;nico en la direcc&oacute;n ingesada,
+ para confirmar su registro.
+ </P> 
+

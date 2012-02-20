@@ -100,6 +100,7 @@ class TutorAcademicoController extends ApplicationController{
 		$cargo= utf8_decode($this->getRequestParam('txtCargo'));
 		$tipoEvento = $this->getRequestParam('tipoevento');
 		$idDep = $this->getRequestParam('departamento');
+		$dependencia = 1;
 		/*$dep = new Departamento();
 		$auxDep = $dep->findFirst("descripcion = '$departamento'");
 		$idDep = 1;
@@ -107,13 +108,14 @@ class TutorAcademicoController extends ApplicationController{
 			$idDep = $auxDep->getId();
 		}*/
 		
-		if ($tipoEvento=='registrar'){
-			$aux = $tutorA->guardarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo);
-		} else {
-			$aux = $tutorA->actualizarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo);
-			$successUser = true;
-			$successRegistro = true;
-		}
+//		if ($tipoEvento=='registrar'){
+			$aux = $tutorA->guardarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
+//		} 
+//		else {
+//			$aux = $tutorA->actualizarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
+//			$successUser = true;
+//			$successRegistro = true;
+//		}
 		
 		if ($aux['correo']){
 			$id = $aux['id'];
@@ -130,7 +132,7 @@ class TutorAcademicoController extends ApplicationController{
 			$resp['success']=true;
 		}
 		
-		$this->renderText(json_encode($resp));
+		$this->renderText(json_encode(array($resp,'success'=>$aux['success'], 'pasaPor'=>$aux['pasaPor'], 'id'=>$aux['id'])));
 	}
 //-----------------------------------------------------------------------------------------
 	protected function notificarRegistro($hash,$nombre,$apellido,$pCorreo) {

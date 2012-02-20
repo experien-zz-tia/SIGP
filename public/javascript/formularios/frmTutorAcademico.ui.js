@@ -98,7 +98,7 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                             },
                             {
                                 xtype: 'label',
-                                text: 'Reperit correo*:',
+                                text: 'Repetir correo*:',
                                 x: 5,
                                 y: 225,
                                 width: 95

@@ -1,0 +1,41 @@
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmTutorAcademico.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmTutorAcademico') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDepartamento') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ; ?>
+<!--<?php echo Tag::javascriptMinifiedInclude('formularios/frmTutorEmpresarial.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmTutorEmpresarial') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelTutorEmpresarial.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/panelTutorEmpresarial') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTutoresEmpresariales') ?>
+-->
+<?php echo Tag::javascriptMinifiedInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+ 	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	Ext.get('btnRegistroAcademico').on('click', function(e){
+    		var cmp1 = new frmTutorAcademico({
+            	renderTo: Ext.getBody()
+        	});
+        	cmp1.show();
+    	});
+
+	});
+</script>
+
+<b>Registro de Tutores</b>
+<br />
+Para registrarse como Tutor haga click en alguno de los siguientes
+botones de acuerdo a si es:
+<div>
+<button id="btnRegistroAcademico" class="button">Acad&eacute;mico</button>
+.<BR>
+<button id="btnRegistroEmpresarial" class="button">Empresarial</button>
+.<BR>
+</div>
+
+<P>Una vez registrado recibir&aacute; un correo electr&oacute;nico en la
+direcc&oacute;n ingesada, para confirmar su registro.</P>
+

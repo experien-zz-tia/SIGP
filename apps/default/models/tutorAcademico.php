@@ -5,20 +5,29 @@
  * @version 1.0
  */
 class TutorAcademico extends Tutor {
-	
+
 	protected $departamento_id ;
-	
+	protected $dependencia_id;
+
 	protected function initialize(){
 	}
-//-----------------------------------------------------------------------------------------	
-	public function getDepartamento_id() { 
-		return $this->departamento_id; 
-	} 
-	
-	public function setDepartamento_id($x) { 
+	//-----------------------------------------------------------------------------------------
+	public function getDepartamento_id() {
+		return $this->departamento_id;
+	}
+
+	public function setDepartamento_id($x) {
 		$this->departamento_id = $x;
-	 } 
-//-----------------------------------------------------------------------------------------	
+	}
+
+	public function getDependencia_id() {
+		return $this->dependencia_id;
+	}
+
+	public function setDependencia_id($x) {
+		$this->dependencia_id = $x;
+	}
+	//-----------------------------------------------------------------------------------------
 	public function getTutoresAcademicos($idDepartamento='%',$start='-1',$limit=-'1'){
 		$aux = array();
 		$i=0;
@@ -42,7 +51,7 @@ class TutorAcademico extends Tutor {
 			$result = $db->query($sql);
 			while($row = $db->fetchArray($result)){
 				$aux[$i]['id'] = $row['id'];
-				$aux[$i]['cedula'] = $row['cedula'];		
+				$aux[$i]['cedula'] = $row['cedula'];
 				$aux[$i]['nombre'] = utf8_encode($row['nombre']);
 				$aux[$i]['apellido'] = utf8_encode($row['apellido']);
 				$resp['datos']['departamentoId']= $row['idDep'];
@@ -56,7 +65,7 @@ class TutorAcademico extends Tutor {
 		return array('total'=>$total,
 					'resultado' => $aux);
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	public function eliminarTutor($id){
 		$success=false;
 		$oferta = $this->findFirst("id='$id'");
@@ -67,21 +76,21 @@ class TutorAcademico extends Tutor {
 		return $success;
 
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	public function eliminarTutores($idDepartamento){
 		$success=true;
 		$tutorAs= $this->find("departamento_id='$idDepartamento'");
-	 	foreach($tutorAs as $tutor){
-	 		$tutor->setEstatus('E');
-	 		$idUsuario = $tutor->getId();
-	 		$idCategoria = CAT_USUARIO_TUTOR_EMP;
-	 		$success = ($success AND $tutor->update()); 
-	 		$usuario = new Usuario();
-	 		$success=($success AND $usuario->eliminar($idUsuario, $idCategoria))?true:false;
-	 	}
+		foreach($tutorAs as $tutor){
+			$tutor->setEstatus('E');
+			$idUsuario = $tutor->getId();
+			$idCategoria = CAT_USUARIO_TUTOR_EMP;
+			$success = ($success AND $tutor->update());
+			$usuario = new Usuario();
+			$success=($success AND $usuario->eliminar($idUsuario, $idCategoria))?true:false;
+		}
 		return $success;
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	/**
 	 * Registra o actualiza un tutor academico de un Departamento dado.
 	 * @param int $idDepartamento
@@ -93,7 +102,7 @@ class TutorAcademico extends Tutor {
 	 * @param string $cargo
 	 * @return boolean
 	 */
-	function actualizarTutorA($idDepartamento,$cedula,$nombre,$apellido,$telefono,$correo,$cargo){
+	function actualizarTutorA($idDepartamento,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia){
 		$success = false;
 		$enviarCorreo = false;
 		$id = 0;
@@ -105,6 +114,8 @@ class TutorAcademico extends Tutor {
 			$tutorA->setCargo($cargo);
 			$tutorA->setEmail($correo);
 			$tutorA->setDepartamento_id($idDepartamento);
+			$tutorA->setDependencia_id($dependencia);
+				
 			if ($telefono!=''){
 				$tutorA->setTelefono($telefono);
 			}
@@ -118,38 +129,44 @@ class TutorAcademico extends Tutor {
 					"id"=>$id,
 					"pasaPor"=>$paso);
 	}
-//-----------------------------------------------------------------------------------------	
-	function guardarTutorA($idDepartamento,$cedula,$nombre,$apellido,$telefono,$correo,$cargo){
+	//-----------------------------------------------------------------------------------------
+	function guardarTutorA($idDepartamento,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia){
 		$success = false;
 		$enviarCorreo = false;
 		$id = 0;
 		$paso = '';
 		//$tutorA = $this->findFirst("cedula='.$cedula.'");
-			$this->setDepartamento_id($idDepartamento);
-			$this->setCedula($cedula);
-			$this->setNombre($nombre);
-			$this->setApellido($apellido);
-			$this->setCargo($cargo);
-			$this->setEmail($correo);
-			if ($telefono!=''){
-				$this->setTelefono($telefono);
+		$tutorAcad = new TutorAcademico();
+		$tutorAcad->setDepartamento_id($idDepartamento);
+		$tutorAcad->setCedula($cedula);
+		$tutorAcad->setNombre($nombre);
+		$tutorAcad->setApellido($apellido);
+		$tutorAcad->setCargo($cargo);
+		$tutorAcad->setEmail($correo);
+		$tutorAcad->setDependencia_id($dependencia);
+
+		if ($telefono!=''){
+			$tutorAcad->setTelefono($telefono);
+		}
+
+		$tutorAcad->setEstatus('I');
+		$enviarCorreo = true;
+		$success = $tutorAcad->save();
+		$paso='guardando';
+		if ($success){
+			$tutorA = $this->findFirst("cedula='$cedula'");
+			if ($tutorA){
+				$id = $tutorA->getId();
 			}
-			$this->setEstatus('I');
-			$enviarCorreo = true;
-			$success = $this->save();
-			$paso='guardando';
-			if ($success){
-				$tutorA = $this->findFirst("cedula='$cedula'");
-				if ($tutorA){
-					$id = $tutorA->getId();	
-				}
-			}
+		}
 		return array("success"=>$success,
 					"correo"=> $enviarCorreo,
 					"id"=>$id,
-					"pasaPor"=>$paso);
+					"pasaPor"=>$tutorAcad->getNombre().' '.$tutorAcad->getApellido()
+		.' '.$tutorAcad->getCedula().' '.$tutorAcad->getCargo().' '.$tutorAcad->getDepartamento_id()
+		.' '.$tutorAcad->getDependencia_id());
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	public function getTutorAcademicoById($id){
 		$resultado=array();
 		$tutor = $this->findFirst("id='$id'");
@@ -161,7 +178,7 @@ class TutorAcademico extends Tutor {
 			$resultado['correo']=$tutor->getEmail();
 			$resultado['cargo']=utf8_encode($tutor->getCargo());
 			$resultado['telefono']=$tutor->getTelefono();
-			
+
 			$id = $tutor->getDepartamento_id();
 			$dep = new Departamento();
 			$departamento = $dep->findFirst("id = '$id'");
@@ -173,20 +190,20 @@ class TutorAcademico extends Tutor {
 		}
 		return $resultado;
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	/**
 	 * Busca al tutor Academico de cedula pCedula, asociado a la Departamento pasada como parametro.
 	 * @param string $pCedula
 	 * @param int $pDepartamento_id
 	 * @return array asociativo, con indices: success (boolean), errorMsj(string) y datos(array)
 	 */
-	public function buscarTutorAcademico($pCedula,$pDepartamento_id){		
+	public function buscarTutorAcademico($pCedula,$pDepartamento_id){
 		$resp=array();
 		$resp['success']= false;
 		$resp['errorMsj']= '';
 		$resp['datos']=array();
 		$errorMsj ='';
-		
+
 		$tutorA = $this->findFirst("departamento_id='$pDepartamento_id' AND cedula='$pCedula'");
 		if ($tutorA){
 			$errorMsj ='Tutor ya registrado.';
@@ -199,16 +216,16 @@ class TutorAcademico extends Tutor {
 		$resp['errorMsj']= $errorMsj;
 		$resp['success']= true;
 		return ($resp);
-		
+
 	}
-//-----------------------------------------------------------------------------------------	
-	public function buscarTutorAcad($pCedula){		
+	//-----------------------------------------------------------------------------------------
+	public function buscarTutorAcad($pCedula){
 		$resp=array();
 		$resp['success']= false;
 		$resp['errorMsj']= '';
 		$resp['datos']=array();
 		$errorMsj ='';
-		
+
 		$tutorA = $this->findFirst("cedula = '$pCedula'");
 		if ($tutorA){
 			$errorMsj ='Tutor encontrado.';
@@ -224,31 +241,31 @@ class TutorAcademico extends Tutor {
 				$resp['datos']['departamentoId']= $id;
 				$resp['datos']['departamento']= $departamento->getDescripcion();
 				$resp['datos']['decanatoId'] = $departamento->getDecanatoId();
-				
+
 				/*$idDec = $departamento->getDecanatoId();
-				$dec = new Decanato();
-				$decanato = $dec->findFirst("id = '$idDec'");
-				if ($decanato){
+				 $dec = new Decanato();
+				 $decanato = $dec->findFirst("id = '$idDec'");
+				 if ($decanato){
 					$resp['datos']['decanato']=utf8_encode($decanato->getNombre());
-				}*/	
+					}*/
 			}
 		}
 		$resp['errorMsj']= $errorMsj;
 		$resp['success']= true;
 		return ($resp);
-		
+
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	public function activarTutor($id) {
 		$flag=false;
 		$tutor= $this->findFirst("id='$id'");
-			if ($tutor){
-				$tutor->setEstatus('A');
-				$flag=$tutor->update();
-			}
+		if ($tutor){
+			$tutor->setEstatus('A');
+			$flag=$tutor->update();
+		}
 		return $flag;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 
 	public function getNombreApellido($id) {
 		$aux='';
@@ -258,8 +275,8 @@ class TutorAcademico extends Tutor {
 		}
 		return $aux;
 	}
-	
-	
+
+
 	public function getTutoresAcademicosLight($nombre='',$start='*',$limit='*'){
 		$aux = array();
 		$i=0;
@@ -271,7 +288,7 @@ class TutorAcademico extends Tutor {
 			$sql  .= " FROM tutoracademico t LEFT JOIN departamento d ON (departamento_id=d.id) ";
 			$sql  .= " WHERE t.estatus='A' ";
 			if ($nombre!=''){
-				$sql .= " AND nombre LIKE '%$nombre%'";	
+				$sql .= " AND nombre LIKE '%$nombre%'";
 			}
 			$sql  .= " ORDER BY descripcion ";
 			if ($start!='*' && $limit!='*'){
@@ -292,19 +309,19 @@ class TutorAcademico extends Tutor {
 		return array('total'=>$total,
 					'resultado' => $aux);
 	}
-	
-public function contarRegistradosEnLapso($idLapso) {
+
+	public function contarRegistradosEnLapso($idLapso) {
 		$cantidad=0;
 		$sql = " SELECT COUNT(*) AS cantidad FROM lapsoacademico l, tutoracademico e ";
 		$sql .= " WHERE e.fchRegistro_at BETWEEN l.fchInicio AND l.fchFin ";
 		$sql .= " AND l.id='$idLapso' ";
-	 	$db = Db::rawConnect();
-	 	$result = $db->query($sql);
-	 	if ($row = $db->fetchArray($result)){
+		$db = Db::rawConnect();
+		$result = $db->query($sql);
+		if ($row = $db->fetchArray($result)){
 			$cantidad = $row['cantidad'];
-	 	}
-	 	return $cantidad;
+		}
+		return $cantidad;
 	}
-	
+
 }
 ?>
