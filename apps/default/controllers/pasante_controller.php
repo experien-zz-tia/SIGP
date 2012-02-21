@@ -27,6 +27,57 @@ class PasanteController extends ApplicationController{
 		$this->routeTo('controller: pasante','action: index');
 	}
 	//-----------------------------------------------------------------------------------------
+	public function actualizarPasanteAction(){
+		$success = true;
+		$this->setResponse('ajax');
+		$pasante = new Pasante();
+			
+		$cedula = $this->getRequestParam('txtCedula');
+		$fchNacimiento = $this->getRequestParam('dataFecha');
+		$nombre = $this->getRequestParam('txtNombre');
+		$apellido = $this->getRequestParam('txtApellido');
+		$opcF = $this->getRequestParam('opcF');
+
+		$sexo = '';
+		if ($opcF==true){
+			$sexo = 'F';
+		} else {$sexo == 'M';}
+
+		$telefono = $this->getRequestParam('txtTelefono');
+		$direccion = $this->getRequestParam('txtDireccion');
+		$decanato = $this->getRequestParam('decanato');
+		$carrera = $this->getRequestParam('carrera');
+		$semestre = $this->getRequestParam('semestre');
+		$indice = $this->getRequestParam('txtIndice');
+		$tipoPasantia = $this->getRequestParam('tipoPasantia');
+		$modalidad = $this->getRequestParam('modalidad');
+		$ciudad = $this->getRequestParam('ciudad');
+		$estado = $this->getRequestParam('estado');
+		$email = $this->getRequestParam('txtCorreo');
+
+		$successPasante = true;
+		$successRegistro = false;
+		$successUsuario = false;
+		$idUsuario = 0;
+		$successPasante = $pasante->ActualizarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
+		$carrera,$semestre,$indice,$tipoPasantia,$modalidad,$direccion,$estado,$ciudad,$telefono,
+		$email);
+
+		if (!($successPasante)){
+			$success =  false;
+		}
+		else {
+			$correo = new Correo();
+			$body ='Gracias por actualizar sus datos. <BR/>
+			  	Recientemente se han actualizado sus datos en la base de datos de Experientia. Si usted no ha 
+			  	realizado este procedimiento contacte a su Coordinador de Pasantías.<BR/>';
+			$correo->enviarCorreo($this->getRequestParam('txtCorreo'), 'Actualización de Datos', $body);
+		}
+			
+
+		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante)));		
+	}
+	//-----------------------------------------------------------------------------------------
 	public function registrarPasanteAction(){
 		$success = true;
 		$this->setResponse('ajax');
@@ -139,11 +190,11 @@ class PasanteController extends ApplicationController{
 	public function buscarPasanteAction(){
 		$resp=array();
 		$pCedula = $this->getRequestParam('cedula');
-		$pFecha = $this->getRequestParam('fecha');
+		//$pFecha = $this->getRequestParam('fecha');
 		$this->setResponse('ajax');
 		$pasante = new Pasante();
 		//$resp = $pasante->buscarPasante($pCedula);
-		$resp = $pasante->buscarPasanteId($pCedula, $pFecha);
+		$resp = $pasante->buscarPasanteId($pCedula);
 		$this->renderText(json_encode($resp));
 	}
 

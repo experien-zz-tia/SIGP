@@ -6,53 +6,53 @@ class Carrera extends ActiveRecord{
 	protected $regimen;
 	protected $duracion;
 	protected $estatus;
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	protected function inicializate(){
 		$this->belongsTo('decanato');
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function setId($valor){
 		$this->id = $valor;
 	}
 	public function getId(){
 		return $this->id;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function setDecanatoId($valor){
 		$this->decanato_id = $valor;
 	}
 	public function getDecanatoId(){
 		return $this->decanato_id;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function setNombre($valor){
 		$this->nombre = $valor;
 	}
 	public function getNombre(){
 		return $this->nombre;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function setRegimen($valor){
 		$this->regimen = $valor;
 	}
 	public function getRegimen(){
 		return $this->regimen;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function setDuracion($valor){
 		$this->duracion = $valor;
 	}
 	public function getDuracion(){
 		return $this->duracion;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function setEstatus($valor){
 		$this->estatus = $valor;
 	}
 	public function getEstatus(){
 		return $this->estatus;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function getCarreras(){
 		$auxCarreras = array();
 		$i = 0;
@@ -64,11 +64,11 @@ class Carrera extends ActiveRecord{
 			$auxCarreras[$i]['regimen'] = $carrera->regimen;
 			$auxCarreras[$i]['duracion'] = $carrera->duracion;
 			$auxCarreras[$i]['estatus'] = $carrera->estatus;
-			
+
 			$i++;
 		}
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function getCarrerasbyDecanato($decan){
 		$auxCarrerasxDecanato = array();
 		$i = 0;
@@ -84,7 +84,24 @@ class Carrera extends ActiveRecord{
 		}
 		return $auxCarrerasxDecanato;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
+	public function getSemestres($decan){
+		$auxCarrerasxDecanato = array();
+		$i = 0;
+		$tam = 0;
+		$carrerasXdecanato = $this->find("id = '$decan'");
+		foreach ($carrerasXdecanato as $carreraXdecanato){
+			$tam = $carreraXdecanato->duracion;
+			for ($j = 0; $j < $tam; $j++) {
+				$auxCarrerasxDecanato[$j]['id'] = $carreraXdecanato->id;
+				$auxCarrerasxDecanato[$j]['duracion'] = $j+1;
+			}
+			$i++;
+		}
+		return $auxCarrerasxDecanato;
+		//		return $tam;
+	}
+	//-----------------------------------------------------------------------------------------
 	public function getCarrerasbyNombre($nomb){
 		$id = 0;
 		$carrerasXNombre = $this->find("nombre = '$nomb'", "order: nombre");
@@ -95,8 +112,8 @@ class Carrera extends ActiveRecord{
 		}
 		return $id;
 	}
-	
-//-----------------------------------------------------------------------------------------
+
+	//-----------------------------------------------------------------------------------------
 }
 
 ?>

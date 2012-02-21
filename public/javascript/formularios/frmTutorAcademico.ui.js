@@ -117,6 +117,7 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                                 y: 290,
                                 width: 90,
                                 height: 30,
+                                iconCls: 'sigp-guardar',
                                 id: 'btnGuardar'
                             },
                             {
@@ -126,6 +127,7 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                                 y: 290,
                                 width: 90,
                                 height: 30,
+                                iconCls: 'sigp-limpiar',
                                 id: 'btnCancelar'
                             },
                             {
@@ -135,6 +137,7 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                                 y: 290,
                                 width: 90,
                                 height: 30,
+                                iconCls: 'sigp-salir',
                                 id: 'btnSalir'
                             },
                             {

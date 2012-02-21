@@ -31,9 +31,9 @@ Ext.apply(Ext.form.VTypes, {
 
 Ext.QuickTips.init(); 
 
-frmPasantes = Ext.extend(frmPasantesUi, {
+frmActualizarPasantes = Ext.extend(frmActualizarPasantesUi, {
     initComponent: function() {
-        frmPasantes.superclass.initComponent.call(this);
+        frmActualizarPasantes.superclass.initComponent.call(this);
         Ext.getCmp('cmbEstado').on('select',this.cargarCiudades);
         Ext.getCmp('cmbDecanato').on('select',this.buscarCarreras);
         Ext.getCmp('cmbCarrera').on('select',this.cargarSemestres);
@@ -45,9 +45,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
         Ext.getCmp('btnAdelantePersonal').on('click', this.habilitar_AdP);
         Ext.getCmp('btnAtrasContacto').on('click', this.habilitar_AC);
         Ext.getCmp('btnAdelanteContacto').on('click', this.habilitar_AdC);
-        Ext.getCmp('btnAtrasAcceso').on('click', this.habilitar_AA);
        
-        Ext.getCmp('txtUsuario').on('blur',this.usuarioUnico);
     },
     
     habilitar_AP:function(){
@@ -63,26 +61,12 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 		Ext.getCmp('panelPasante').setActiveTab(2);
     },
     
-    habilitar_AdC:function(){
-    	Ext.getCmp('ptnPersonal').disable();
-		Ext.getCmp('ptnAcceso').enable();
-		Ext.getCmp('ptnContacto').disable();
-		Ext.getCmp('panelPasante').setActiveTab(3);
-    },
     
     habilitar_AC:function(){
     	Ext.getCmp('ptnPersonal').enable();    	
-		Ext.getCmp('ptnAcceso').disable();
 		Ext.getCmp('ptnContacto').disable();
 		Ext.getCmp('panelPasante').setActiveTab(1);
     },
-    
-    habilitar_AA:function(){
-    	Ext.getCmp('ptnContacto').enable();
-		Ext.getCmp('ptnAcceso').disable();
-		Ext.getCmp('panelPasante').setActiveTab(2);
-    },
-    
     
     cargarCiudades:function(){
     	Ext.getCmp('cmbCiudad').clearValue();
@@ -98,9 +82,10 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     	Ext.getCmp('cmbSemestre').clearValue();
   	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarrera').getValue()}});
     },
+    
     registrar:function(){
-    	if (Ext.getCmp('registroPasanteForm').getForm().isValid() && sw){
-			 Ext.getCmp('registroPasanteForm').getForm().submit(
+    	if (Ext.getCmp('actualizarPasanteForm').getForm().isValid() && sw){
+			 Ext.getCmp('actualizarPasanteForm').getForm().submit(
 				  { waitMsg : 'Enviando datos...', 
 					params:{estado:Ext.getCmp('cmbEstado').getValue(),
 					  		ciudad:Ext.getCmp('cmbCiudad').getValue(),
@@ -109,8 +94,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 					  		tipoPasantia: Ext.getCmp('cmbTipoPasantia').getValue(),
 					  		modalidad: Ext.getCmp('cmbModalidadPasantia').getValue(),
 					  		opcF: Ext.getCmp('opcFemenino').getValue(),
-					  		opcM: Ext.getCmp('opcMasculino').getValue(),
-					  		clave:hex_md5(Ext.getCmp('txtClave').getValue())
+					  		opcM: Ext.getCmp('opcMasculino').getValue()
 				   			},
 				   
 				   failure: function (form, action){
@@ -130,23 +114,13 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 			                icon: Ext.MessageBox.INFO,
 			                
 			                fn: function (){
-			                Ext.getCmp('registroPasanteForm').getForm().reset();
-			                Ext.getCmp('frmPasantesWin').close();                                    	                           
+			                Ext.getCmp('actualizarPasanteForm').getForm().reset();
+			                Ext.getCmp('frmActualizarPasantesWin').close();                                    	                           
 			                }
 			    	   		});
 				   			}  
 				  }); 
 		} else {
-			if (sw == false){
-				Ext.MessageBox.show({
-				     title: "Error",
-				     msg: "Nombre de usuario no v&aacute;lido, por favor intente con uno diferente.",
-				     width:400,
-				     buttons: Ext.MessageBox.OK,
-				     icon: Ext.MessageBox.ERROR
-				    });
-				
-			}else{
 				Ext.MessageBox.show({
 					title: "Error",
 					msg: "Datos incompletados o no v&aacute;lidos, por favor verifique.",
@@ -154,7 +128,6 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 					buttons: Ext.MessageBox.OK,
 					icon: Ext.MessageBox.ERROR
 		    });
-			}
 		}
     },
     	
@@ -196,28 +169,8 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     	},
     
     cancelar:function(){
-    	Ext.getCmp('registroPasanteForm').getForm().reset();
+    	Ext.getCmp('actualizarPasanteForm').getForm().reset();
     },
-    
-    usuarioUnico:function(){
-		var username = Ext.getCmp('txtUsuario');
-		if (username.getValue().length > 5){
-			Ext.Ajax.request({
-				url: 'findUsername',
-				method: 'POST',
-				params: 'username=' + username.getValue(),
-				success: function(o) {
-				if (o.responseText == 1) {
-					username.markInvalid('Nombre de usuario en uso o no permitido.<Br/> Escriba uno diferente.');
-					sw=false;
-				} else if (o.responseText == 0){
-				// username.clearInvalid();
-					sw=true;
-				}
-	        	}
-			});
-		}
-	}
 });
 
 function habilitarCampos(flag){

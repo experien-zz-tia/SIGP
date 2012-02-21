@@ -100,22 +100,22 @@ class TutorAcademicoController extends ApplicationController{
 		$cargo= utf8_decode($this->getRequestParam('txtCargo'));
 		$tipoEvento = $this->getRequestParam('tipoevento');
 		$idDep = $this->getRequestParam('departamento');
-		$dependencia = 1;
-		/*$dep = new Departamento();
-		$auxDep = $dep->findFirst("descripcion = '$departamento'");
-		$idDep = 1;
-		if ($auxDep){
-			$idDep = $auxDep->getId();
-		}*/
+		$idDecanato = $this->getRequestParam('decanato');
 		
-//		if ($tipoEvento=='registrar'){
+		$decanato = new Decanato();
+		$dec = $decanato->getUniversidadByDecanato($idDecanato);
+		if ($dec == 1){
+			$dependencia = 1;
+		} else $dependencia = 2;
+		
+		if ($tipoEvento=='registrar'){
 			$aux = $tutorA->guardarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
-//		} 
-//		else {
-//			$aux = $tutorA->actualizarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
-//			$successUser = true;
-//			$successRegistro = true;
-//		}
+		} 
+		else {
+			$aux = $tutorA->actualizarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
+			$successUser = true;
+			$successRegistro = true;
+		}
 		
 		if ($aux['correo']){
 			$id = $aux['id'];

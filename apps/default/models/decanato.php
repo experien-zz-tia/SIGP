@@ -148,6 +148,18 @@ class Decanato extends ActiveRecord{
 		return $auxDecanatos;
 	}
 //-----------------------------------------------------------------------------------------
+	public function getUniversidadByDecanato($idDecanato){
+		$auxDecanatos = array();
+		$encontrado = 0;
+		$i = 0;
+		$decanatos = $this->findFirst("id = '$idDecanato'");
+		foreach($decanatos as $decanato){
+			$encontrado = $decanato->getUniverdidadId();
+		}
+		
+		return $encontrado;
+	}	
+//-----------------------------------------------------------------------------------------
 }
 
 ?>
