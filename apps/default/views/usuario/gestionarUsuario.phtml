@@ -1,0 +1,24 @@
+<?php
+echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones');
+echo Tag::javascriptMinifiedInclude('formularios/panelGestionUsuario.ui');
+echo Tag::javascriptMinifiedInclude('formularios/panelGestionUsuario');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stUsuarios');
+?>
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+ 	 	 Ext.QuickTips.init();
+    	 var pUsuario = new panelGestionUsuario({
+        	renderTo: 'panel'
+	     });
+    	 pUsuario.show();
+	 });
+
+stUsuarios.load({params: {start: 0, limit: 10}});
+
+</script>
+
+
+<DIV id='panel'></DIV>
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute;
+del grid.

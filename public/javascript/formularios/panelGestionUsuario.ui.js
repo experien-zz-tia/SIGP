@@ -59,6 +59,12 @@ panelGestionUsuarioUi = Ext.extend(Ext.Panel, {
 						items : [
 						{
 						    xtype: 'button',
+						    text: 'Reactivar',
+						    iconCls: 'sigp-aceptar',
+						    id: 'btnReactivar'
+						},
+						{
+						    xtype: 'button',
 						    text: 'Reasignar Clave',
 						    iconCls: 'sigp-modificar',
 						    id: 'btnReset'
