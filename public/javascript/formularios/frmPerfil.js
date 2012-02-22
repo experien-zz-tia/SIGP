@@ -13,7 +13,7 @@ frmPerfil = Ext.extend(frmPerfilUi, {
 
 	cargar:function(){
 			Ext.Ajax.request({
-				url: '/SIGP/perfil/buscarPasanteExistente',
+				url: '/SIGP/perfil/buscarPerfil',
 				method: 'POST',
 				params: 'id = 2',
 				success: function(respuesta, request) {

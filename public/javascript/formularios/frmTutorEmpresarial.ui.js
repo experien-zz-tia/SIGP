@@ -103,6 +103,8 @@ frmTutorEmpresarialUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Guardar',
+                                width: 90,
+                                height: 30,
                                 type: 'submit',
                                 iconCls: 'sigp-guardar',
                                 id: 'btnGuardar'
@@ -110,6 +112,8 @@ frmTutorEmpresarialUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Limpiar',
+                                width: 90,
+                                height: 30,
                                 type: 'reset',
                                 iconCls: 'sigp-limpiar',
                                 id: 'btnLimpiar'
@@ -118,6 +122,8 @@ frmTutorEmpresarialUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Salir',
+                                width: 90,
+                                height: 30,
                                 iconCls: 'sigp-salir',
                                 id: 'btnSalir'
                             }

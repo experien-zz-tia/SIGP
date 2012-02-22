@@ -1,9 +1,5 @@
 <?php
-/**
- * NO USAR. Hasta que este actualizada.
- * @deprecated
- *
- */
+
 class Decanato extends ActiveRecord{
 	protected $id;
 	protected $universidad_id;
@@ -152,7 +148,7 @@ class Decanato extends ActiveRecord{
 		$auxDecanatos = array();
 		$encontrado = 0;
 		$i = 0;
-		$decanatos = $this->findFirst("id = '$idDecanato'");
+		$decanatos = $this->find("id = '$idDecanato'");
 		foreach($decanatos as $decanato){
 			$encontrado = $decanato->getUniverdidadId();
 		}

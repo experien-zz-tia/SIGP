@@ -122,6 +122,8 @@ frmVerNotasUi = Ext.extend(Ext.Panel, {
                     items: [
                        {
                             xtype: 'button',
+                            width: 90,
+                            height: 30,
                             text: 'Generar PDF',
                             tooltip: 'Generar constancia de notas en PDF.',
                             iconCls: 'sigp-pdf',

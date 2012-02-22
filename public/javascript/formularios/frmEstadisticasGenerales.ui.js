@@ -64,6 +64,8 @@ frmEstadisticasGeneralesUi = Ext.extend(Ext.Window, {
 					items : [{
 								xtype : 'button',
 								text : 'Salir',
+								width: 90,
+				                height: 30,
 								iconCls : 'sigp-salir',
 								id : 'btnSalir'
 							}]

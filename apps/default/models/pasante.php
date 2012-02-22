@@ -125,7 +125,7 @@ class Pasante extends ActiveRecord{
 		return $success;
 	}
 	//-----------------------------------------------------------------------------------------
-	public function ActualizarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
+	public function actualizarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
 	$carrera,$semestre,$indice,$tipoPasantia,
 	$modalidad,$direccion,$estado,$ciudad,$telefono,$email){
 			
@@ -178,6 +178,7 @@ class Pasante extends ActiveRecord{
 		//	$fecha = Util::cambiarFechaMDYtoYMD($vFecha,'/');
 		//$fecha = $this->cambiarFechaMDYtoYMD($vFecha);
 		$resp = array();
+		
 		$resp['success']= false;
 		$resp['errorMsj']= '';
 		$resp['datos']=array();
@@ -185,7 +186,7 @@ class Pasante extends ActiveRecord{
 		$errorMsj ='';
 		$i=0;
 
-		$sql  = " SELECT p.*, c.nombre as ciudad, e.nombre as estado, ca.nombre as carr, d.nombre as decan ";
+		$sql  = " SELECT p.*, c.id as ciudad, e.id as estado, ca.id as carr, d.id as decan ";
 		$sql .= " FROM  pasante p, ciudad c, estado e, carrera ca, decanato d ";
 		$sql .= " WHERE p.cedula = '".$vCedula."' ";
 		$sql .= " AND c.id = p.ciudad_id AND c.estado_id = e.id AND e.id = p.estado_id ";
@@ -208,6 +209,8 @@ class Pasante extends ActiveRecord{
 			$resp['datos']['fchNacimiento']=$row['fchNacimiento'];
 			$resp['datos']['carrera']=$row['carr'];
 			$resp['datos']['decanato']=$row['decan'];
+			$resp['datos']['modalidadPasantia']=$row['modalidadPasantia_id'];
+			$resp['datos']['tipoPasantia']=$row['tipoPasantia_id'];
 			$resp['success']= true;
 			$i++;
 		}

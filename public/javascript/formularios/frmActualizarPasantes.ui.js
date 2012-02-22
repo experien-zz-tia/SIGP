@@ -23,7 +23,7 @@ frmActualizarPasantesUi = Ext
 							waitTitle : 'Por favor espere...',
 							url : '/SIGP/pasante/actualizarPasante',
 							fieldLabel : '',
-							id : 'registroPasanteForm',
+							id : 'actualizacionPasanteForm',
 
 							items : [ {
 								xtype : 'tabpanel',
@@ -281,7 +281,8 @@ frmActualizarPasantesUi = Ext
 														text : 'Adelante',
 														x : 340,
 														y : 335,
-														width : 85,
+														width: 90,
+						                                height: 30,
 														id : 'btnAdelantePersonal'
 													},
 													{
@@ -430,15 +431,18 @@ frmActualizarPasantesUi = Ext
 														text : 'Atrás',
 														x : 250,
 														y : 335,
-														width : 85,
+														width: 90,
+						                                height: 30,
 														id : 'btnAtrasContacto'
 													},
 													{
 														xtype : 'button',
 														text : 'Guardar',
+														iconCls: 'sigp-guardar',
 														x : 340,
 														y : 335,
-														width : 85,
+														width: 90,
+						                                height: 30,
 														id : 'btnGuardar'
 													},
 													{

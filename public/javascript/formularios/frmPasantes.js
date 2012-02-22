@@ -39,6 +39,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
         Ext.getCmp('cmbCarrera').on('select',this.cargarSemestres);
 
         Ext.getCmp('btnBuscar').on('click',this.buscarPasante);
+        
         Ext.getCmp('btnGuardar').on('click',this.registrar);
         
         Ext.getCmp('btnAtrasPersonal').on('click', this.habilitar_AP );
@@ -171,7 +172,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     			success: function(respuesta, request) {
     	      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
     	      				
-    	      				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
+    	      				if ((jsonData.success == false)){
 	         	        			
          	        			Ext.getCmp('ptnPersonal').enable();
          	        			Ext.getCmp('ptnIdentificacion').disable();
@@ -179,7 +180,8 @@ frmPasantes = Ext.extend(frmPasantesUi, {
          	        			habilitarCampos(true);
          	        			Ext.getCmp('panelPasante').setActiveTab(1);
     	      					
-    	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){
+    	      				}else if((jsonData.success == true) && (jsonData.errorMsj!='')){
+    	      					
     	      					Ext.MessageBox.show({
     	      						title: "Error",
     	      						msg: "Estudiante ya se encuentra registrado. Por favor verifique.",

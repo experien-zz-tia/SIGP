@@ -17,6 +17,7 @@ frmPasantesUi = Ext
 					title : 'Pasante',
 					width : 460,
 					height : 425,
+					closable: true,
 					layout : 'absolute',
 					modal : true,
 					resizable : false,
@@ -79,8 +80,8 @@ frmPasantesUi = Ext
 															xtype : 'button',
 															text : 'Buscar',
 															width : 75,
-															height : 22,
-															x : 330,
+															height : 30,
+															x : 325,
 															y : 35,
 															id : 'btnBuscar'
 														},
@@ -346,17 +347,19 @@ frmPasantesUi = Ext
 													{
 														xtype : 'button',
 														text : 'Atrás',
-														x : 250,
+														x : 245,
 														y : 335,
-														width : 85,
+														width : 90,
+														height : 30,
 														id : 'btnAtrasPersonal'
 													},
 													{
 														xtype : 'button',
 														text : 'Adelante',
-														x : 340,
+														x : 335,
 														y : 335,
-														width : 85,
+														width : 90,
+														height : 30,
 														id : 'btnAdelantePersonal'
 													},
 													{
@@ -503,17 +506,19 @@ frmPasantesUi = Ext
 													{
 														xtype : 'button',
 														text : 'Atrás',
-														x : 250,
+														x : 245,
 														y : 335,
-														width : 85,
+														width : 90,
+														height : 30,
 														id : 'btnAtrasContacto'
 													},
 													{
 														xtype : 'button',
 														text : 'Adelante',
-														x : 340,
+														x : 335,
 														y : 335,
-														width : 85,
+														width : 90,
+														height : 30,
 														id : 'btnAdelanteContacto'
 													},
 													{
@@ -601,17 +606,19 @@ frmPasantesUi = Ext
 													{
 														xtype : 'button',
 														text : 'Atrás',
-														x : 250,
+														x : 245,
 														y : 335,
-														width : 85,
+														width : 90,
+														height : 30,
 														id : 'btnAtrasAcceso'
 													},
 													{
 														xtype : 'button',
 														text : 'Guardar',
-														width : 85,
-														height : 22,
-														x : 340,
+														iconCls: 'sigp-guardar',
+														width : 90,
+														height : 30,
+														x : 335,
 														y : 335,
 														id : 'btnGuardar'
 													},

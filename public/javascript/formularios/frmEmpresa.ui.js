@@ -228,20 +228,24 @@ frmEmpresaUi = Ext.extend(Ext.Window, {
 				xtype : 'button',
 				text : 'Registrar',
 				flex : 1,
-				x : 400,
+				x : 360,
 				y : 0,
+				width: 90,
+                height: 30,
 				type : 'submit',
 				iconCls : 'sigp-guardar',
 				ref : '../btnRegistrar',
 				id : 'btnRegistrar'
 			}, {
 				xtype : 'button',
-				text : 'Cancelar',
+				text : 'Limpiar',
 				flex : 1,
-				x : 475,
+				x : 450,
 				y : 0,
+				width: 90,
+                height: 30,
 				type : 'reset',
-				iconCls : 'sigp-cancelar',
+				iconCls : 'sigp-limpiar',
 				ref : '../btnCancelar',
 				id : 'btnCancelar'
 			}]

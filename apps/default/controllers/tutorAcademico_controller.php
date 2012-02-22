@@ -103,6 +103,7 @@ class TutorAcademicoController extends ApplicationController{
 		$idDecanato = $this->getRequestParam('decanato');
 		
 		$decanato = new Decanato();
+		$dec = 0;
 		$dec = $decanato->getUniversidadByDecanato($idDecanato);
 		if ($dec == 1){
 			$dependencia = 1;

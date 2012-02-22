@@ -135,11 +135,15 @@ frmConfiguracionUi = Ext.extend(Ext.Panel, {
 					items : [{
 								xtype : 'button',
 								text : 'Guardar',
+								width: 90,
+                                height: 30,
 								type : 'submit',
 								iconCls : 'sigp-guardar',
 								id : 'btnGuardar'
 							}, {
 								xtype : 'button',
+								width: 90,
+                                height: 30,
 								text : 'Restablecer',
 								iconCls : 'sigp-limpiar',
 								id : 'btnReset'

@@ -11,101 +11,90 @@
  */
 
 //frmPerfilUi = Ext.extend(Ext.Window, {
-frmPerfilUi	= Ext.extend(Ext.Panel, {
-    width: 741,
-    height: 446,
-    id: 'frmPerfilWin',
-    initComponent: function() {
-        this.items = [
-            {
-                xtype: 'form',
-                layout: 'absolute',
-                width: 740,
-                height: 420,
-                id: 'frmPerfil',
-                method: 'POST',
-                waitTitle: 'Por favor espere...',
-                url: '/SIGP/perfil/registrar',
-                items: [
-                    {
-                        xtype: 'fieldset',
-                        title: 'Información para Perfil',
-                        layout: 'absolute',
-                        height: 390,
-                        x: -1,
-                        y: 10,
-                        items: [
-                            {
-                                xtype: 'label',
-                                text: 'Habilidades y Destrezas:',
-                                x: 5,
-                                y: 20,
-                                width: 75
-                            },
-                            {
-                                xtype: 'label',
-                                text: 'Experiencia Laboral:',
-                                x: 5,
-                                y: 120,
-                                width: 75
-                            },
-                            {
-                                xtype: 'label',
-                                text: 'Cursos Realizados:',
-                                x: 5,
-                                y: 220,
-                                width: 75
-                            },
-                            {
-                                xtype: 'button',
-                                text: 'Guardar',
-                                x: 510,
-                                y: 325,
-                                width: 90,
-                                height: 30,
-                                id: 'btnGuardar'
-                            },
-                            {
-                                xtype: 'button',
-                                text: 'Limpiar',
-                                x: 610,
-                                y: 325,
-                                width: 90,
-                                height: 30,
-                                id: 'btnCancelar'
-                            },
-                            {
-                                xtype: 'textarea',
-                                x: 100,
-                                y: 20,
-                                width: 600,
-                                height: 85,
-                                name: 'txtDescripcion',
-                                id: 'txtDescripcion'
-                            },
-                            {
-                                xtype: 'textarea',
-                                x: 100,
-                                y: 120,
-                                width: 600,
-                                height: 85,
-                                name: 'txtExperiencia',
-                                id: 'txtExperiencia'
-                            },
-                            {
-                                xtype: 'textarea',
-                                x: 100,
-                                y: 220,
-                                width: 600,
-                                height: 85,
-                                name: 'txtCursos',
-                                id: 'txtCursos'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ];
-        frmPerfilUi.superclass.initComponent.call(this);
-    }
+frmPerfilUi = Ext.extend(Ext.Panel, {
+	width : 741,
+	height : 420,
+	id : 'frmPerfilWin',
+	initComponent : function() {
+		this.items = [ {
+			xtype : 'form',
+			layout : 'absolute',
+			width : 740,
+			height : 420,
+			id : 'frmPerfil',
+			method : 'POST',
+			waitTitle : 'Por favor espere...',
+			url : '/SIGP/perfil/registrar',
+			items : [ {
+				xtype : 'fieldset',
+				title : 'Información para Perfil',
+				layout : 'absolute',
+				height : 390,
+				x : -1,
+				y : 10,
+				items : [ {
+					xtype : 'label',
+					text : 'Habilidades y Destrezas:',
+					x : 5,
+					y : 20,
+					width : 75
+				}, {
+					xtype : 'label',
+					text : 'Experiencia Laboral:',
+					x : 5,
+					y : 120,
+					width : 75
+				}, {
+					xtype : 'label',
+					text : 'Cursos Realizados:',
+					x : 5,
+					y : 220,
+					width : 75
+				}, {
+					xtype : 'button',
+					text : 'Guardar',
+					iconCls: 'sigp-guardar',
+					x : 520,
+					y : 325,
+					width : 90,
+					height : 30,
+					id : 'btnGuardar'
+				}, {
+					xtype : 'button',
+					text : 'Limpiar',
+					iconCls: 'sigp-limpiar',
+					x : 610,
+					y : 325,
+					width : 90,
+					height : 30,
+					id : 'btnCancelar'
+				}, {
+					xtype : 'textarea',
+					x : 100,
+					y : 20,
+					width : 600,
+					height : 85,
+					name : 'txtDescripcion',
+					id : 'txtDescripcion'
+				}, {
+					xtype : 'textarea',
+					x : 100,
+					y : 120,
+					width : 600,
+					height : 85,
+					name : 'txtExperiencia',
+					id : 'txtExperiencia'
+				}, {
+					xtype : 'textarea',
+					x : 100,
+					y : 220,
+					width : 600,
+					height : 85,
+					name : 'txtCursos',
+					id : 'txtCursos'
+				} ]
+			} ]
+		} ];
+		frmPerfilUi.superclass.initComponent.call(this);
+	}
 });

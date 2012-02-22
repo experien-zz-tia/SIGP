@@ -37,17 +37,15 @@ class PasanteController extends ApplicationController{
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
 			$idPasante = $this->auth['idUsuario'];
 			$this->setResponse('ajax');
-			$cedula = $pasante->buscarCedulaById($idPasante);
-			if ($cedula != 0){
-				$resp = $pasante->buscarPasanteId($cedula);
-			}
+			$cedula = $pasante->buscarCedulaById($idPasante);			
 		}
-
-			
-		$cedula = $this->getRequestParam('txtCedula');
+		
+		
 		$fchNacimiento = $this->getRequestParam('dataFecha');
-		$nombre = $this->getRequestParam('txtNombre');
-		$apellido = $this->getRequestParam('txtApellido');
+		//$nombre = $this->getRequestParam('txtNombre');
+		
+		$nombre = utf8_decode($this->getRequestParam('txtNombre'));
+		$apellido = utf8_decode($this->getRequestParam('txtApellido'));
 		$opcF = $this->getRequestParam('opcF');
 
 		$sexo = '';
@@ -59,7 +57,7 @@ class PasanteController extends ApplicationController{
 		$direccion = $this->getRequestParam('txtDireccion');
 		$decanato = $this->getRequestParam('decanato');
 		$carrera = $this->getRequestParam('carrera');
-		$semestre = $this->getRequestParam('semestre');
+		$semestre = $this->getRequestParam('cmbSemestre');
 		$indice = $this->getRequestParam('txtIndice');
 		$tipoPasantia = $this->getRequestParam('tipoPasantia');
 		$modalidad = $this->getRequestParam('modalidad');
@@ -217,6 +215,8 @@ class PasanteController extends ApplicationController{
 		$pasante = new Pasante();
 		$idPasante = 0;
 		$cedula = 0;
+		$resp['success']= false;
+		$resp['errorMsj']= '';
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
 			$idPasante = $this->auth['idUsuario'];
 			$this->setResponse('ajax');
@@ -225,7 +225,7 @@ class PasanteController extends ApplicationController{
 				$resp = $pasante->buscarPasanteId($cedula);
 			}
 		}
-		return $resp;
+		$this->renderText(json_encode($resp));
 	}
 	//-----------------------------------------------------------------------------------------
 

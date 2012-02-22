@@ -57,6 +57,8 @@ frmNoticiaUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Guardar',
+                                width: 90,
+                                height: 30,
                                 type: 'submit',
                                 iconCls: 'sigp-guardar',
                                 id: 'btnGuardar'
@@ -64,6 +66,8 @@ frmNoticiaUi = Ext.extend(Ext.Window, {
                              {
                                 xtype: 'button',
                                 text: 'Actualizar',
+                                width: 90,
+                                height: 30,
                                 iconCls: 'sigp-publicar',
                                 hidden: true,
                                 id: 'btnActualizar'
@@ -71,6 +75,8 @@ frmNoticiaUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Limpiar',
+                                width: 90,
+                                height: 30,
                                 type: 'reset',
                                 iconCls: 'sigp-limpiar',
                                 id: 'btnLimpiar'
@@ -79,6 +85,8 @@ frmNoticiaUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Salir',
+                                width: 90,
+                                height: 30,
                                 type: 'reset',
                                 iconCls: 'sigp-salir',
                                 id: 'btnSalir'

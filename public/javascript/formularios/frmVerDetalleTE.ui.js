@@ -53,6 +53,8 @@ frmVerDetalleTEUi = Ext.extend(Ext.Window, {
 					},
 					items : [{
 								xtype : 'button',
+								width: 90,
+                                height: 30,
 								text : 'Salir',
 								iconCls : 'sigp-salir',
 								id : 'btnSalir'

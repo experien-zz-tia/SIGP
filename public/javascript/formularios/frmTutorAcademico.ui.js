@@ -175,6 +175,46 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                                 id: 'txtApellido'
                             },
                             {
+                                xtype: 'combo',
+                                x: 105,
+                                y: 100,
+                                width: 305,
+                                name: 'cmbDecanato',
+                                id: 'cmbDecanato',
+                                store: 'stDecanato',
+                                editable: false,
+                                displayField: 'nombre',
+                                valueField: 'id',
+                                emptyText: '-Seleccione-',
+                                triggerAction: 'all',
+                                allowBlank: false,
+                                forceSelection: true,
+                                loadingText: 'Cargando...',
+                                blankText: 'Seleccione un Departamento'
+
+                            },
+                            {
+                                xtype: 'combo',
+                                x: 105,
+                                y: 130,
+                                width: 305,
+                                name: 'cmbDepartamento',
+                                id: 'cmbDepartamento',
+                                store: 'stDepartamento',
+                                editable: false,
+                                displayField: 'descripcion',
+                                valueField: 'id',
+                                emptyText: '-Seleccione-',
+                                triggerAction: 'all',
+                                queryParam: 'decanato_id',
+                                allowBlank: false,
+                                forceSelection: true,
+                                loadingText: 'Cargando...',
+                                mode: 'local',
+                                submitValue: false,
+                                blankText: 'Seleccione un Departamento'
+                            },
+                            {
                                 xtype: 'textfield',
                                 x: 105,
                                 y: 160,
@@ -205,47 +245,6 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                                 width: 145,
                                 name: 'txtTelefono',
                                 id: 'txtTelefono'
-                            },
-                            
-                            {
-                                xtype: 'combo',
-                                x: 105,
-                                y: 130,
-                                width: 305,
-                                name: 'cmbDepartamento',
-                                id: 'cmbDepartamento',
-                                store: 'stDepartamento',
-                                editable: false,
-                                displayField: 'descripcion',
-                                valueField: 'id',
-                                emptyText: '-Seleccione-',
-                                triggerAction: 'all',
-                                queryParam: 'decanato_id',
-                                allowBlank: false,
-                                forceSelection: true,
-                                loadingText: 'Cargando...',
-                                mode: 'local',
-                                submitValue: false,
-                                blankText: 'Seleccione un Departamento'
-                            },
-                            {
-                                xtype: 'combo',
-                                x: 105,
-                                y: 100,
-                                width: 305,
-                                name: 'cmbDecanato',
-                                id: 'cmbDecanato',
-                                store: 'stDecanato',
-                                editable: false,
-                                displayField: 'nombre',
-                                valueField: 'id',
-                                emptyText: '-Seleccione-',
-                                triggerAction: 'all',
-                                allowBlank: false,
-                                forceSelection: true,
-                                loadingText: 'Cargando...',
-                                blankText: 'Seleccione un Departamento'
-
                             }
                         ]
                     }
