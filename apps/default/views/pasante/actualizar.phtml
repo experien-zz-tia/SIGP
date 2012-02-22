@@ -1,5 +1,5 @@
-<?php echo Tag::javascriptInclude('formularios/frmPasantes.ui') ?>
-<?php echo Tag::javascriptInclude('formularios/frmPasantes') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarPasantes.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarPasantes') ?>
 <?php echo Tag::javascriptInclude('formularios/dataStore/stEstado') ?>
 <?php echo Tag::javascriptInclude('formularios/dataStore/stCiudad') ?>
 <?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
@@ -7,14 +7,17 @@
 <?php echo Tag::javascriptInclude('formularios/dataStore/stSemestre') ?>
 <?php echo Tag::javascriptInclude('formularios/dataStore/stModalidadPasantia') ?>
 <?php echo Tag::javascriptInclude('formularios/dataStore/stTipoPasantia') ?>
+
 <?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
 
 <script type='text/javascript'>
  		Ext.onReady(function() {
     		Ext.QuickTips.init();
-    		var formPas = new frmPasantes({
-        		renderTo: Ext.getBody()
+    		var formPas = new frmActualizarPasantes({
+        		renderTo: 'panel'
     	});
     		formPas.show();
 		});
 </script>
+
+<div id='panel' margin-left=200px> </div>

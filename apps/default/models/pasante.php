@@ -165,6 +165,15 @@ class Pasante extends ActiveRecord{
 		return $id;
 	}
 	//-----------------------------------------------------------------------------------------
+	public function buscarCedulaById($vId){
+		$auxId = $this->findFirst("id = '".$vId."' ");
+		$cedula = 0;
+		if ($auxId){
+			$cedula = $auxId->getCedula();
+		}
+		return $cedula;
+	}
+	//-----------------------------------------------------------------------------------------
 	public function buscarPasanteId($vCedula){
 		//	$fecha = Util::cambiarFechaMDYtoYMD($vFecha,'/');
 		//$fecha = $this->cambiarFechaMDYtoYMD($vFecha);
@@ -199,11 +208,12 @@ class Pasante extends ActiveRecord{
 			$resp['datos']['fchNacimiento']=$row['fchNacimiento'];
 			$resp['datos']['carrera']=$row['carr'];
 			$resp['datos']['decanato']=$row['decan'];
+			$resp['success']= true;
 			$i++;
 		}
 			
 		$resp['errorMsj']= $errorMsj;
-		$resp['success']= true;
+		
 		return ($resp);
 	}
 	//-----------------------------------------------------------------------------------------

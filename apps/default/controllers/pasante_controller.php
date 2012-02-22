@@ -15,9 +15,9 @@ class PasanteController extends ApplicationController{
 		$this->auth=Auth::getActiveIdentity();
 	}
 
-	public function gestionarAction(){
-
-	}
+	public function gestionarAction(){}
+	//-----------------------------------------------------------------------------------------
+	public function actualizarAction(){}
 	//-----------------------------------------------------------------------------------------
 	public function indexAction(){}
 	//-----------------------------------------------------------------------------------------
@@ -30,7 +30,19 @@ class PasanteController extends ApplicationController{
 	public function actualizarPasanteAction(){
 		$success = true;
 		$this->setResponse('ajax');
+		$resp=array();
 		$pasante = new Pasante();
+		$idPasante = 0;
+		$cedula = 0;
+		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
+			$idPasante = $this->auth['idUsuario'];
+			$this->setResponse('ajax');
+			$cedula = $pasante->buscarCedulaById($idPasante);
+			if ($cedula != 0){
+				$resp = $pasante->buscarPasanteId($cedula);
+			}
+		}
+
 			
 		$cedula = $this->getRequestParam('txtCedula');
 		$fchNacimiento = $this->getRequestParam('dataFecha');
@@ -75,7 +87,7 @@ class PasanteController extends ApplicationController{
 		}
 			
 
-		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante)));		
+		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante)));
 	}
 	//-----------------------------------------------------------------------------------------
 	public function registrarPasanteAction(){
@@ -197,7 +209,24 @@ class PasanteController extends ApplicationController{
 		$resp = $pasante->buscarPasanteId($pCedula);
 		$this->renderText(json_encode($resp));
 	}
-
+	//-----------------------------------------------------------------------------------------
+	public function buscarPasanteExistenteAction(){
+		$success = true;
+		$this->setResponse('ajax');
+		$resp=array();
+		$pasante = new Pasante();
+		$idPasante = 0;
+		$cedula = 0;
+		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
+			$idPasante = $this->auth['idUsuario'];
+			$this->setResponse('ajax');
+			$cedula = $pasante->buscarCedulaById($idPasante);
+			if ($cedula != 0){
+				$resp = $pasante->buscarPasanteId($cedula);
+			}
+		}
+		return $resp;
+	}
 	//-----------------------------------------------------------------------------------------
 
 	/**

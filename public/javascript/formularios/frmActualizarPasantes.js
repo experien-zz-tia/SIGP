@@ -38,34 +38,25 @@ frmActualizarPasantes = Ext.extend(frmActualizarPasantesUi, {
         Ext.getCmp('cmbDecanato').on('select',this.buscarCarreras);
         Ext.getCmp('cmbCarrera').on('select',this.cargarSemestres);
 
-        Ext.getCmp('btnBuscar').on('click',this.buscarPasante);
         Ext.getCmp('btnGuardar').on('click',this.registrar);
         
-        Ext.getCmp('btnAtrasPersonal').on('click', this.habilitar_AP );
         Ext.getCmp('btnAdelantePersonal').on('click', this.habilitar_AdP);
         Ext.getCmp('btnAtrasContacto').on('click', this.habilitar_AC);
-        Ext.getCmp('btnAdelanteContacto').on('click', this.habilitar_AdC);
+        
+        this.cargar;
        
-    },
-    
-    habilitar_AP:function(){
-    	Ext.getCmp('ptnPersonal').disable();
-		Ext.getCmp('ptnIdentificacion').enable();
-		Ext.getCmp('panelPasante').setActiveTab(0);
     },
     
     habilitar_AdP:function(){
     	Ext.getCmp('ptnPersonal').disable();
-		Ext.getCmp('ptnIdentificacion').disable();
 		Ext.getCmp('ptnContacto').enable();
-		Ext.getCmp('panelPasante').setActiveTab(2);
+		Ext.getCmp('panelPasante').setActiveTab(1);
     },
-    
     
     habilitar_AC:function(){
     	Ext.getCmp('ptnPersonal').enable();    	
 		Ext.getCmp('ptnContacto').disable();
-		Ext.getCmp('panelPasante').setActiveTab(1);
+		Ext.getCmp('panelPasante').setActiveTab(0);
     },
     
     cargarCiudades:function(){
@@ -82,10 +73,50 @@ frmActualizarPasantes = Ext.extend(frmActualizarPasantesUi, {
     	Ext.getCmp('cmbSemestre').clearValue();
   	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarrera').getValue()}});
     },
-    
+	cargar:function(){
+			Ext.Ajax.request({
+				url: '/SIGP/pasante/buscarPasanteExistente',
+				method: 'POST',
+				params: 'id = 2',
+				success: function(respuesta, request) {
+	      			var jsonData = Ext.util.JSON.decode(respuesta.responseText);
+	      				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
+	      					evento = "registrar";
+	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){
+         	        		var datos = jsonData.datos;
+         	        		Ext.getCmp('registroPasanteForm').getForm().reset();
+     	        			
+         	        		Ext.getCmp('dataFecha').setValue(fech);
+     	        			Ext.getCmp('txtNombre').setValue(datos.nombre);
+     	        			Ext.getCmp('txtApellido').setValue(datos.apellido);
+     	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
+     	        			Ext.getCmp('txtCorreo').setValue(datos.email);
+     	        			Ext.getCmp('txtRepetirCorreo').setValue(datos.email);
+     	        			Ext.getCmp('txtDecanato').setValue(datos.decanato);
+     	        			Ext.getCmp('txtIndice').setValue(datos.indiceAcademico);
+     	        			Ext.getCmp('txtSemestre').setValue(datos.semestre);
+     	        			Ext.getCmp('txtCarrera').setValue(datos.carrera);
+     	        			Ext.getCmp('txtDireccion').setValue(datos.direccion);
+     	        			Ext.getCmp('cmbEstado').setValue(datos.estado);
+     	        			Ext.getCmp('cmbCiudad').setValue(datos.ciudad);
+     	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
+     	        			
+     	        			if (datos.sexo=='F'){
+     	        				Ext.getCmp('opcFemenino').setValue(true);
+     	        			} else {
+     	        				Ext.getCmp('opcMasculino').setValue(true);
+     	        			}
+     	        			
+	         	        	evento = "actualizar";
+         	        		
+//         	        		Ext.getCmp('txtDescripcion').focus();       				
+	      				}
+				}
+		});	
+},
     registrar:function(){
-    	if (Ext.getCmp('actualizarPasanteForm').getForm().isValid() && sw){
-			 Ext.getCmp('actualizarPasanteForm').getForm().submit(
+    	if (Ext.getCmp('registroPasanteForm').getForm().isValid() && sw){
+			 Ext.getCmp('registroPasanteForm').getForm().submit(
 				  { waitMsg : 'Enviando datos...', 
 					params:{estado:Ext.getCmp('cmbEstado').getValue(),
 					  		ciudad:Ext.getCmp('cmbCiudad').getValue(),
@@ -114,7 +145,7 @@ frmActualizarPasantes = Ext.extend(frmActualizarPasantesUi, {
 			                icon: Ext.MessageBox.INFO,
 			                
 			                fn: function (){
-			                Ext.getCmp('actualizarPasanteForm').getForm().reset();
+			                Ext.getCmp('registroPasanteForm').getForm().reset();
 			                Ext.getCmp('frmActualizarPasantesWin').close();                                    	                           
 			                }
 			    	   		});
@@ -123,76 +154,16 @@ frmActualizarPasantes = Ext.extend(frmActualizarPasantesUi, {
 		} else {
 				Ext.MessageBox.show({
 					title: "Error",
-					msg: "Datos incompletados o no v&aacute;lidos, por favor verifique.",
+					msg: "Datos incompletos o no v&aacute;lidos, por favor verifique.",
 					width:400,
 					buttons: Ext.MessageBox.OK,
 					icon: Ext.MessageBox.ERROR
 		    });
 		}
     },
-    	
-    buscarPasante:function(){
-    	var ced = Ext.getCmp('txtCedula').getValue();
-    	
-    	if (Ext.getCmp('txtCedula').getRawValue().length >= 7){
-    		Ext.Ajax.request({
-    			url: '/SIGP/pasante/buscarPasante',
-    			method: 'POST',
-    			
-    			params: {cedula:Ext.getCmp('txtCedula').getValue()},
-
-    			success: function(respuesta, request) {
-    	      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
-    	      				
-    	      				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
-	         	        			
-         	        			Ext.getCmp('ptnPersonal').enable();
-         	        			Ext.getCmp('ptnIdentificacion').disable();
-         	        			
-         	        			habilitarCampos(true);
-         	        			Ext.getCmp('panelPasante').setActiveTab(1);
-    	      					
-    	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){
-    	      					Ext.MessageBox.show({
-    	      						title: "Error",
-    	      						msg: "Estudiante ya se encuentra registrado. Por favor verifique.",
-    	      						width:400,
-    	      						buttons: Ext.MessageBox.OK,
-    	      						icon: Ext.MessageBox.ERROR
-    	      			    });
-    	         	        			
-    	      				};
-             	        
-    	      				}
-    				});
-    		}
-    	},
     
     cancelar:function(){
-    	Ext.getCmp('actualizarPasanteForm').getForm().reset();
-    },
+    	Ext.getCmp('registroPasanteForm').getForm().reset();
+    }
 });
 
-function habilitarCampos(flag){
-	if (flag==true){
-		Ext.getCmp('txtNombre').enable();
-		Ext.getCmp('txtApellido').enable();
-		Ext.getCmp('cmbDecanato').enable();
-		Ext.getCmp('cmbCarrera').enable();
-		Ext.getCmp('txtIndice').enable();
-     	Ext.getCmp('cmbSemestre').enable();
-     	Ext.getCmp('opcFemenino').enable();
-     	Ext.getCmp('opcMasculino').enable();
-	}else{
-		Ext.getCmp('txtNombre').disable();
-		Ext.getCmp('txtApellido').disable();
-		Ext.getCmp('txtDecanato').disable();
-		Ext.getCmp('txtCarrera').disable();
-		Ext.getCmp('txtIndice').disable();
-     	Ext.getCmp('cmbSemestre').disable();
-     	Ext.getCmp('opcFemenino').disable();
-     	Ext.getCmp('opcMasculino').disable();
-		
-	}
-	
-}

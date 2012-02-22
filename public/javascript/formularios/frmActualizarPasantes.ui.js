@@ -1,12 +1,11 @@
-frmPasantesUi = Ext
+frmActualizarPasantesUi = Ext
 		.extend(
-				Ext.Window,
+				Ext.Panel,
 				{
 					title : 'Pasante',
 					width : 460,
 					height : 425,
 					layout : 'absolute',
-					modal : true,
 					resizable : false,
 					activeItem : 1,
 					id : 'frmActualizarPasantesWin',
@@ -17,14 +16,14 @@ frmPasantesUi = Ext
 							layout : 'anchor',
 							width : 500,
 							height : 450,
-							title : 'Formulario de Actualización de Datos',
+							title : 'Formulario de Registro',
 							headerAsText : false,
 							unstyled : true,
 							method : 'POST',
 							waitTitle : 'Por favor espere...',
-							url : '/SIGP/pasante/registrarPasante',
+							url : '/SIGP/pasante/actualizarPasante',
 							fieldLabel : '',
-							id : 'actualizarPasanteForm',
+							id : 'registroPasanteForm',
 
 							items : [ {
 								xtype : 'tabpanel',
@@ -36,7 +35,6 @@ frmPasantesUi = Ext
 											xtype : 'panel',
 											title : 'Básica',
 											height : 300,
-											disabled : true,
 											layout : 'absolute',
 											id : 'ptnPersonal',
 											items : [
@@ -62,7 +60,8 @@ frmPasantesUi = Ext
 																	name : 'txtNombre',
 																	x : 130,
 																	y : 5,
-																	disabled : true,
+																	// submitValue
+																	// : false,
 																	id : 'txtNombre'
 																},
 																{
@@ -76,7 +75,8 @@ frmPasantesUi = Ext
 																	xtype : 'textfield',
 																	width : 280,
 																	name : 'txtApellido',
-																	disabled : true,
+																	// submitValue
+																	// : false,
 																	x : 130,
 																	y : 35,
 																	id : 'txtApellido'
@@ -137,7 +137,6 @@ frmPasantesUi = Ext
 																	width : 280,
 																	name : 'cmbDecanato',
 																	triggerAction : 'all',
-																	disabled : true,
 																	editable : false,
 																	store : 'stDecanato',
 																	displayField : 'nombre',
@@ -223,7 +222,6 @@ frmPasantesUi = Ext
 																	// : false,
 																	name : 'txtIndice',
 																	vtype : 'soloNumero',
-																	disabled : true,
 																	id : 'txtIndice'
 																},
 																{
@@ -277,14 +275,6 @@ frmPasantesUi = Ext
 																	y : 265,
 																	id : 'cmbModalidadPasantia'
 																} ]
-													},
-													{
-														xtype : 'button',
-														text : 'Atrás',
-														x : 250,
-														y : 335,
-														width : 85,
-														id : 'btnAtrasPersonal'
 													},
 													{
 														xtype : 'button',
@@ -445,11 +435,11 @@ frmPasantesUi = Ext
 													},
 													{
 														xtype : 'button',
-														text : 'Adelante',
+														text : 'Guardar',
 														x : 340,
 														y : 335,
 														width : 85,
-														id : 'btnAdelanteContacto'
+														id : 'btnGuardar'
 													},
 													{
 														xtype : 'label',
@@ -461,6 +451,6 @@ frmPasantesUi = Ext
 										}]
 							} ]
 						} ];
-						frmPasantesUi.superclass.initComponent.call(this);
+						frmActualizarPasantesUi.superclass.initComponent.call(this);
 					}
 				});
