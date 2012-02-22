@@ -3,7 +3,8 @@ require_once 'correo.php';
 require_once('utilities/constantes.php');
 /**
  * Clase controladora de  als acciones relacionadas al pasante
- * @author Yajaira S. Robert A.
+ * @author Yajaira S.
+ * @author Robert A.
  *
  */
 class PasanteController extends ApplicationController{
@@ -41,7 +42,7 @@ class PasanteController extends ApplicationController{
 		$sexo = '';
 		if ($opcF==true){
 			$sexo = 'F';
-		} else {$sexo == 'M';}
+		} else {$sexo = 'M';}
 
 		$telefono = $this->getRequestParam('txtTelefono');
 		$direccion = $this->getRequestParam('txtDireccion');
@@ -158,7 +159,7 @@ class PasanteController extends ApplicationController{
 	}
 
 	/**
-	 * Obtiene resumen de notas d elos pasantes, el nivel de informacion varia segun la categoria del usuario que la solicita
+	 * Obtiene resumen de notas de los pasantes, el nivel de informacion varia segun la categoria del usuario que la solicita
 	 */
 	public function getNotasParcialesAction() {
 		$resultado=array();

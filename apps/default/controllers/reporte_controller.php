@@ -7,11 +7,14 @@ class ReporteController extends ApplicationController {
 
 	protected   $auth;
 
+
+
 	protected function initialize(){
+		$this->setTemplateAfter("menu");
 		$this->auth=Auth::getActiveIdentity();
 	}
 	public function reporteCalificacionesAction(){
-	//	ob_end_clean();
+		//	ob_end_clean();
 		$this->setResponse('view');
 		$categoria=$this->auth['categoriaUsuario_id'];
 		$encabezados= $this->crearEncabezadosNotas($categoria);
@@ -51,7 +54,7 @@ class ReporteController extends ApplicationController {
 		//$pdf->Output(DIRECTORIO_CREACION_PDF.'/'.$nombreReporte,'F');
 		$doc = $pdf->Output('', 'S');
 		$this->setParamToView('documento', $doc);
-//		$this->setParamToView('ruta', DIRECTORIO_PUBLICACION_PDF.'/'.$nombreReporte);
+		//		$this->setParamToView('ruta', DIRECTORIO_PUBLICACION_PDF.'/'.$nombreReporte);
 
 	}
 
@@ -205,11 +208,11 @@ class ReporteController extends ApplicationController {
 	protected function enviarConstantiaTutorAcademico($correo,$pdf) {
 		$mailer = new Correo();
 		$body ="Estimado usuario,<BR> A continuación se adjunta el historial de asesorías. En caso de presentar algún inconveniente dirigase a la coordinación de pasantías.";
-		$body .="<BR>Correo generado automaticamente por Experientia."; 
+		$body .="<BR>Correo generado automaticamente por Experientia.";
 		$mailer->enviarCorreo($correo, 'Historial de asesorias', $body,$pdf,'constancia.pdf');
 	}
-	
-	
+
+
 	public function constanciaNotasPasanteAction(){
 		$categoria=$this->auth['categoriaUsuario_id'];
 		$decanatoId= DECANATO_CIENCIAS;
@@ -230,10 +233,10 @@ class ReporteController extends ApplicationController {
 			}else{
 				Router::routeToURI('/error/index/parametrosNoValidos');
 			}
-			
+
 		}
 	}
-	
+
 	protected function crearConstanciaNotas($idPasante) {
 		$encabezados= array(array("titulo"=>'Ítem',
 								"ancho"=>140,
@@ -247,15 +250,15 @@ class ReporteController extends ApplicationController {
 											"ancho"=>45,
 											"tipo"=>"string",
 											"alineacion"=>"R"),
-									array("titulo"=>'Nota Empresa (TE)',
+		array("titulo"=>'Nota Empresa (TE)',
 											"ancho"=>45,
 											"tipo"=>"string",
 											"alineacion"=>"R"),
-									array("titulo"=>'Nota Empresa(TA)',
+		array("titulo"=>'Nota Empresa(TA)',
 											"ancho"=>45,
 											"tipo"=>"string",
 											"alineacion"=>"R"),
-									array("titulo"=>'Acumulado',
+		array("titulo"=>'Acumulado',
 											"ancho"=>50,
 											"tipo"=>"string",
 											"alineacion"=>"R"));    
@@ -284,7 +287,7 @@ class ReporteController extends ApplicationController {
 								"ancho"=>185,
 								"tipo"=>"string",
 								"alineacion"=>"C")), array());
-	
+
 		$evaluaciones =  new Pasanteevaluacion();
 		$datosNotas=$evaluaciones->getDetalleNotas($idPasante,'*');
 		$datosRA=array();
@@ -292,10 +295,10 @@ class ReporteController extends ApplicationController {
 		$anterior=-1;
 		foreach ($datosNotas as $dato){
 			if ($dato['evaluacionId']!=$anterior){
-					$j=0;
-					$i++;
-					$datosRA[$i]['subTitulo']=$dato['evalDescripcion'];
-					$anterior= $dato['evaluacionId'];
+				$j=0;
+				$i++;
+				$datosRA[$i]['subTitulo']=$dato['evalDescripcion'];
+				$anterior= $dato['evaluacionId'];
 			}
 			$datosRA[$i]['datos'][$j][0]= $dato['item'];
 			$datosRA[$i]['datos'][$j][1]= $dato['nota'];
@@ -309,6 +312,175 @@ class ReporteController extends ApplicationController {
 		$doc = $pdf->Output('', 'S');
 		return $doc;
 	}
-	
-	
+
+	public function mostrarPasantesAction(){
+		$datos = array();
+		$pasante= new Pasante();
+		$carrera=$this->getParametro('pCarrera', 'numerico', '');
+		$datos=$pasante->consultaPasantias($carrera,'','*','*');
+
+		$datos= $datos['resultado'];
+		$this->setResponse('view');
+		$encabezadosPrincipal= array(array("titulo"=>'Cédula',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"R"),
+		array("titulo"=>'Apellidos',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Nombres',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Empresa',
+											"ancho"=>50,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Estatus',
+											"ancho"=>30,
+											"tipo"=>"string",
+											"alineacion"=>"L")
+
+		);
+		$datos = $this->procesarDatosListadoPasante($datos);
+		$pdf = new ReportPDF();
+		$pdf->AliasNbPages();
+		$pdf->AddPage();
+		$pdf->imprimirTitulo('Reporte de Pasantes');
+		$pdf->tablaBasica($encabezadosPrincipal, $datos);
+		$doc = $pdf->Output('', 'S');
+		$this->setParamToView('documento', $doc);
+	}
+
+	private function procesarDatosListadoPasante($datos) {
+		$i=0;
+		$aux = array();
+		foreach ($datos as $dato){
+			$aux[$i][0]=$dato['cedulaPasante'];
+			$aux[$i][1]=$dato['apellidoPasante'];
+			$aux[$i][2]=$dato['nombrePasante'];
+			$aux[$i][3]=$dato['razonSocial'];
+			$aux[$i][4]=$dato['estatusPasantia'];
+			$i++;
+		}
+		return $aux;
+	}
+
+	public function reporteMaestrosAction(){
+
+	}
+
+	public function mostrarOfertasAction(){
+		$datos = array();
+		$oferta= new Oferta();
+		$inicio=$this->getParametro('pInicio', 'STRING', '');
+		$fin=$this->getParametro('pFin', 'STRING', '');
+		$datos=$oferta->getOfertasReporte($inicio, $fin);
+		$this->setResponse('view');
+		$encabezadosPrincipal= array(array("titulo"=>'Fecha',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"R"),
+		array("titulo"=>'Empresa',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Titulo',
+											"ancho"=>85,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Vacantes',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"R"),
+		array("titulo"=>'Tipo',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"L")
+
+		);
+		$pdf = new ReportPDF();
+		$pdf->AliasNbPages();
+		$pdf->AddPage();
+		$pdf->imprimirTitulo('Reporte de Ofertas');
+		if ($inicio!='' && $fin!=''){
+			$pdf->imprimirItemTextoBasico("Fechas", "Desde el ".$inicio." hasta el ".$fin);
+		}
+		$pdf->tablaBasica($encabezadosPrincipal, $datos);
+		$doc = $pdf->Output('', 'S');
+		$this->setParamToView('documento', $doc);
+	}
+
+
+
+	public function mostrarTutoresAction(){
+		$datos = array();
+		$this->setResponse('view');
+		$tipo=$this->getParametro('pTipo', 'STRING', '');
+
+		if ($tipo=='E'){
+			$tutor= new TutorEmpresarial();
+			$datos=$tutor->getTutoresEmpresarialesReporte();
+			$encabezadosPrincipal= array(array("titulo"=>'Cédula',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Nombre',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Apellido',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Empresa',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Cargo',
+											"ancho"=>35,
+											"tipo"=>"string",
+											"alineacion"=>"L")
+
+			);
+		}
+		else{
+			$tutor= new TutorAcademico();
+			$datos=$tutor->getTutoresAcademicosReporte();
+					$encabezadosPrincipal= array(array("titulo"=>'Cédula',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Nombre',
+											"ancho"=>35,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Apellido',
+											"ancho"=>35,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Departamento',
+											"ancho"=>85,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+			array("titulo"=>'Cargo',
+											"ancho"=>20,
+											"tipo"=>"string",
+											"alineacion"=>"L")
+
+			);
+		}
+
+		$pdf = new ReportPDF();
+		$pdf->AliasNbPages();
+		$pdf->AddPage();
+		$pdf->imprimirTitulo('Reporte de Tutores '.($tipo=='A'?'Académicos':'Empresariales'));
+		$pdf->tablaBasica($encabezadosPrincipal, $datos);
+		$doc = $pdf->Output('', 'S');
+		$this->setParamToView('documento', $doc);
+	}
+
+
+
 }
