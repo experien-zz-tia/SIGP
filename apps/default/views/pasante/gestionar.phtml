@@ -1,8 +1,8 @@
 <?php
-	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantes.ui'); 
-	echo Tag::javascriptMinifiedInclude('formularios/panelGestionPasantes'); 
-	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stPasantes');
-	echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCarreraLight');		
+	echo Tag::javascriptInclude('formularios/panelGestionPasantes.ui'); 
+	echo Tag::javascriptInclude('formularios/panelGestionPasantes'); 
+	echo Tag::javascriptInclude('formularios/dataStore/stPasantes');
+	echo Tag::javascriptInclude('formularios/dataStore/stCarreraLight');		
   ?>
 <?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
 <?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasante.ui');?>
@@ -11,6 +11,18 @@
 <?php echo Tag::javascriptMinifiedInclude('formularios/frmVerPasantia'); ?>
 <?php echo Tag::javascriptMinifiedInclude('formularios/frmNotificacion.ui');?>
 <?php echo Tag::javascriptMinifiedInclude('formularios/frmNotificacion'); ?>
+
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmPasantes.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmPasantes') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarPasantes.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarPasantes') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCarrera') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stSemestre') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stModalidadPasantia') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stTipoPasantia') ?>
 
 <script type='text/javascript'>
 Ext.onReady(function() {

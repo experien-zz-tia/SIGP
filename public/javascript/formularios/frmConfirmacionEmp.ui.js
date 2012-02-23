@@ -76,19 +76,25 @@ frmConfirmacionEmpUi  = Ext.extend(Ext.Panel, {
                         xtype: 'button',
                         text: 'Registrar',
                         flex: 1,
-                        x: 450,
+                        x: 360,
                         y: 0,
+                        width: 90,
+                        height: 30,
                         type: 'submit',
                         ref: '../btnRegistrar',
+                        iconCls : 'sigp-guardar',
                         id: 'btnRegistrar'
                     },
                     {
                         xtype: 'button',
-                        text: 'Cancelar',
+                        text: 'Limpiar',
+                        width: 90,
+                        height: 30,
                         flex: 1,
-                        x: 500,
+                        x: 450,
                         y: 0,
                         type: 'reset',
+                        iconCls : 'sigp-limpiar',
                         ref: '../btnCancelar',
                         id: 'btnCancelar'
                     }

@@ -53,10 +53,14 @@ frmCambiarClaveUi = Ext.extend(Ext.Panel, {
 										xtype : 'button',
 										text : 'Guardar',
 										type : 'submit',
+										width: 90,
+		                                height: 30,
 										iconCls : 'sigp-guardar',
 										id : 'btnGuardar'
 									}, {
 										xtype : 'button',
+										width: 90,
+		                                height: 30,
 										text : 'Restablecer',
 										iconCls : 'sigp-limpiar',
 										id : 'btnReset'

@@ -83,6 +83,17 @@ public function buscarPerfil($pId){
 			$resp['datos']['descripcion']=utf8_encode($perfilP->getDescripcion());
 			$resp['datos']['experiencia']=utf8_encode($perfilP->getExperiencia());
 			$resp['datos']['cursos']=utf8_encode($perfilP->getCursos());
+			if ($resp['datos']['descripcion'] == ""){
+				$resp['datos']['descripcion'] = "Sin detalles.";
+			}
+
+			if ($resp['datos']['experiencia'] == ""){
+				$resp['datos']['experiencia'] = "Sin detalles.";
+			}
+
+			if ($resp['datos']['cursos'] == ""){
+				$resp['datos']['cursos'] = "Sin detalles.";
+			} 
 		}
 		$resp['errorMsj']= $errorMsj;
 		$resp['success']= true;

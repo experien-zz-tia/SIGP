@@ -85,6 +85,8 @@ frmNotificarRechazoUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Aceptar',
+                                width: 90,
+                                height: 30,
                                 type: 'submit',
                                 iconCls: 'sigp-aceptar',
                                 id: 'btnAceptar'
@@ -92,12 +94,16 @@ frmNotificarRechazoUi = Ext.extend(Ext.Window, {
                             {
                                 xtype: 'button',
                                 text: 'Limpiar',
+                                width: 90,
+                                height: 30,
                                 iconCls: 'sigp-limpiar',
                                 id: 'btnLimpiar'
                             },
                             {
                                 xtype: 'button',
                                 text: 'Salir',
+                                width: 90,
+                                height: 30,
                                 type: 'reset',
                                 iconCls: 'sigp-salir',
                                 id: 'btnSalir'

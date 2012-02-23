@@ -36,8 +36,10 @@ frmPasantes = Ext.extend(frmPasantesUi, {
         frmPasantes.superclass.initComponent.call(this);
         Ext.getCmp('cmbEstado').on('select',this.cargarCiudades);
         Ext.getCmp('cmbDecanato').on('select',this.buscarCarreras);
-        //this.buscarCarrera;
+        Ext.getCmp('cmbCarrera').on('select',this.cargarSemestres);
+
         Ext.getCmp('btnBuscar').on('click',this.buscarPasante);
+        
         Ext.getCmp('btnGuardar').on('click',this.registrar);
         
         Ext.getCmp('btnAtrasPersonal').on('click', this.habilitar_AP );
@@ -46,7 +48,6 @@ frmPasantes = Ext.extend(frmPasantesUi, {
         Ext.getCmp('btnAdelanteContacto').on('click', this.habilitar_AdC);
         Ext.getCmp('btnAtrasAcceso').on('click', this.habilitar_AA);
        
-        Ext.getCmp('btnCancelar').on('click',this.cancelar);
         Ext.getCmp('txtUsuario').on('blur',this.usuarioUnico);
     },
     
@@ -94,6 +95,10 @@ frmPasantes = Ext.extend(frmPasantesUi, {
   	  	Ext.getCmp('cmbCarrera').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
     },
     
+    cargarSemestres:function(){
+    	Ext.getCmp('cmbSemestre').clearValue();
+  	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarrera').getValue()}});
+    },
     registrar:function(){
     	if (Ext.getCmp('registroPasanteForm').getForm().isValid() && sw){
 			 Ext.getCmp('registroPasanteForm').getForm().submit(
@@ -156,23 +161,18 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     	
     buscarPasante:function(){
     	var ced = Ext.getCmp('txtCedula').getValue();
-    	var fech = Ext.getCmp('dataFecha').getRawValue();
     	
-    	if (Ext.getCmp('txtCedula').getRawValue().length > 0){
+    	if (Ext.getCmp('txtCedula').getRawValue().length >= 7){
     		Ext.Ajax.request({
     			url: '/SIGP/pasante/buscarPasante',
     			method: 'POST',
     			
-    			params: {cedula:Ext.getCmp('txtCedula').getValue(),
-    					 fecha: Ext.getCmp('dataFecha').getRawValue(),
-    					 sexoF: Ext.getCmp('opcFemenino').getValue(),
-    					 sexoM: Ext.getCmp('opcMasculino').getValue(),
-    					},
+    			params: {cedula:Ext.getCmp('txtCedula').getValue()},
 
     			success: function(respuesta, request) {
     	      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
     	      				
-    	      				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
+    	      				if ((jsonData.success == false)){
 	         	        			
          	        			Ext.getCmp('ptnPersonal').enable();
          	        			Ext.getCmp('ptnIdentificacion').disable();
@@ -180,7 +180,8 @@ frmPasantes = Ext.extend(frmPasantesUi, {
          	        			habilitarCampos(true);
          	        			Ext.getCmp('panelPasante').setActiveTab(1);
     	      					
-    	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){
+    	      				}else if((jsonData.success == true) && (jsonData.errorMsj!='')){
+    	      					
     	      					Ext.MessageBox.show({
     	      						title: "Error",
     	      						msg: "Estudiante ya se encuentra registrado. Por favor verifique.",
@@ -212,7 +213,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 					username.markInvalid('Nombre de usuario en uso o no permitido.<Br/> Escriba uno diferente.');
 					sw=false;
 				} else if (o.responseText == 0){
-				//	username.clearInvalid();
+				// username.clearInvalid();
 					sw=true;
 				}
 	        	}
@@ -228,7 +229,7 @@ function habilitarCampos(flag){
 		Ext.getCmp('cmbDecanato').enable();
 		Ext.getCmp('cmbCarrera').enable();
 		Ext.getCmp('txtIndice').enable();
-     	Ext.getCmp('txtSemestre').enable();
+     	Ext.getCmp('cmbSemestre').enable();
      	Ext.getCmp('opcFemenino').enable();
      	Ext.getCmp('opcMasculino').enable();
 	}else{
@@ -237,7 +238,7 @@ function habilitarCampos(flag){
 		Ext.getCmp('txtDecanato').disable();
 		Ext.getCmp('txtCarrera').disable();
 		Ext.getCmp('txtIndice').disable();
-     	Ext.getCmp('txtSemestre').disable();
+     	Ext.getCmp('cmbSemestre').disable();
      	Ext.getCmp('opcFemenino').disable();
      	Ext.getCmp('opcMasculino').disable();
 		

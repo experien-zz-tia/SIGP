@@ -11,32 +11,28 @@
  */
 
 stCarrera = Ext.extend(Ext.data.JsonStore, {
-    constructor: function(cfg) {
-        cfg = cfg || {};
-        stCarrera.superclass.constructor.call(this, Ext.apply({
-            storeId: 'stCarrera',
-            url: '/SIGP/carrera/getCarrerasbyDecanato',
-            paramNames: {
-                idEstado: "idDecanato"
-            },
-            fields: [
-                {
-                    name: 'id',
-                    type: 'int',
-                    mapping: 'id'
-                },
-                {
-                    name: 'nombre',
-                    type: 'string',
-                    mapping: 'nombre'
-                },
-                {
-                    name: 'duracion',
-                    type: 'int',
-                    mapping:'duracion'
-                }
-            ]
-        }, cfg));
-    }
+	constructor : function(cfg) {
+		cfg = cfg || {};
+		stCarrera.superclass.constructor.call(this, Ext.apply( {
+			storeId : 'stCarrera',
+			url : '/SIGP/carrera/getCarrerasbyDecanato',
+			paramNames : {
+				idDecanato : "idDecanato"
+			},
+			fields : [ {
+				name : 'id',
+				type : 'int',
+				mapping : 'id'
+			}, {
+				name : 'nombre',
+				type : 'string',
+				mapping : 'nombre'
+			}, {
+				name : 'duracion',
+				type : 'int',
+				mapping : 'duracion'
+			} ]
+		}, cfg));
+	}
 });
 new stCarrera();

@@ -16,9 +16,9 @@ class PasanteController extends ApplicationController{
 		$this->auth=Auth::getActiveIdentity();
 	}
 
-	public function gestionarAction(){
-
-	}
+	public function gestionarAction(){}
+	//-----------------------------------------------------------------------------------------
+	public function actualizarAction(){}
 	//-----------------------------------------------------------------------------------------
 	public function indexAction(){}
 	//-----------------------------------------------------------------------------------------
@@ -26,6 +26,67 @@ class PasanteController extends ApplicationController{
 	//-----------------------------------------------------------------------------------------
 	public function redirectAction(){
 		$this->routeTo('controller: pasante','action: index');
+	}
+	//-----------------------------------------------------------------------------------------
+	public function actualizarPasanteAction(){
+		$success = true;
+		$this->setResponse('ajax');
+		$resp=array();
+		$pasante = new Pasante();
+		$idPasante = 0;
+		$cedula = 0;
+		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
+			$idPasante = $this->auth['idUsuario'];
+			$this->setResponse('ajax');
+			$cedula = $pasante->buscarCedulaById($idPasante);			
+		}
+		
+		
+		$fchNacimiento = $this->getRequestParam('dataFecha');
+		//$nombre = $this->getRequestParam('txtNombre');
+		
+		$nombre = utf8_decode($this->getRequestParam('txtNombre'));
+		$apellido = utf8_decode($this->getRequestParam('txtApellido'));
+		$opcF = $this->getRequestParam('opcF');
+
+		$sexo = '';
+		if ($opcF==true){
+			$sexo = 'F';
+		} else {$sexo == 'M';}
+
+		$telefono = $this->getRequestParam('txtTelefono');
+		$direccion = $this->getRequestParam('txtDireccion');
+		$decanato = $this->getRequestParam('decanato');
+		$carrera = $this->getRequestParam('carrera');
+		$semestre = $this->getRequestParam('cmbSemestre');
+		$indice = $this->getRequestParam('txtIndice');
+		$tipoPasantia = $this->getRequestParam('tipoPasantia');
+		$modalidad = $this->getRequestParam('modalidad');
+		$ciudad = $this->getRequestParam('ciudad');
+		$estado = $this->getRequestParam('estado');
+		$email = $this->getRequestParam('txtCorreo');
+
+		$successPasante = true;
+		$successRegistro = false;
+		$successUsuario = false;
+		$idUsuario = 0;
+		$successPasante = $pasante->ActualizarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
+		$carrera,$semestre,$indice,$tipoPasantia,$modalidad,$direccion,$estado,$ciudad,$telefono,
+		$email);
+
+		if (!($successPasante)){
+			$success =  false;
+		}
+		else {
+			$correo = new Correo();
+			$body ='Gracias por actualizar sus datos. <BR/>
+			  	Recientemente se han actualizado sus datos en la base de datos de Experientia. Si usted no ha 
+			  	realizado este procedimiento contacte a su Coordinador de Pasantías.<BR/>';
+			$correo->enviarCorreo($this->getRequestParam('txtCorreo'), 'Actualización de Datos', $body);
+		}
+			
+
+		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante)));
 	}
 	//-----------------------------------------------------------------------------------------
 	public function registrarPasanteAction(){
@@ -140,14 +201,33 @@ class PasanteController extends ApplicationController{
 	public function buscarPasanteAction(){
 		$resp=array();
 		$pCedula = $this->getRequestParam('cedula');
-		$pFecha = $this->getRequestParam('fecha');
+		//$pFecha = $this->getRequestParam('fecha');
 		$this->setResponse('ajax');
 		$pasante = new Pasante();
 		//$resp = $pasante->buscarPasante($pCedula);
-		$resp = $pasante->buscarPasanteId($pCedula, $pFecha);
+		$resp = $pasante->buscarPasanteId($pCedula);
 		$this->renderText(json_encode($resp));
 	}
-
+	//-----------------------------------------------------------------------------------------
+	public function buscarPasanteExistenteAction(){
+		$success = true;
+		$this->setResponse('ajax');
+		$resp=array();
+		$pasante = new Pasante();
+		$idPasante = 0;
+		$cedula = 0;
+		$resp['success']= false;
+		$resp['errorMsj']= '';
+		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
+			$idPasante = $this->auth['idUsuario'];
+			$this->setResponse('ajax');
+			$cedula = $pasante->buscarCedulaById($idPasante);
+			if ($cedula != 0){
+				$resp = $pasante->buscarPasanteId($cedula);
+			}
+		}
+		$this->renderText(json_encode($resp));
+	}
 	//-----------------------------------------------------------------------------------------
 
 	/**

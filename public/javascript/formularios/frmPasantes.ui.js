@@ -16,7 +16,8 @@ frmPasantesUi = Ext
 				{
 					title : 'Pasante',
 					width : 460,
-					height : 400,
+					height : 425,
+					closable: true,
 					layout : 'absolute',
 					modal : true,
 					resizable : false,
@@ -27,8 +28,8 @@ frmPasantesUi = Ext
 						this.items = [ {
 							xtype : 'form',
 							layout : 'anchor',
-							width : 450,
-							height : 400,
+							width : 500,
+							height : 450,
 							title : 'Formulario de Registro',
 							headerAsText : false,
 							unstyled : true,
@@ -41,7 +42,7 @@ frmPasantesUi = Ext
 							items : [ {
 								xtype : 'tabpanel',
 								activeTab : 0,
-								height : 400,
+								height : 450,
 								id : 'panelPasante',
 								items : [
 										{
@@ -65,37 +66,22 @@ frmPasantesUi = Ext
 															text : 'Cédula de Identidad*:',
 															width : 120,
 															x : 50,
-															y : 20
-														},
-														{
-															xtype : 'label',
-															text : 'Fecha de Nacimiento*:',
-															width : 120,
-															x : 50,
-															y : 60
+															y : 35
 														},
 														{
 															xtype : 'textfield',
 															x : 180,
-															y : 20,
+															y : 35,
 															name : 'txtCedula',
 															vtype : 'soloNumero',
 															id : 'txtCedula'
 														},
 														{
-															xtype : 'datefield',
-															x : 180,
-															y : 55,
-															width : 130,
-															name : 'dataFecha',
-															id : 'dataFecha'
-														},
-														{
 															xtype : 'button',
 															text : 'Buscar',
 															width : 75,
-															height : 22,
-															x : 330,
+															height : 30,
+															x : 325,
 															y : 35,
 															id : 'btnBuscar'
 														},
@@ -122,54 +108,12 @@ frmPasantesUi = Ext
 														layout : 'absolute',
 														x : 2,
 														y : 5,
-														height : 300,
+														height : 325,
 														width : 441,
 														items : [
 																{
 																	xtype : 'label',
-																	text : 'Decanato:',
-																	x : 5,
-																	y : 85,
-																	width : 95
-																},
-																{
-																	xtype : 'label',
-																	text : 'Carrera:',
-																	x : 5,
-																	y : 115,
-																	width : 95
-																},
-																{
-																	xtype : 'label',
-																	text : 'Indice Académico:',
-																	x : 5,
-																	y : 175,
-																	width : 95
-																},
-																{
-																	xtype : 'label',
-																	text : 'Semestre:',
-																	x : 5,
-																	y : 145,
-																	width : 95
-																},
-																{
-																	xtype : 'label',
-																	text : 'Tipo de Pasantía*:',
-																	x : 5,
-																	y : 205,
-																	width : 125
-																},
-																{
-																	xtype : 'label',
-																	text : 'Modalidad de Pasantía*:',
-																	x : 5,
-																	y : 235,
-																	width : 125
-																},																
-																{
-																	xtype : 'label',
-																	text : 'Nombre(s):',
+																	text : 'Nombre(s)*:',
 																	width : 80,
 																	x : 5,
 																	y : 5
@@ -187,7 +131,7 @@ frmPasantesUi = Ext
 																},
 																{
 																	xtype : 'label',
-																	text : 'Apellido(s):',
+																	text : 'Apellido(s)*:',
 																	width : 120,
 																	x : 5,
 																	y : 35
@@ -205,10 +149,25 @@ frmPasantesUi = Ext
 																},
 																{
 																	xtype : 'label',
-																	text : 'Sexo:',
+																	text : 'Fecha de Nacimiento*:',
 																	width : 120,
 																	x : 5,
-																	y : 60
+																	y : 65
+																},
+																{
+																	xtype : 'datefield',
+																	x : 130,
+																	y : 65,
+																	width : 130,
+																	name : 'dataFecha',
+																	id : 'dataFecha'
+																},
+																{
+																	xtype : 'label',
+																	text : 'Sexo*:',
+																	width : 120,
+																	x : 5,
+																	y : 90
 																},
 																{
 																	xtype : 'radio',
@@ -217,20 +176,28 @@ frmPasantesUi = Ext
 																	// editable:
 																	// false,
 																	x : 140,
-																	y : 60,
-																	submitValue : false,
+																	y : 90,
+																	// submitValue
+																	// : false,
 																	id : 'opcFemenino'
 																},
 																{
 																	xtype : 'radio',
 																	x : 230,
-																	y : 60,
+																	y : 90,
 																	boxLabel : 'Masculino',
 																	name : 'opcSexo',
-																	//submitValue : false,
+																	// submitValue
+																	// : false,
 																	id : 'opcMasculino'
-																} ,
-																
+																},
+																{
+																	xtype : 'label',
+																	text : 'Decanato*:',
+																	x : 5,
+																	y : 115,
+																	width : 95
+																},
 																{
 																	xtype : 'combo',
 																	width : 280,
@@ -247,13 +214,20 @@ frmPasantesUi = Ext
 																	emptyText : '-Seleccione-',
 																	blankText : 'Seleccione un decanato.',
 																	x : 130,
-																	y : 85,
+																	y : 115,
 																	id : 'cmbDecanato'
+																},
+																{
+																	xtype : 'label',
+																	text : 'Carrera*:',
+																	x : 5,
+																	y : 145,
+																	width : 95
 																},
 																{
 																	xtype : 'combo',
 																	x : 130,
-																	y : 115,
+																	y : 145,
 																	width : 280,
 																	id : 'cmbCarrera',
 																	editable : false,
@@ -270,27 +244,60 @@ frmPasantesUi = Ext
 																	blankText : 'Seleccione una carrera.',
 																	mode : 'local',
 																	submitValue : false
-																},{
-																	xtype : 'textfield',
+																},
+																{
+																	xtype : 'label',
+																	text : 'Semestre*:',
+																	x : 5,
+																	y : 175,
+																	width : 95
+																},
+																{
+																	xtype : 'combo',
 																	x : 130,
-																	y : 145,
-																	width : 120,
-																	name : 'txtSemestre',
-																	vtype : 'soloNumero',
-																	//submitValue : false,
-																	disabled : true,
-																	id : 'txtSemestre'
+																	y : 175,
+																	//readonly : true,
+																	width : 80,
+																	name : 'cmbSemestre',
+																	//editable : false,
+																	blankText : 'Seleccione un Semestre.',
+																	id : 'cmbSemestre',
+																	store : 'stSemestre',
+																	displayField : 'duracion',
+																	valueField : 'duracion',
+																	//triggerAction : 'all',
+																	queryParam : 'idCarrera',
+																	allowBlank : false,
+																	loadingText : 'Cargando...',
+																	blankText : 'Seleccione una carrera.',
+																	mode : 'local',
+																	//submitValue : false
+																},
+																{
+																	xtype : 'label',
+																	text : 'Indice Académico*:',
+																	x : 5,
+																	y : 205,
+																	width : 80
 																},
 																{
 																	xtype : 'textfield',
 																	x : 130,
-																	y : 175,
+																	y : 205,
 																	width : 60,
-																	//submitValue : false,
+																	// submitValue
+																	// : false,
 																	name : 'txtIndice',
 																	vtype : 'soloNumero',
 																	disabled : true,
 																	id : 'txtIndice'
+																},
+																{
+																	xtype : 'label',
+																	text : 'Tipo de Pasantía*:',
+																	x : 5,
+																	y : 235,
+																	width : 125
 																},
 																{
 																	xtype : 'combo',
@@ -307,9 +314,16 @@ frmPasantesUi = Ext
 																	triggerAction : 'all',
 																	blankText : 'Seleccione el Tipo de Pasantía que desea realizar.',
 																	x : 130,
-																	y : 205,
+																	y : 235,
 
 																	id : 'cmbTipoPasantia'
+																},
+																{
+																	xtype : 'label',
+																	text : 'Modalidad de Pasantía*:',
+																	x : 5,
+																	y : 265,
+																	width : 125
 																},
 																{
 																	xtype : 'combo',
@@ -326,32 +340,33 @@ frmPasantesUi = Ext
 																	blankText : 'Seleccione la Modalidad que desea para su pasantía.',
 																	triggerAction : 'all',
 																	x : 130,
-																	y : 235,
+																	y : 265,
 																	id : 'cmbModalidadPasantia'
-																}
-																]
+																} ]
 													},
 													{
 														xtype : 'button',
 														text : 'Atrás',
-														x : 250,
-														y : 310,
-														width : 85,
+														x : 245,
+														y : 335,
+														width : 90,
+														height : 30,
 														id : 'btnAtrasPersonal'
 													},
 													{
 														xtype : 'button',
 														text : 'Adelante',
-														x : 340,
-														y : 310,
-														width : 85,
+														x : 335,
+														y : 335,
+														width : 90,
+														height : 30,
 														id : 'btnAdelantePersonal'
 													},
 													{
 														xtype : 'label',
 														text : '(*) Campos obligatorios',
 														x : 10,
-														y : 320,
+														y : 345,
 														width : 145
 													} ]
 										},
@@ -491,24 +506,26 @@ frmPasantesUi = Ext
 													{
 														xtype : 'button',
 														text : 'Atrás',
-														x : 250,
-														y : 310,
-														width : 85,
+														x : 245,
+														y : 335,
+														width : 90,
+														height : 30,
 														id : 'btnAtrasContacto'
 													},
 													{
 														xtype : 'button',
 														text : 'Adelante',
-														x : 340,
-														y : 310,
-														width : 85,
+														x : 335,
+														y : 335,
+														width : 90,
+														height : 30,
 														id : 'btnAdelanteContacto'
 													},
 													{
 														xtype : 'label',
 														text : '(*) Campos obligatorios',
 														x : 10,
-														y : 320,
+														y : 345,
 														width : 145
 													} ]
 										},
@@ -589,33 +606,27 @@ frmPasantesUi = Ext
 													{
 														xtype : 'button',
 														text : 'Atrás',
-														x : 160,
-														y : 310,
-														width : 85,
+														x : 245,
+														y : 335,
+														width : 90,
+														height : 30,
 														id : 'btnAtrasAcceso'
 													},
 													{
 														xtype : 'button',
 														text : 'Guardar',
-														width : 85,
-														height : 22,
-														x : 250,
-														y : 310,
+														iconCls: 'sigp-guardar',
+														width : 90,
+														height : 30,
+														x : 335,
+														y : 335,
 														id : 'btnGuardar'
-													},
-													{
-														xtype : 'button',
-														text : 'Limpiar',
-														x : 340,
-														y : 310,
-														width : 85,
-														id : 'btnCancelar'
 													},
 													{
 														xtype : 'label',
 														text : '(*) Campos obligatorios',
 														x : 10,
-														y : 320,
+														y : 345,
 														width : 145
 													} ]
 										} ]

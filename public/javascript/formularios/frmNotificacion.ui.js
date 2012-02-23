@@ -63,18 +63,24 @@ frmNotificacionUi = Ext.extend(Ext.Window, {
 							xtype : 'button',
 							text : 'Enviar',
 							type : 'submit',
+							width: 90,
+			                height: 30,
 							iconCls : 'sigp-correo',
 							id : 'btnEnviar'
 						}, {
 							xtype : 'button',
 							text : 'Limpiar',
 							type : 'reset',
+							width: 90,
+			                height: 30,
 							iconCls : 'sigp-limpiar',
 							id : 'btnLimpiar'
 						}, {
 							xtype : 'button',
 							text : 'Salir',
 							type : 'reset',
+							width: 90,
+			                height: 30,
 							iconCls : 'sigp-salir',
 							id : 'btnSalir'
 						}]

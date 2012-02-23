@@ -108,22 +108,30 @@ frmEmpleadoUi = Ext.extend(Ext.Window, {
 						xtype : 'button',
 						text : 'Registrar',
 						type : 'submit',
+						width: 90,
+                        height: 30,
 						iconCls : 'sigp-guardar',
 						id : 'btnRegistrar'
 					}, {
 						xtype : 'button',
 						text : 'Actualizar',
+						width: 90,
+                        height: 30,
 						iconCls : 'sigp-publicar',
 						hidden : true,
 						id : 'btnActualizar'
 					}, {
 						xtype : 'button',
 						text : 'Limpiar',
+						width: 90,
+                        height: 30,
 						iconCls : 'sigp-limpiar',
 						id : 'btnLimpiar'
 					}, {
 						xtype : 'button',
 						text : 'Salir',
+						width: 90,
+                        height: 30,
 						iconCls : 'sigp-salir',
 						id : 'btnSalir'
 					}]

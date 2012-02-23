@@ -132,6 +132,8 @@ frmDetalleNotasUi = Ext.extend(Ext.Window, {
                         {
                             xtype: 'button',
                             text: 'Cancelar',
+                            width: 90,
+                            height: 30,
                             iconCls: 'sigp-cancelar',
                             id: 'btnCancelar'
                         }                     
@@ -150,6 +152,8 @@ frmDetalleNotasUi = Ext.extend(Ext.Window, {
                     {
                         xtype: 'button',
                         text: 'Salir',
+                        width: 90,
+                        height: 30,
                         iconCls: 'sigp-salir',
                         id: 'btnSalir'
                     }

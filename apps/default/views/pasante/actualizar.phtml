@@ -1,0 +1,24 @@
+<?php echo Tag::javascriptInclude('formularios/frmActualizarPasantes.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarPasantes') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCarrera') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stSemestre') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stModalidadPasantia') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stTipoPasantia') ?>
+
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+<DIV id="panel" align="center"></DIV>
+
+<script type='text/javascript'>
+ 		Ext.onReady(function() {
+    		Ext.QuickTips.init();
+    		var formPas = new frmActualizarPasantes({
+        		renderTo: 'panel'
+    	});
+    		formPas.show();
+		});
+</script>
+

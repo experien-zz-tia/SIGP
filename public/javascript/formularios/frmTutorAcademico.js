@@ -71,6 +71,7 @@ frmTutorAcademico = Ext.extend(frmTutorAcademicoUi, {
 			 											
     				params:{txtCedula:  Ext.getCmp('txtCedula').getValue(),
 							departamento: Ext.getCmp('cmbDepartamento').getValue(),
+							decanato: Ext.getCmp('cmbDecanato').getValue(),
 							tipoevento: evento
 						}, 
 			                                                

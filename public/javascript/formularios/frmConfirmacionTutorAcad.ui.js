@@ -80,19 +80,25 @@ frmConfirmacionTutorAcadUi  = Ext.extend(Ext.Panel, {
                         xtype: 'button',
                         text: 'Registrar',
                         flex: 1,
-                        x: 450,
+                        x: 360,
                         y: 0,
+                        width: 90,
+                        height: 30,
+                        iconCls : 'sigp-guardar',
                         type: 'submit',
                         ref: '../btnRegistrar',
                         id: 'btnRegistrar'
                     },
                     {
                         xtype: 'button',
-                        text: 'Cancelar',
+                        text: 'Limpiar',
                         flex: 1,
-                        x: 500,
+                        x: 450,
                         y: 0,
+                        width: 90,
+                        height: 30,
                         type: 'reset',
+                        iconCls : 'sigp-limpiar',
                         ref: '../btnCancelar',
                         id: 'btnCancelar'
                     }
