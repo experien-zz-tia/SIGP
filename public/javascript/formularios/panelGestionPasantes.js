@@ -26,7 +26,27 @@ panelGestionPasantes = Ext
 						formPas.show();
 					},
 					modificar : function() {
-						alert('Sin implementar - YAJAIRA');
+						var grid = Ext.getCmp('gridGestionPasantes');
+						var index = grid.getSelectionModel().getSelected();
+
+						if (!index) {
+							Ext.MessageBox
+									.show( {
+										title : " Seleccione una fila.",
+										msg : "Debe seleccionar una fila antes de realizar la operaci&oacute;n.",
+										width : 400,
+										buttons : Ext.MessageBox.OK,
+										icon : Ext.MessageBox.WARNIRG
+									});
+						} else {
+							var id = index.get('pasanteId');
+							
+							var frmActP = new frmActualizarPasantesCoord({
+								renderTo : Ext.getBody()
+							});
+							frmActP.show();
+							frmActP.cargarPasante(id);
+						}
 						
 					},
 					eliminar : function() {

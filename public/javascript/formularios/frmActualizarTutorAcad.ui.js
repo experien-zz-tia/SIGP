@@ -3,7 +3,7 @@ frmActualizarTutorAcadUi = Ext
 				Ext.Panel,
 				{
 					title : 'Tutor Académico',
-					width : 447,
+					width : 448,
 					height : 411,
 					layout : 'absolute',
 					resizable : false,
@@ -31,9 +31,9 @@ frmActualizarTutorAcadUi = Ext
 								title : 'Información del Tutor',
 								layout : 'absolute',
 								height : 360,
-								x : -1,
+								x : 2,
 								y : 10,
-								width : 440,
+								width : 438,
 								items : [
 										{
 											xtype : 'label',
@@ -101,22 +101,12 @@ frmActualizarTutorAcadUi = Ext
 										{
 											xtype : 'button',
 											text : 'Guardar',
-											x : 130,
+											x : 220,
 											y : 290,
 											width : 90,
 											height : 30,
 											iconCls : 'sigp-guardar',
 											id : 'btnGuardar'
-										},
-										{
-											xtype : 'button',
-											text : 'Limpiar',
-											x : 220,
-											y : 290,
-											width : 90,
-											height : 30,
-											iconCls : 'sigp-limpiar',
-											id : 'btnCancelar'
 										},
 										{
 											xtype : 'button',
@@ -134,6 +124,7 @@ frmActualizarTutorAcadUi = Ext
 											y : 10,
 											width : 145,
 											enableKeyEvents : true,
+											readOnly: true,
 											name : 'txtCedula',
 											id : 'txtCedula',
 											listeners : {

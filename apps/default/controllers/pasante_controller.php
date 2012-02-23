@@ -61,9 +61,12 @@ class PasanteController extends ApplicationController{
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
 			$idPasante = $this->auth['idUsuario'];
 			$this->setResponse('ajax');
-			$cedula = $pasante->buscarCedulaById($idPasante);
+				
 		}
-
+//		if (){
+//			
+//		}
+		$cedula = $pasante->buscarCedulaById($idPasante);
 
 		$fchNacimiento = $this->getRequestParam('dataFecha');
 		//$nombre = $this->getRequestParam('txtNombre');
