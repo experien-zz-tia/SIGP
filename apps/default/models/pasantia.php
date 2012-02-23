@@ -127,6 +127,9 @@ class Pasantia extends ActiveRecord {
 	}
 
 	//-----------------------------------------------------------------------------------------
+	/**
+	 * Elimina la pasantia asociada a un pasante. Actualiza los cupos de las ofertas
+	 */
 	public function eliminarPasantia($id){
 		$success=false;
 		$pas = $this->findFirst("id='$id'");
@@ -138,6 +141,14 @@ class Pasantia extends ActiveRecord {
 				$oferta = new Oferta();
 				$oferta->actualizarCupoOferta($id);
 				$success = $oferta->update();
+			
+		/*	if ($solicitud->getEstatus() == 'R'){
+				$correo = new Correo();
+				$body ='Notificación. <BR/>
+			  	Le informamos que el estudiante '.$resp['datos']['nombre'].' '.$resp['datos']['apellido'].' ya no se encuentra registrado
+			  	como pasante por lo que no debe realizar evaluaciones relacionadas. Cualquier inquietud puede escribir a coord.pasantias@gmail.com. Gracias por su atención.<BR/>';
+				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
+			}*/
 			}
 		}
 		return $success;

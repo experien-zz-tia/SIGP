@@ -27,9 +27,6 @@ class PasanteController extends ApplicationController{
 		$this->routeTo('controller: pasante','action: index');
 	}
 	//-----------------------------------------------------------------------------------------
-	/**
-	 * Elimina el Pasante. Recibe un parametro a través de la var REQUEST
-	 */
 	public function eliminarPasanteAction(){
 		$this->setResponse('ajax');
 		$id = $this->getRequestParam('idPasante');

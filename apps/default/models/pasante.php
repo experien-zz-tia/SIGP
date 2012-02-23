@@ -155,6 +155,9 @@ class Pasante extends ActiveRecord{
 		return $success;
 	}
 	//-----------------------------------------------------------------------------------------
+	/**
+	 * Elimina un pasante.
+	 */
 	public function eliminarPasante($id){
 		$success=false;
 		$pas = $this->findFirst("id='$id'");

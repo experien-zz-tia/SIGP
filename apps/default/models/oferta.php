@@ -239,6 +239,9 @@ class Oferta extends ActiveRecord {
 
 	}
 
+	/**
+	 * Actualiza los cupos de las ofertas si se elimina un pasante
+	 */
 	public function actualizarCupoOferta($id){
 		$success=false;
 		$cupos = 0;

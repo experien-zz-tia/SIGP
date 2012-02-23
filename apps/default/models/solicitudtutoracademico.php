@@ -266,13 +266,6 @@ class Solicitudtutoracademico extends ActiveRecord{
 			  	como pasante por lo que la solicitud realizada a su persona el '.$solicitud->getFchSolicitud().' será descartada del sistema. Gracias por su atención.<BR/>';
 				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
 			}
-			if ($solicitud->getEstatus() == 'R'){
-				$correo = new Correo();
-				$body ='Notificación. <BR/>
-			  	Le informamos que el estudiante '.$resp['datos']['nombre'].' '.$resp['datos']['apellido'].' ya no se encuentra registrado
-			  	como pasante por lo que no debe realizar evaluaciones relacionadas. Cualquier inquietud puede escribir a coord.pasantias@gmail.com. Gracias por su atención.<BR/>';
-				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
-			}
 			$solicitud->setEstatus('E');
 			$success = $solicitud->update();
 		}
