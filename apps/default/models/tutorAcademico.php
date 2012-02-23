@@ -28,6 +28,15 @@ class TutorAcademico extends Tutor {
 		$this->dependencia_id = $x;
 	}
 	//-----------------------------------------------------------------------------------------
+	public function buscarCedulaById($vId){
+		$auxId = $this->findFirst("id = '".$vId."' ");
+		$cedula = 0;
+		if ($auxId){
+			$cedula = $auxId->getCedula();
+		}
+		return $cedula;
+	}
+	//-----------------------------------------------------------------------------------------
 	public function getTutoresAcademicos($idDepartamento='%',$start='-1',$limit=-'1'){
 		$aux = array();
 		$i=0;
@@ -115,7 +124,7 @@ class TutorAcademico extends Tutor {
 			$tutorA->setEmail($correo);
 			$tutorA->setDepartamento_id($idDepartamento);
 			$tutorA->setDependencia_id($dependencia);
-				
+
 			if ($telefono!=''){
 				$tutorA->setTelefono($telefono);
 			}
@@ -229,6 +238,7 @@ class TutorAcademico extends Tutor {
 		$tutorA = $this->findFirst("cedula = '$pCedula'");
 		if ($tutorA){
 			$errorMsj ='Tutor encontrado.';
+			$resp['datos']['cedula'] = $pCedula;
 			$resp['datos']['email'] = $tutorA->getEmail();
 			$resp['datos']['cargo'] = utf8_encode($tutorA->getCargo());
 			$resp['datos']['telefono'] = $tutorA->getTelefono();

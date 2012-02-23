@@ -43,12 +43,13 @@ frmActualizarTutorAcad = Ext.extend(frmActualizarTutorAcadUi, {
         Ext.getCmp('btnGuardar').on('click',this.guardarTutor);
         Ext.getCmp('btnSalir').on('click',this.salir);
         Ext.getCmp('cmbDecanato').on('select',this.cargarDepartamentos);
-        Ext.getCmp('txtCedula').on('submit',this.buscarTutor);
+//        Ext.getCmp('txtCedula').on('submit',this.buscarTutor);
         // Ext.getCmp('txtCedula').on('keypress',this.teclaEnter);
+        this.buscarTutor();
     },
     
     salir:function(){
-    	Ext.getCmp('frmActualizarTutorAcadWin').close();   
+    	Ext.getCmp('frmActualizarTutorAcadWin').hide();   
    	
    },
    
@@ -87,13 +88,9 @@ frmActualizarTutorAcad = Ext.extend(frmActualizarTutorAcadUi, {
 						success: function (form, action){                                              
 							Ext.MessageBox.show({  
 								title: 'Informaci&oacute;n',  
-								msg: 'Registro exitoso.',  
+								msg: 'Actualizaci&oacute;n exitosa.',  
 								buttons: Ext.MessageBox.OK,  
-								icon: Ext.MessageBox.INFO,
-								fn: function (){
-									Ext.getCmp('registroTutorForm').getForm().reset();
-									Ext.getCmp('frmActualizarTutorAcadWin').close();    
-							}
+								icon: Ext.MessageBox.INFO
 							});
 						}
     			}); 
@@ -112,16 +109,17 @@ frmActualizarTutorAcad = Ext.extend(frmActualizarTutorAcadUi, {
     
 	buscarTutor:function(){
 		var cedula = Ext.getCmp('txtCedula');
-		if (cedula.getRawValue().length > 0){
+		
 			Ext.Ajax.request({
 				url: '/SIGP/tutorAcademico/buscarTutorExistente',
 				method: 'POST',
-				params: 'cedula=' + cedula.getValue(),
+				params: 'cedula =' + cedula.getValue(),
 				success: function(respuesta, request) {
 	      			var jsonData = Ext.util.JSON.decode(respuesta.responseText);
 	      				if((jsonData.success ==true) && (jsonData.errorMsj!='')){
 	      					Ext.getCmp('txtCedula').disable();
          	        				var datos = jsonData.datos;
+         	        				Ext.getCmp('txtCedula').setValue(datos.cedula);
          	        				Ext.getCmp('txtNombre').setValue(datos.nombre);
 	         	        			Ext.getCmp('txtApellido').setValue(datos.apellido);
 	         	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
@@ -136,7 +134,6 @@ frmActualizarTutorAcad = Ext.extend(frmActualizarTutorAcadUi, {
 	              					      cmbDecanato.setValue(datos.decanatoId);
 	              					   }
 	              					});
-	              					
 	              					var cmbDpto = Ext.getCmp('cmbDepartamento');                          
                                     var storeDpto = cmbDpto.getStore();
                                     storeDpto.load({
@@ -147,17 +144,10 @@ frmActualizarTutorAcad = Ext.extend(frmActualizarTutorAcadUi, {
                                     });
                                     
          	        				Ext.getCmp('cmbDepartamento').setValue(datos.departamento);
-
-	         	        			
 	         	        			habilitarCampos(true);
 	         	        			evento = "actualizar";
-         	        			
-         	        		 });       				
-	      				}
-				}
-		});
-	}
-}
+         	        		 };       				
+	      				}});}
 
 });
 
