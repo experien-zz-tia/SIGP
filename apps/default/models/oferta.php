@@ -410,5 +410,34 @@ class Oferta extends ActiveRecord {
 		return $cantidad;
 	}
 
+	public function getOfertasReporte($inicio, $fin){
+		$aux = array();
+		$i=0;
+		$sql  = " SELECT titulo,razonSocial, fchPublicacion , ";
+		$sql  .= "  vacantes , o.tipoOferta AS tipoOferta ";
+		$sql  .= " FROM empresa e, areapasantia ap, oferta o ";
+		$sql  .= " WHERE  ap.estatus = 'A' AND areapasantia_id = ap.id ";
+		$sql  .= " AND o.estatus = 'P' ";
+		$sql  .= " AND empresa_id=e.id ";
+		if ($inicio!='' && $fin!=''){
+			$inicio=Util::cambiarFechaMDYtoYMD($inicio,'/');
+			$fin=Util::cambiarFechaMDYtoYMD($fin,'/');
+			$sql  .= " AND fchPublicacion BETWEEN '".$inicio."' AND '".$fin."' ";
+		}
+		$sql  .= " GROUP BY o.id, titulo, fchPublicacion, fchCierre, vacantes, ap.descripcion ";
+		$sql  .= " ORDER BY fchPublicacion, razonSocial DESC";
+		$db = Db::rawConnect();
+		$result = $db->query($sql);
+		while($row = $db->fetchArray($result)){
+			$aux[$i][0] = Util::cambiarFechaDMY($row['fchPublicacion']);
+			$aux[$i][1] = utf8_encode($this->adecuarTexto($row['razonSocial']));
+			$aux[$i][2] = utf8_encode($this->adecuarTexto($row['titulo']));
+			$aux[$i][3] = $row['vacantes'];
+			$aux[$i][4] = utf8_encode($row['tipoOferta']);
+			$i++;
+		}
+		return  $aux;
+	}
+
 }
 ?>

@@ -327,5 +327,29 @@ class TutorAcademico extends Tutor {
 		return $cantidad;
 	}
 
+
+	public function getTutoresAcademicosReporte(){
+		$aux = array();
+		$i=0;
+
+		$sql  = " SELECT  cedula, nombre, apellido, cargo, d.descripcion as departamento ";
+		$sql  .= " FROM  tutorAcademico ta, departamento d ";
+		$sql  .= " WHERE ta.estatus = 'A' AND  d.id = departamento_id ";
+		$sql  .= " ORDER BY d.descripcion, cedula ";
+
+		$db = Db::rawConnect();
+		$result = $db->query($sql);
+		while($row = $db->fetchArray($result)){
+			$aux[$i][0] = $row['cedula'];
+			$aux[$i][1] = utf8_encode($row['nombre']);
+			$aux[$i][2] = utf8_encode($row['apellido']);
+			$aux[$i][3] = utf8_encode($row['departamento']);
+			$aux[$i][4] = utf8_encode($row['cargo']);
+			$i++;
+		}
+
+		return $aux;
+	}
+
 }
 ?>

@@ -102,7 +102,7 @@ class Usuario extends ActiveRecord {
 	 * @param string $claveAnterior
 	 * @param string $usuario
 	 * @param string $clave en md5
-	 * @return multitype:number boolean 
+	 * @return multitype:number boolean
 	 */
 	public function activarUsuario($usuarioAnterior, $claveAnterior,$usuario,$clave){
 		$flag=false;
@@ -122,8 +122,8 @@ class Usuario extends ActiveRecord {
 					"idCategoria"=>$idCategoria);
 
 	}
-	
-	
+
+
 	/**
 	 * Elimina de manera logica el registro de usuario de un tipo de usuario dado
 	 * @param int $idUsuario
@@ -139,7 +139,7 @@ class Usuario extends ActiveRecord {
 		}
 		return $success;
 	}
-	
+
 	/**
 	 * Activa un usuario para operar en el sistema
 	 * @param int $idUsuario
@@ -155,7 +155,7 @@ class Usuario extends ActiveRecord {
 		}
 		return $success;
 	}
-	
+
 	public function validarCredenciales($user,$pass){
 		$success=false;
 		$aux=$this->findFirst("nombreUsuario='$user' AND clave='$pass' AND estatus='A'");
@@ -164,16 +164,16 @@ class Usuario extends ActiveRecord {
 		}
 		return $success;
 	}
-	
+
 	public function  coincideClave($id,$claveActual){
 		$success=false;
 		$aux=$this->findFirst("id='$id' ");
 		if ($aux){
 			if ($aux->getClave()==$claveActual)
-				$success= true;
+			$success= true;
 		}
 		return $success;
-		
+
 	}
 	public function  actualizarClave($id,$clave){
 		$success=false;
@@ -183,9 +183,79 @@ class Usuario extends ActiveRecord {
 			$success= $aux->update();
 		}
 		return $success;
-		
+
+	}
+
+	public function consultarUsuarios($start='*',$limit='*') {
+		$aux = array();
+		$i=0;
+		$total=0;
+		$total= $this->count();
+
+		$sql  = " SELECT u.id AS id, u.nombreUsuario AS nombreUsuario, c.descripcion AS categoria, u.estatus AS estatus ";
+		$sql  .= " FROM usuario u, categoriausuario c";
+		$sql  .= " WHERE c.id= u.categoriausuario_Id";
+		$sql .= " ORDER BY c.id ";
+		if ($start!='*' && $limit!='*'){
+			$sql .= " LIMIT ".$start.",".$limit." ";
+		}
+		$db = Db::rawConnect();
+		$result = $db->query($sql);
+		while($row = $db->fetchArray($result)){
+			$aux[$i]['usuarioId'] = $row['id'];
+			$aux[$i]['nombreUsuario'] = utf8_encode($this->adecuarTexto($row['nombreUsuario']));
+			$aux[$i]['categoria'] = utf8_encode($this->adecuarTexto($row['categoria']));
+			$aux[$i]['estatus'] = utf8_encode(($row['estatus']));
+			$i++;
+		}
+		return array('total'=>$total,
+					'resultado' => $aux);
+	}
+
+	public function cambiarClave($id){
+		$claveAsignada="";
+		$aux=$this->findFirst("id='$id' ");
+		if ($aux){
+			$claveAsignada= $this->generarClave(6);
+			$aux->setClave(md5($claveAsignada));
+			$success= $aux->update();
+		}
+		return $claveAsignada;
+	}
+
+
+
+	function generarClave($longitud){
+		$cadena="[^A-Z0-9]";
+		return substr(eregi_replace($cadena, "", md5(rand())) .
+		eregi_replace($cadena, "", md5(rand())) .
+		eregi_replace($cadena, "", md5(rand())),
+		0, $longitud);
+	}
+
+
+	public function eliminarUser($id){
+		$success=false;
+		$aux=$this->findFirst("id='$id' ");
+		if ($aux){
+			$aux->setEstatus('E');
+			$success= $aux->update();
+		}
+		return $success;
 	}
 	
+	public function reactivarUser($id){
+		$success=false;
+		$aux=$this->findFirst("id='$id' ");
+		if ($aux){
+			if ($aux->getEstatus()=='E'){
+				$aux->setEstatus('A');
+				$success= $aux->update();	
+			}
+		}
+		return $success;
+	}
+
 }
 
-	?>
+?>

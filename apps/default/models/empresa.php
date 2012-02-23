@@ -351,5 +351,31 @@ class Empresa extends ActiveRecord {
 	 	}
 	 	return $cantidad;
 	}
+	
+	
+ public function getEmpresasReporte($ciudad){
+	 	$aux = array();
+	 	$i=0;
+	 	
+	 	$sql = "SELECT  rif, razonSocial, telefono, contacto, email  ";
+	 	$sql .= "FROM Empresa " ;
+	 	$sql .= "WHERE estatus ='A' ";
+	 	if ($ciudad!=''){
+	 		$sql .= "AND ciudad_id=".$ciudad." ";
+	 	}
+	 	$sql .= "ORDER BY razonSocial ";
+	 
+	 	$db = Db::rawConnect();
+		$result = $db->query($sql);
+		while($row = $db->fetchArray($result)){
+	 		$aux[$i][0] = utf8_encode($row['rif']);
+ 			$aux[$i][1] = utf8_encode($this->adecuarTexto($row['razonSocial']));
+ 			$aux[$i][2] = utf8_encode($this->adecuarTexto($row['contacto']));
+ 			$aux[$i][3] = utf8_encode($row['telefono']);
+ 			$aux[$i][4] = utf8_encode($row['email']);
+ 			$i++;
+		}
+	 	return  $aux;
+	 }
 }
 ?>

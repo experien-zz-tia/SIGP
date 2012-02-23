@@ -27,7 +27,7 @@ class Empleado extends ActiveRecord{
 	public function setEmail($x) { $this->email = $x; }
 	public function setTipo($x) { $this->tipo = $x; }
 	public function setEstatus($x) { $this->estatus = $x; }
-	
+
 	public function getNombreApellido($id) {
 		$aux='';
 		$empleado = $this->findFirst("id='$id'");
@@ -36,19 +36,19 @@ class Empleado extends ActiveRecord{
 		}
 		return $aux;
 	}
-	
+
 	public function consultaEmpleados($cedula='',$start='*',$limit='*') {
 		$aux = array();
 		$i=0;
 		$total=0;
 		$total= $this->count("estatus !='E'");
-		
+
 		$sql  = " SELECT e.id AS empleadoId,cedula, e.nombre AS nombre ,apellido, email, ";
 		$sql .= " e.estatus AS estatus,d.nombre AS decanato, tipo ";
 		$sql .= " FROM empleado e, decanato d ";
 		$sql .= " WHERE e.decanato_id=d.id AND e.estatus!='E' ";
 		if ($cedula!=''){
-			$sql .= " AND e.cedula LIKE '$cedula%'";	
+			$sql .= " AND e.cedula LIKE '$cedula%'";
 		}
 		$sql .= " ORDER BY e.cedula, e.tipo ";
 		if ($start!='*' && $limit!='*'){
@@ -67,13 +67,13 @@ class Empleado extends ActiveRecord{
 			$aux[$i]['tipo'] = utf8_encode($this->getTextoTipo($row['tipo']));
 			$i++;
 		}
-		
+
 		return array('total'=>$total,
 					'resultado' => $aux);
-		
+
 	}
-	
-	
+
+
 	protected function getTextoEstatus($valor){
 		$texto='';
 		switch (strtoupper($valor)) {
@@ -89,7 +89,7 @@ class Empleado extends ActiveRecord{
 		}
 		return $texto;
 	}
-	
+
 	protected function getTextoTipo($valor){
 		$texto='';
 		switch (strtoupper($valor)) {
@@ -105,14 +105,14 @@ class Empleado extends ActiveRecord{
 		}
 		return $texto;
 	}
-	
+
 	public function buscar($pCedula){
 		$resp=array();
 		$resp['success']= false;
 		$resp['errorMsj']= '';
 		$resp['datos']=array();
 		$errorMsj ='';
-		
+
 		$emp = $this->findFirst("cedula='$pCedula'");
 		if ($emp){
 			$errorMsj ='Empleado ya registrado.';
@@ -124,9 +124,9 @@ class Empleado extends ActiveRecord{
 		$resp['errorMsj']= $errorMsj;
 		$resp['success']= true;
 		return ($resp);
-		
+
 	}
-	
+
 	public function guardar($cedula,$nombre,$apellido,$correo,$categoria,$idDecanato){
 		$success=false;
 		$enviarCorreo=false;
@@ -138,6 +138,7 @@ class Empleado extends ActiveRecord{
 			$emp->setEmail($correo);
 			$emp->setTipo($categoria);
 			$emp->setDecanato_id($idDecanato);
+			$emp->setEstatus('A');
 			$id= $emp->getId();
 			$success = $emp->update();
 		}else{
@@ -156,18 +157,18 @@ class Empleado extends ActiveRecord{
 		return array("success"=>$success,
 					"correo"=> $enviarCorreo,
 					"id"=>$id);
-		
+
 	}
 	public function activarEmpleado($id) {
 		$flag=false;
 		$emp= $this->findFirst("id='$id'");
-			if ($emp){
-				$emp->setEstatus('A');
-				$flag=$emp->update();
-			}
+		if ($emp){
+			$emp->setEstatus('A');
+			$flag=$emp->update();
+		}
 		return $flag;
 	}
-	
+
 	public function actualizar($id,$nombre,$apellido,$correo){
 		$success=false;
 		$emp = $this->findFirst("id='$id'");
@@ -179,8 +180,8 @@ class Empleado extends ActiveRecord{
 		}
 		return $success;
 	}
-	
-		
+
+
 	public function eliminar($id){
 		$success=false;
 		$emp = $this->findFirst("id='$id'");
@@ -190,9 +191,9 @@ class Empleado extends ActiveRecord{
 		}
 		return $success;
 	}
-	
-	
-public function buscarbyId($id){
+
+
+	public function buscarbyId($id){
 		$resp=array();
 		$emp = $this->findFirst("id='$id'");
 		if ($emp){
@@ -202,8 +203,18 @@ public function buscarbyId($id){
 			$resp['nombre']=utf8_encode($this->adecuarTexto($emp->getNombre()));
 		}
 		return ($resp);
-		
 	}
+	
+	
+	public function existeCoordinador(){
+		$success=false;
+		$emp = $this->findFirst("estatus='A' AND tipo='C'");
+		if ($emp){
+			$success = true;
+		}
+		return $success;
+		
+	} 
 }
 
 ?>

@@ -1,7 +1,17 @@
-<?php
-header('Content-Type: application/pdf');
-header('Content-Disposition: inline; filename="documento.pdf"');
-header('Cache-Control: private, max-age=0, must-revalidate');
-header('Pragma: public');
-echo $documento;
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmReporteCalificaciones.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmReporteCalificaciones') ;
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCarreraLight');
 ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ?>
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+	Ext.QuickTips.init();
+		var panel = new frmReporteCalificaciones({
+	    	renderTo: 'panel'
+	
+	    });
+		panel.show();
+	});
+</script>
+<DIV align="center" id='panel'></DIV>

@@ -1,0 +1,20 @@
+<?php echo Tag::javascriptInclude('formularios/frmReporteMaestros.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmReporteMaestros') ;
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCarreraLight');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stTipoTutor');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEstado');
+echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCiudad');
+?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ?>
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+	Ext.QuickTips.init();
+		var panel = new frmReporteMaestros({
+	    	renderTo: 'panel'
+	
+	    });
+		panel.show();
+	});
+</script>
+<DIV align="center" id='panel'></DIV>
