@@ -12,6 +12,15 @@ frmReporteMaestros = Ext.extend(frmReporteMaestrosUi, {
 						.on('click', this.limpiarEmpresa);
 				Ext.getCmp('btnLimpiarPasante')
 						.on('click', this.limpiarPasante);
+				Ext.getCmp('cmbEstado').on('select', this.actualizarCiudades);
+			},
+			actualizarCiudades : function() {
+				Ext.getCmp('cmbCiudad').clearValue();
+				Ext.getCmp('cmbCiudad').store.reload({
+							params : {
+								idEstado : Ext.getCmp('cmbEstado').getValue()
+							}
+						});
 			},
 			reportePasante : function() {
 				window.open('/SIGP/reporte/mostrarPasantes?pCarrera='
@@ -33,7 +42,8 @@ frmReporteMaestros = Ext.extend(frmReporteMaestrosUi, {
 				}
 			},
 			reporteEmpresa : function() {
-
+				window.open('/SIGP/reporte/mostrarEmpresas?pCiudad='
+						+ Ext.getCmp('cmbCiudad').getValue());
 			},
 			limpiarTutor : function() {
 				Ext.getCmp('cmbTipo').reset();
@@ -46,6 +56,8 @@ frmReporteMaestros = Ext.extend(frmReporteMaestrosUi, {
 				Ext.getCmp('cmbCarrera').reset();
 			},
 			limpiarEmpresa : function() {
+				Ext.getCmp('cmbCiudad').reset();
+				Ext.getCmp('cmbEstado').reset();
 
 			}
 		});

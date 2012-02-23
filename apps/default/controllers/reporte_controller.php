@@ -6,20 +6,22 @@ require_once('correo.php');
 class ReporteController extends ApplicationController {
 
 	protected   $auth;
-
-
-
+	
 	protected function initialize(){
 		$this->setTemplateAfter("menu");
 		$this->auth=Auth::getActiveIdentity();
 	}
+	
 	public function reporteCalificacionesAction(){
-		//	ob_end_clean();
+		
+	}
+	public function mostrarCalificacionesAction(){
 		$this->setResponse('view');
 		$categoria=$this->auth['categoriaUsuario_id'];
 		$encabezados= $this->crearEncabezadosNotas($categoria);
 		$pasante = new Pasante();
-		$resultado = $pasante->getNotasPorTutor($categoria);
+		$carrera=$this->getParametro('pCarrera', 'numerico', '*');
+		$resultado = $pasante->getNotasPorTutor($categoria,'','*','*','*',$carrera);
 		$resultado = $resultado['resultado'];
 		$datos = $this->procesarDatosNotas($resultado,$categoria);
 		$pdf = new ReportPDF();
@@ -39,7 +41,7 @@ class ReporteController extends ApplicationController {
 				break;
 			case CAT_USUARIO_TUTOR_ACAD:
 				$nombreReporte='reporteCalificacionesTA.pdf';
-				$textoItem='Tutor Académico';
+				$textoItem='Tutor Academico';
 				$firma=$textoItem;
 				break;
 			case CAT_USUARIO_TUTOR_EMP:
@@ -51,11 +53,8 @@ class ReporteController extends ApplicationController {
 		$pdf->imprimirItemTextoBasico($textoItem, $nombreTutor);
 		$pdf->tablaBasica($encabezados, $datos);
 		$pdf->imprimirFirma($firma);
-		//$pdf->Output(DIRECTORIO_CREACION_PDF.'/'.$nombreReporte,'F');
 		$doc = $pdf->Output('', 'S');
 		$this->setParamToView('documento', $doc);
-		//		$this->setParamToView('ruta', DIRECTORIO_PUBLICACION_PDF.'/'.$nombreReporte);
-
 	}
 
 
@@ -159,6 +158,7 @@ class ReporteController extends ApplicationController {
 	}
 
 	public function mostrarConstanciaTutorAction() {
+		$this->setResponse('view');
 		$encabezados= array(array("titulo"=>'Pasantía',
 								"ancho"=>65,
 								"tipo"=>"STRING",
@@ -177,7 +177,7 @@ class ReporteController extends ApplicationController {
 		$pdf->imprimirTitulo('Historial de asesorías - Tutor Académico');
 		$pdf->SetFont('Arial','',12);
 		$pasantia = new Pasantia();
-		$idTutor=1;// ESTATICO
+		$idTutor=$this->auth['idUsuario'];
 		$datos  = $pasantia->buscarPasantiasSupervizadas($idTutor);
 		$coordinacion = new Coordinacion();
 		$coord=$coordinacion->getDatosCoordinador(DECANATO_CIENCIAS);
@@ -201,7 +201,9 @@ class ReporteController extends ApplicationController {
 		$pdf->tablaBasicaHistorica($encabezados, $datosRA);
 		$pdf->imprimirFirma('Coordinador de Pasantías');
 		$doc = $pdf->Output('', 'S');
-		$this->enviarConstantiaTutorAcademico($tutor['correo'], $doc);
+		$this->setParamToView('documento', $doc);
+	
+	//	$this->enviarConstantiaTutorAcademico($tutor['correo'], $doc);
 
 	}
 
@@ -482,5 +484,43 @@ class ReporteController extends ApplicationController {
 	}
 
 
+	public function mostrarEmpresasAction(){
+		$datos = array();
+		$empresa= new Empresa();
+		$ciudad=$this->getParametro('pCiudad', 'STRING', '');
+		$datos=$empresa->getEmpresasReporte($ciudad);
+		$this->setResponse('view');
+		$encabezadosPrincipal= array(array("titulo"=>'RIF',
+											"ancho"=>25,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Empresa',
+											"ancho"=>55,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Contacto',
+											"ancho"=>40,
+											"tipo"=>"string",
+											"alineacion"=>"L"),
+		array("titulo"=>'Teléfono',
+											"ancho"=>25,
+											"tipo"=>"string",
+											"alineacion"=>"R"),
+		array("titulo"=>'E-mail',
+											"ancho"=>45,
+											"tipo"=>"string",
+											"alineacion"=>"L")
 
+		);
+		$pdf = new ReportPDF();
+		$pdf->AliasNbPages();
+		$pdf->AddPage();
+		$pdf->imprimirTitulo('Reporte de Empresas');
+	
+		$pdf->tablaBasica($encabezadosPrincipal, $datos);
+		$doc = $pdf->Output('', 'S');
+		$this->setParamToView('documento', $doc);
+	}
+	
+	
 }

@@ -194,9 +194,9 @@ class Pasante extends ActiveRecord{
 	 * @param int $start
 	 * @param int $limit
 	 * @param string $tipoTutor
-	 * @return array con_ array de notas y total de registros (general)
+	 * @return array  array de notas y total de registros (general)
 	 */
-	public function getNotasPorTutor($tutorId,$cedulaPasante='',$start='*',$limit='*',$tipoTutor='*') {
+	public function getNotasPorTutor($tutorId,$cedulaPasante='',$start='*',$limit='*',$tipoTutor='*',$carrera='*') {
 		$aux = array();
 		$i=0;
 		$sqlTutor ="";
@@ -233,6 +233,9 @@ class Pasante extends ActiveRecord{
 		$sql .= " FROM pasante p, pasanteevaluacion pe, evaluacion e, aspectoevaluacion ap, empresa em, pasantia pa ";
 		$sql .= " WHERE p.id=pe.pasante_id  AND aspectoevaluacion_id=ap.id AND e.id=ap.evaluacion_id ";
 		$sql .= " AND p.id=pa.pasante_id AND pa.empresa_id= em.id AND NOT (pa.estatus='F' AND pa.estatus='S') ";
+		if ($carrera!='*'){
+			$sql .= " AND p.carrera_id='".$carrera."' ";	
+		}
 		$sql .= $sqlTutor;
 		if ($cedulaPasante!=''){
 			$sql .= " AND p.cedula LIKE '$cedulaPasante%'";

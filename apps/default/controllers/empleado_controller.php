@@ -55,11 +55,14 @@ class EmpleadoController extends ApplicationController{
 						break;
 				}
 				$coordinacion = new Coordinacion();
-				$existeCordinador = ($coordinacion->getDatosCoordinador($decanato))?true:false;
+				//$existeCordinador = ($coordinacion->getDatosCoordinador($decanato))?true:false;
+				$existeCordinador = $empleado->existeCoordinador();
 				if (($categoria== CAT_USUARIO_COORDINADOR and !$existeCordinador)or $categoria!= CAT_USUARIO_COORDINADOR  ){
 					$aux = $empleado->guardar($cedula,$nombre,$apellido,$correo,strtoupper($pRadioTipo),$decanato);
-					if ($aux['correo']){
+					if ($categoria== CAT_USUARIO_COORDINADOR){
 						$coordinacion->asignarCoordinador($decanato,$aux['id']);
+					}
+					if ($aux['correo']){
 						$id = $aux['id'];
 						$hora=date("G:H:s");
 						$hash = md5($nombre.$id.$hora);

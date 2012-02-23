@@ -57,6 +57,43 @@ frmReporteMaestrosUi = Ext.extend(Ext.Panel, {
 							iconCls : 'sigp-user',
 							collapsible : true,
 							items : [
+							 {
+							xtype : 'combo',
+							name : 'cmbEstado',
+							anchor : '100%',
+							fieldLabel : 'Estado',
+							editable : false,
+							store : 'stEstado',
+							displayField : 'nombre',
+							valueField : 'id',
+							emptyText : '-Seleccione-',
+							triggerAction : 'all',
+							allowBlank : false,
+							forceSelection : true,
+							loadingText : 'Cargando...',
+							blankText : 'Seleccione un estado.',
+							submitValue : false,
+							id : 'cmbEstado'
+						}, {
+							xtype : 'combo',
+							name : 'cmbCiudad',
+							anchor : '100%',
+							fieldLabel : 'Ciudad',
+							editable : false,
+							store : 'stCiudad',
+							displayField : 'nombre',
+							valueField : 'id',
+							triggerAction : 'all',
+							queryParam : 'idEstado',
+							allowBlank : false,
+							loadingText : 'Cargando...',
+							forceSelection : true,
+							emptyText : '-Seleccione-',
+							blankText : 'Seleccione una ciudad.',
+							mode : 'local',
+							submitValue : false,
+							id : 'cmbCiudad'
+						},
 
 							{
 										xtype : 'container',
