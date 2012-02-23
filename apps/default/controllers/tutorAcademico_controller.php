@@ -5,20 +5,24 @@ require_once('utilities/constantes.php');
 class TutorAcademicoController extends ApplicationController{
 
 	public  $auth;
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	protected function initialize(){
 		$this->setTemplateAfter("menu");
 		$this->auth=Auth::getActiveIdentity();
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function indexAction(){
-		
+
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function gestionarAction(){
-		
+
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
+	public function actualizarAction(){
+
+	}
+	//-----------------------------------------------------------------------------------------
 	public function confirmarAction(){
 		$success= false;
 		$idTutor=0;
@@ -37,7 +41,7 @@ class TutorAcademicoController extends ApplicationController{
 			if ($aux['success']){
 				$idTutor= $aux['idUsuario'];
 				$tutorAux = new TutorAcademico();
-				$tutorActivado = $tutorAux->activarTutor($idTutor); 
+				$tutorActivado = $tutorAux->activarTutor($idTutor);
 				if ($tutorActivado){
 					$email=$registroAux->getEmailbyHash($hash);
 					if ($email!=''){
@@ -52,19 +56,19 @@ class TutorAcademicoController extends ApplicationController{
 		$this->renderText(json_encode(array("success"=>$success)));
 
 	}
-//-----------------------------------------------------------------------------------------	
+	//-----------------------------------------------------------------------------------------
 	protected function contarPasantiasActivas($idTutor, $tipoTutor){
 		$nroPasantias=0;
 		$pasantia = new Pasantia();
 		$nroPasantias = $pasantia->contarPasantiasActivasTutor($idTutor, $tipoTutor);
 		return $nroPasantias;
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function eliminarTutorAction(){
 		$this->setResponse('ajax');
 		$id = $this->getRequestParam('pTutor');
 		/*
-		 * WARNING:: El parametro no puede ser 'E', E es de Empresarial. 
+		 * WARNING:: El parametro no puede ser 'E', E es de Empresarial.
 		 */
 		$nro= $this->contarPasantiasActivas($id, 'E');
 		$resp= array();
@@ -82,7 +86,7 @@ class TutorAcademicoController extends ApplicationController{
 		}
 		$this->renderText(json_encode($resp));
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function registrarTutorAAction(){
 		$resp=array();
 		$resp['success']= false;
@@ -91,7 +95,7 @@ class TutorAcademicoController extends ApplicationController{
 		$this->setResponse('ajax');
 		$tutorA = new TutorAcademico();
 		$departamento=$this->getRequestParam('departamento');
-		
+
 		$cedula=$this->getRequestParam('txtCedula');
 		$nombre=utf8_decode($this->getRequestParam('txtNombre'));
 		$apellido=utf8_decode($this->getRequestParam('txtApellido'));
@@ -101,30 +105,30 @@ class TutorAcademicoController extends ApplicationController{
 		$tipoEvento = $this->getRequestParam('tipoevento');
 		$idDep = $this->getRequestParam('departamento');
 		$idDecanato = $this->getRequestParam('decanato');
-		
+
 		$decanato = new Decanato();
 		$dec = 0;
 		$dec = $decanato->getUniversidadByDecanato($idDecanato);
 		if ($dec == 1){
 			$dependencia = 1;
 		} else $dependencia = 2;
-		
+
 		if ($tipoEvento=='registrar'){
 			$aux = $tutorA->guardarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
-		} 
+		}
 		else {
 			$aux = $tutorA->actualizarTutorA($idDep,$cedula,$nombre,$apellido,$telefono,$correo,$cargo,$dependencia);
 			$successUser = true;
 			$successRegistro = true;
 		}
-		
+
 		if ($aux['correo']){
 			$id = $aux['id'];
 			$hora=date("G:H:s");
 			$hash = md5($nombre.$id.$hora);
 			$usuario = new Usuario();
 			$successUser = $usuario->registrarUsuario('tmpAcademico'.$id, md5('tmpAcademico'.$id), CAT_USUARIO_TUTOR_ACAD, $id, 'P');
-			
+
 			$registro = new Registro();
 			$successRegistro = 	$registro->guardarRegistro($hash, 'tmpAcademico'.$id, $correo, 'P');
 			$this->notificarRegistro($hash,$nombre,$apellido,$correo);
@@ -132,10 +136,40 @@ class TutorAcademicoController extends ApplicationController{
 		if (($aux['success'] and  $successRegistro and $successUser)== true ){
 			$resp['success']=true;
 		}
-		
+
 		$this->renderText(json_encode(array($resp,'success'=>$aux['success'], 'pasaPor'=>$aux['pasaPor'], 'id'=>$aux['id'])));
 	}
-//-----------------------------------------------------------------------------------------
+
+	//-----------------------------------------------------------------------------------------
+	public function buscarTutorExistenteAction(){
+		$success = true;
+		$this->setResponse('ajax');
+		$resp=array();
+		$tutorA = new TutorAcademico();
+		$idTutor = 0;
+		$cedula = 0;
+		$resp['success']= false;
+		$resp['errorMsj']= '';
+		if ($this->auth['categoriaUsuario_id'] == CAT_USUARIO_TUTOR_ACAD){
+			$idTutor = $this->auth['idUsuario'];
+			$this->setResponse('ajax');
+			$cedula = $tutorA->buscarCedulaById($idTutor);
+			if ($cedula != 0){
+				$resp = $tutorA->buscarTutorAcad($cedula);
+			}
+		}
+		$this->renderText(json_encode($resp));
+	}
+	//-----------------------------------------------------------------------------------------
+	public function buscarCedulaById($vId){
+		$auxId = $this->findFirst("id = '".$vId."' ");
+		$cedula = 0;
+		if ($auxId){
+			$cedula = $auxId->getCedula();
+		}
+		return $cedula;
+	}
+	//-----------------------------------------------------------------------------------------
 	protected function notificarRegistro($hash,$nombre,$apellido,$pCorreo) {
 
 		$correo = new Correo();
@@ -145,7 +179,7 @@ class TutorAcademicoController extends ApplicationController{
 		$body .='http://'. $this->getServer('SERVER_NAME').'/SIGP/registro/registrarTutorAcademico?id='.$hash;
 		$correo->enviarCorreo($pCorreo, 'Registro en el sistema', $body);
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	protected function notificarCulminacionFaseDos($usuario,$pCorreo) {
 
 		$correo = new Correo();
@@ -154,7 +188,7 @@ class TutorAcademicoController extends ApplicationController{
 		$body .='http://'. $this->getServer('SERVER_NAME').'/SIGP/';
 		$correo->enviarCorreo($pCorreo, 'Registro Fase 2 en el sistema', $body);
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function getTutoresAcademicosAction(){
 		$id = $this->getRequestParam('pDepartamento_id')!=NULL ? $this->getRequestParam('pDepartamento_id') : '%' ;
 		$start = $this->obtenerParametroRequest('start');
@@ -165,7 +199,7 @@ class TutorAcademicoController extends ApplicationController{
 		$resultado = $tutores->getTutoresAcademicos($id,$start,$limit);
 		$this->renderText(json_encode($resultado));
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function getTutorAcademicoByIdAction(){
 		$success= false;
 		$this->setResponse('ajax');
@@ -178,7 +212,7 @@ class TutorAcademicoController extends ApplicationController{
 		$this->renderText(json_encode(array("success"=>$success,
 											"resultado"=> $resultado)));
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function buscarTutorAcademicoAction(){
 		$resp=array();
 		$pCedula = $this->getRequestParam('cedula');
@@ -188,27 +222,27 @@ class TutorAcademicoController extends ApplicationController{
 		$resp=$tutorA->buscarTutorAcademico($pCedula,$pDepartamento_id);
 		$this->renderText(json_encode($resp));
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	public function buscarTutorAcadAction(){
 		$resp=array();
 		$pCedula = $this->getRequestParam('cedula');
 		$this->setResponse('ajax');
 		$tutorA = new TutorAcademico();
-		$resp=$tutorA->buscarTutorAcad($pCedula);
+		$resp = $tutorA->buscarTutorAcad($pCedula);
 		$this->renderText(json_encode($resp));
 	}
-//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 
 	public function getTutoresAcademicosLightAction(){
 		$start = $this->obtenerParametroRequest('start');
 		$limit = $this->obtenerParametroRequest('limit');
 		$nombre = $this->getParametro('query','string','');
-		
+
 		$this->setResponse('ajax');
 		$tutores = new TutorAcademico();
 		$resultado = $tutores->getTutoresAcademicosLight($nombre,$start,$limit);
 		$this->renderText(json_encode($resultado));
 	}
-	
+
 }
 ?>

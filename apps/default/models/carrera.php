@@ -87,19 +87,16 @@ class Carrera extends ActiveRecord{
 	//-----------------------------------------------------------------------------------------
 	public function getSemestres($decan){
 		$auxCarrerasxDecanato = array();
-		$i = 0;
+		
 		$tam = 0;
 		$carrerasXdecanato = $this->find("id = '$decan'");
 		foreach ($carrerasXdecanato as $carreraXdecanato){
 			$tam = $carreraXdecanato->duracion;
 			for ($j = 0; $j < $tam; $j++) {
-				$auxCarrerasxDecanato[$j]['id'] = $carreraXdecanato->id;
-				$auxCarrerasxDecanato[$j]['duracion'] = $j+1;
+				$auxCarrerasxDecanato[$j]['semestre'] = $j+1;
 			}
-			$i++;
 		}
 		return $auxCarrerasxDecanato;
-		//		return $tam;
 	}
 	//-----------------------------------------------------------------------------------------
 	public function getCarrerasbyNombre($nomb){

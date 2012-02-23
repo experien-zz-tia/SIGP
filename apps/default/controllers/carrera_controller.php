@@ -20,7 +20,8 @@ class CarreraController extends ApplicationController {
 		$id = $this->getRequestParam('idCarrera');
 		$this->setResponse('ajax');
 		$carrera = new Carrera();
-		$this->renderText(json_encode(array('semestres'=>$carrera->getSemestres($id))));
+		$this->renderText(json_encode($carrera->getSemestres($id)));
+		
 	}
 
 	public function getCarrerasbyDecanatoLightAction(){

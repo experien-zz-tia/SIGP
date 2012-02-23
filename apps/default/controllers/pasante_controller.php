@@ -27,6 +27,32 @@ class PasanteController extends ApplicationController{
 		$this->routeTo('controller: pasante','action: index');
 	}
 	//-----------------------------------------------------------------------------------------
+	/**
+	 * Elimina el Pasante. Recibe un parametro a través de la var REQUEST
+	 */
+	public function eliminarPasanteAction(){
+		$this->setResponse('ajax');
+		$id = $this->getRequestParam('idPasante');
+		$idPasantia = $this->getRequestParam('idPasantia');
+		$resp= array();
+		$resp['success']= false;
+		$resp['errorMsj']= '';
+
+		$pasantia = new Pasantia();
+		if ($pasantia->eliminarPasantia($idPasantia)){
+			$pasante = new Pasante();
+			if ($pasante->eliminarPasante($id)){
+				$solicitud = new Solicitudtutoracademico();
+				if ($solicitud->retirarSolicitudes($id)){
+					$resp['success']=true;
+				} else $resp['errorMsj']= 'solicitudes';
+			} else $resp['errorMsj']= 'pasante';
+		} else $resp['errorMsj']= 'pasantia';
+
+		$this->renderText(json_encode($resp));
+	}
+
+	//-----------------------------------------------------------------------------------------
 	public function actualizarPasanteAction(){
 		$success = true;
 		$this->setResponse('ajax');
@@ -37,13 +63,13 @@ class PasanteController extends ApplicationController{
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
 			$idPasante = $this->auth['idUsuario'];
 			$this->setResponse('ajax');
-			$cedula = $pasante->buscarCedulaById($idPasante);			
+			$cedula = $pasante->buscarCedulaById($idPasante);
 		}
-		
-		
+
+
 		$fchNacimiento = $this->getRequestParam('dataFecha');
 		//$nombre = $this->getRequestParam('txtNombre');
-		
+
 		$nombre = utf8_decode($this->getRequestParam('txtNombre'));
 		$apellido = utf8_decode($this->getRequestParam('txtApellido'));
 		$opcF = $this->getRequestParam('opcF');
@@ -108,7 +134,7 @@ class PasanteController extends ApplicationController{
 		$direccion = $this->getRequestParam('txtDireccion');
 		$decanato = $this->getRequestParam('decanato');
 		$carrera = $this->getRequestParam('carrera');
-		$semestre = $this->getRequestParam('semestre');
+		$semestre = $this->getRequestParam('cmbSemestre');
 		$indice = $this->getRequestParam('txtIndice');
 		$tipoPasantia = $this->getRequestParam('tipoPasantia');
 		$modalidad = $this->getRequestParam('modalidad');

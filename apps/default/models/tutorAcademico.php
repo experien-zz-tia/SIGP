@@ -241,17 +241,11 @@ class TutorAcademico extends Tutor {
 				$resp['datos']['departamentoId']= $id;
 				$resp['datos']['departamento']= $departamento->getDescripcion();
 				$resp['datos']['decanatoId'] = $departamento->getDecanatoId();
-
-				/*$idDec = $departamento->getDecanatoId();
-				 $dec = new Decanato();
-				 $decanato = $dec->findFirst("id = '$idDec'");
-				 if ($decanato){
-					$resp['datos']['decanato']=utf8_encode($decanato->getNombre());
-					}*/
 			}
+			$resp['success']= true;
 		}
 		$resp['errorMsj']= $errorMsj;
-		$resp['success']= true;
+		$resp['cedula']= $pCedula;
 		return ($resp);
 
 	}

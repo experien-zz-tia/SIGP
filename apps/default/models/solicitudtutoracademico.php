@@ -5,57 +5,57 @@ class Solicitudtutoracademico extends ActiveRecord{
 	protected $pasante_id;
 	protected $tutorAcademico_id;
 	protected $dependencia_id;
-	protected $fchSolicitud; 
-	protected $fchRespuesta; 
+	protected $fchSolicitud;
+	protected $fchRespuesta;
 	protected $estatus;
-	
+
 	protected function initialize(){
-	
+
 	}
-	
-	public function getId() { 
-		return $this->id; 
-	} 
-	public function getPasante_id() { 
-		return $this->pasante_id; 
-	} 
-	public function getTutorAcademico_id() { 
-		return $this->tutorAcademico_id; 
-	} 
-	public function getFchSolicitud() { 
-		return $this->fchSolicitud; 
-	} 
-	public function getFchRespuesta() { 
-		return $this->fchRespuesta; 
-	} 
-	public function getEstatus() { 
+
+	public function getId() {
+		return $this->id;
+	}
+	public function getPasante_id() {
+		return $this->pasante_id;
+	}
+	public function getTutorAcademico_id() {
+		return $this->tutorAcademico_id;
+	}
+	public function getFchSolicitud() {
+		return $this->fchSolicitud;
+	}
+	public function getFchRespuesta() {
+		return $this->fchRespuesta;
+	}
+	public function getEstatus() {
 		return $this->estatus;
-	 } 
-	 public function getDependencia_id() { 
+	}
+	public function getDependencia_id() {
 		return $this->dependencia_id;
-	 } 
-	public function setDependencia_id($x) { 
-		$this->dependencia_id = $x; 
-	} 
-	public function setId($x) { 
-		$this->id = $x; 
-	} 
-	public function setPasante_id($x) { 
-		$this->pasante_id = $x; 
-	} 
+	}
+	public function setDependencia_id($x) {
+		$this->dependencia_id = $x;
+	}
+	public function setId($x) {
+		$this->id = $x;
+	}
+	public function setPasante_id($x) {
+		$this->pasante_id = $x;
+	}
 	public function setTutorAcademico_id($x) {
-		$this->tutorAcademico_id = $x; 
-	} 
+		$this->tutorAcademico_id = $x;
+	}
 	public function setFchSolicitud($x) {
-		$this->fchSolicitud = $x; 
-	} 
-	public function setFchRespuesta($x) { 
+		$this->fchSolicitud = $x;
+	}
+	public function setFchRespuesta($x) {
 		$this->fchRespuesta = $x;
-	} 
-	public function setEstatus($x) { 
-		$this->estatus = $x; 
-	} 
-	
+	}
+	public function setEstatus($x) {
+		$this->estatus = $x;
+	}
+
 	public function obtenerTutorAsignado($idPasante) {
 		$resultado=array();
 		$solicitud = $this->findFirst("pasante_id='$idPasante' AND estatus='A'");
@@ -73,7 +73,7 @@ class Solicitudtutoracademico extends ActiveRecord{
 		$sql  = " SELECT s.id AS id, nombre, apellido, cargo, IFNULL(descripcion,'-') AS departamento, fchSolicitud, fchRespuesta, ";
 		$sql .= " s.estatus AS estatus ";
 		$sql .= " FROM solicitudtutoracademico s, ";
- 		$sql .= " tutorAcademico t LEFT JOIN departamento d ON (departamento_id=d.id) ";
+		$sql .= " tutorAcademico t LEFT JOIN departamento d ON (departamento_id=d.id) ";
 		$sql .= " WHERE pasante_id='$pasanteId' AND tutorAcademico_id=t.id AND s.estatus!='E' ";
 		$sql .= " ORDER BY fchSolicitud DESC, fchRespuesta DESC";
 		if ($start!='*' && $limit!='*'){
@@ -94,9 +94,9 @@ class Solicitudtutoracademico extends ActiveRecord{
 		}
 		return array('total'=>$total,
 					'resultado' => $aux);
-		
+
 	}
-	
+
 	/**
 	 * Retorna el texto asociado a un estatus en particular de una solicitud
 	 * @param string $estatus
@@ -123,7 +123,7 @@ class Solicitudtutoracademico extends ActiveRecord{
 		}
 		return $aux;
 	}
-	
+
 	public function contarSolicitudesPasante($idPasante){
 		$nro=0;
 		$nro= $this->count("pasante_id='$idPasante' AND estatus='P'");
@@ -133,9 +133,9 @@ class Solicitudtutoracademico extends ActiveRecord{
 		$nro=0;
 		$nro= $this->count("tutorAcademico_id='$idTutor' AND estatus='P'");
 		return $nro;
-		
+
 	}
-	
+
 	public function solicitarTutor($idTutor,$idPasante){
 		$success= false;
 		$this->setPasante_id($idPasante);
@@ -144,7 +144,7 @@ class Solicitudtutoracademico extends ActiveRecord{
 		$this->setEstatus('P');
 		$success = $this->save();
 		return  $success;
-		
+
 	}
 	/**
 	 * Indica si el pasante tiene registrada una solicitud previa ( en estado pendiente- sin responder-) a un tutor dado
@@ -159,8 +159,8 @@ class Solicitudtutoracademico extends ActiveRecord{
 		}
 		return $flag;
 	}
-	
-	
+
+
 	public function getSolicitudesbyTutor($idTutor,$start='*',$limit='*'){
 		$aux = array();
 		$i=0;
@@ -185,18 +185,18 @@ class Solicitudtutoracademico extends ActiveRecord{
 		}
 		return array('resultado' => $aux);
 	}
-	
+
 	public function rechazar($id) {
 		$success=false;
 		$solicitud = $this->findFirst("id='$id'");
 		if ($solicitud){
 			$solicitud->setFchRespuesta(date("Y/m/d"));
 			$solicitud->setEstatus('R');
-			$success=$solicitud->update();	
+			$success=$solicitud->update();
 		}
 		return $success;
 	}
-	
+
 	public function getSolicitudbyId($id) {
 		$resultado=array();
 		$solicitud = $this->findFirst("id='$id'");
@@ -211,8 +211,8 @@ class Solicitudtutoracademico extends ActiveRecord{
 			
 		return $resultado;
 	}
-	
-	
+
+
 	public function aceptar($id, $pasanteId) {
 		$success=true;
 		$solicitudes = $this->find("pasante_id='$pasanteId'");
@@ -230,7 +230,7 @@ class Solicitudtutoracademico extends ActiveRecord{
 		}
 		return $success;
 	}
-	
+
 	public function cancelar($id) {
 		$success=false;
 		$solicitud = $this->findFirst("id='$id'");
@@ -250,6 +250,34 @@ class Solicitudtutoracademico extends ActiveRecord{
 		}
 		return $flag;
 	}
-	
+
+	public function retirarSolicitudes($pasanteId) {
+		$success = true;
+		$resp = array();
+		$solicitudes = $this->find("pasante_id='$pasanteId' ");
+		$pasante = new Pasante();
+		$resp = $pasante->buscarPasanteId($pasante->buscarCedulaById($pasanteId));
+
+		foreach ($solicitudes as $solicitud){
+			if ($solicitud->getEstatus() == 'P'){
+				$correo = new Correo();
+				$body ='Notificación. <BR/>
+			  	Le informamos que el estudiante '.$resp['datos']['nombre'].' '.$resp['datos']['apellido'].' ya no se encuentra registrado
+			  	como pasante por lo que la solicitud realizada a su persona el '.$solicitud->getFchSolicitud().' será descartada del sistema. Gracias por su atención.<BR/>';
+				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
+			}
+			if ($solicitud->getEstatus() == 'R'){
+				$correo = new Correo();
+				$body ='Notificación. <BR/>
+			  	Le informamos que el estudiante '.$resp['datos']['nombre'].' '.$resp['datos']['apellido'].' ya no se encuentra registrado
+			  	como pasante por lo que no debe realizar evaluaciones relacionadas. Cualquier inquietud puede escribir a coord.pasantias@gmail.com. Gracias por su atención.<BR/>';
+				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
+			}
+			$solicitud->setEstatus('E');
+			$success = $solicitud->update();
+		}
+		return $success;
+	}
+
 }
 ?>

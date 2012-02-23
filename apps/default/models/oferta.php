@@ -115,7 +115,7 @@ class Oferta extends ActiveRecord {
 	public function setFchInicioEst($x) {
 		$this->fchInicioEst = $x;
 	}
-	public function setFchFinEst($x) { 
+	public function setFchFinEst($x) {
 		$this->fchFinEst = $x;
 	}
 	/**
@@ -237,6 +237,18 @@ class Oferta extends ActiveRecord {
 		}
 		return $success;
 
+	}
+
+	public function actualizarCupoOferta($id){
+		$success=false;
+		$cupos = 0;
+		$oferta = $this->findFirst("id='$id'");
+		if ($oferta){
+			$cupos = $oferta->getCupos()+1;
+			$oferta->setCupos($cupos);
+			$success = $oferta->update();
+		}
+		return $success;
 	}
 
 	public function eliminarOferta($id){
@@ -382,17 +394,17 @@ class Oferta extends ActiveRecord {
 		}
 		return $tipo;
 	}
-public function contarRegistradosEnLapso($idLapso) {
+	public function contarRegistradosEnLapso($idLapso) {
 		$cantidad=0;
 		$sql = " SELECT COUNT(*) AS cantidad FROM lapsoacademico l, oferta o ";
 		$sql .= " WHERE o.fchPublicacion BETWEEN l.fchInicio AND l.fchFin ";
 		$sql .= " AND l.id='$idLapso' ";
-	 	$db = Db::rawConnect();
-	 	$result = $db->query($sql);
-	 	if ($row = $db->fetchArray($result)){
+		$db = Db::rawConnect();
+		$result = $db->query($sql);
+		if ($row = $db->fetchArray($result)){
 			$cantidad = $row['cantidad'];
-	 	}
-	 	return $cantidad;
+		}
+		return $cantidad;
 	}
 
 }

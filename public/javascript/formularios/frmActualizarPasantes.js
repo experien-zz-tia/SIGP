@@ -111,7 +111,7 @@ frmActualizarPasantes = Ext.extend(frmActualizarPasantesUi, {
 			                Ext.getCmp('ptnPersonal').enable();    	
 			        		Ext.getCmp('ptnContacto').disable();
 			        		Ext.getCmp('panelPasante').setActiveTab(0);
-			        		cargarPasante();
+			        		//cargarPasante();
 			                }
 			    	   		});
 				   			}  
@@ -154,10 +154,10 @@ function cargarPasante(){
 	        			//Ext.getCmp('cmbDecanato').setValue(datos.decanato);
 	        			Ext.getCmp('txtIndice').setValue(datos.indiceAcademico);
 	        			Ext.getCmp('cmbSemestre').setValue(datos.semestre);
-	        			Ext.getCmp('cmbCarrera').setValue(datos.carrera);
+	        			//Ext.getCmp('cmbCarrera').setValue(datos.carrera);
 	        			Ext.getCmp('txtDireccion').setValue(datos.direccion);
-	        			Ext.getCmp('cmbEstado').setValue(datos.estado);
-	        			Ext.getCmp('cmbCiudad').setValue(datos.ciudad);
+	        			//Ext.getCmp('cmbEstado').setValue(datos.estado);
+	        			//Ext.getCmp('cmbCiudad').setValue(datos.ciudad);
 	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
 	        			
 	        			if (datos.sexo=='F'){
@@ -182,6 +182,14 @@ function cargarPasante(){
                        }
                     });
                     
+                    var cmbSem = Ext.getCmp('cmbSemestre');                          
+                    var storeSem = cmbSem.getStore();
+                    storeSem.load({
+                       params: {idCarrera: datos.carrera},
+                       callback: function() {
+                          cmbSem.setValue(datos.semestre);
+                       }
+                    });
                     
                     var cmbModalidad = Ext.getCmp('cmbModalidadPasantia');      					
   					var storeMod = cmbModalidad.getStore();

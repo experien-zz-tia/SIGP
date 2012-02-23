@@ -7,15 +7,12 @@ stSemestre = Ext.extend(Ext.data.JsonStore, {
 			paramNames : {
 				idCarrera : "idCarrera"
 			},
-			fields : [ {
-				name : 'id',
+			fields : [{
+				name : 'semestre',
 				type : 'int',
-				mapping : 'id'
-			}, {
-				name : 'duracion',
-				type : 'int',
-				mapping : 'duracion'
+				mapping : 'semestre'
 			} ]
+
 		}, cfg));
 	}
 });

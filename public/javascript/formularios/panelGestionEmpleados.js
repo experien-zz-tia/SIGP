@@ -75,6 +75,7 @@ panelGestionEmpleados = Ext.extend(panelGestionEmpleadosUi, {
 			        	  Ext.Ajax.request({
 			      			url: '/SIGP/empleado/eliminar',
 			      			method: 'POST',
+			      			waitMsg : 'Enviando datos...', 
 			      			params: 'pEmpleadoId=' + index.get('empleadoId'),
 			      			success: function(respuesta, request) {
 			      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);

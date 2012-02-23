@@ -155,6 +155,17 @@ class Pasante extends ActiveRecord{
 		return $success;
 	}
 	//-----------------------------------------------------------------------------------------
+	public function eliminarPasante($id){
+		$success=false;
+		$pas = $this->findFirst("id='$id'");
+		if ($pas){
+			$pas->setEstatus('E');
+			$success = $pas->update();
+		}
+		return $success;
+
+	}
+	//-----------------------------------------------------------------------------------------
 	public function buscarId($vCedula, $vFecha){
 		$fecha = Util::cambiarFechaMDYtoYMD($vFecha,'/');
 		$auxId = $this->findFirst("cedula = '".$vCedula."' AND fchNacimiento = '".$fecha."'");
@@ -178,7 +189,7 @@ class Pasante extends ActiveRecord{
 		//	$fecha = Util::cambiarFechaMDYtoYMD($vFecha,'/');
 		//$fecha = $this->cambiarFechaMDYtoYMD($vFecha);
 		$resp = array();
-		
+
 		$resp['success']= false;
 		$resp['errorMsj']= '';
 		$resp['datos']=array();
@@ -216,7 +227,7 @@ class Pasante extends ActiveRecord{
 		}
 			
 		$resp['errorMsj']= $errorMsj;
-		
+
 		return ($resp);
 	}
 	//-----------------------------------------------------------------------------------------

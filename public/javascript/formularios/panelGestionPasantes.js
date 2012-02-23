@@ -26,14 +26,47 @@ panelGestionPasantes = Ext
 						formPas.show();
 					},
 					modificar : function() {
-						var formActPas = new frmActualizarPasantes( {
-							renderTo : Ext.getBody()
-						});
-						formActPas.show();
+						alert('Sin implementar - YAJAIRA');
 						
 					},
 					eliminar : function() {
-						alert('Sin implementar - YAJAIRA');
+						var grid = Ext.getCmp('gridGestionPasantes');
+						var index = grid.getSelectionModel().getSelected();
+						if (!index) {
+							Ext.MessageBox
+									.show( {
+										title : " Seleccione una fila.",
+										msg : "Debe seleccionar una fila antes de realizar la operaci&oacute;n.",
+										width : 400,
+										buttons : Ext.MessageBox.OK,
+										icon : Ext.MessageBox.WARNIRG
+									});
+						} else {
+							Ext.Msg.confirm('Confirmaci&oacute;n','&iquest; Est&aacute; seguro de eliminar el pasante seleccionado?',function(btn){  
+			         	        if(btn === 'yes'){
+									var id = index.get('pasanteId');
+									var idPasan = index.get('pasantiaId');
+									 Ext.Ajax.request({
+											url: '/SIGP/pasante/eliminarPasante',
+											method: 'POST',
+											waitMsg : 'Enviando datos...', 
+											params: {idPasante: id, 
+										 			idPasantia: idPasan},
+											success: function(respuesta, request) {
+									      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
+									      				
+									      				if (jsonData.success == true){
+										      				Ext.Msg.alert('Operaci&oacute;n exitosa','Se ha eliminado el pasante: '+
+																	index.get('nombrePasante') + ', '
+																	+ index.get('apellidoPasante'));
+										      				stPasantes.reload();
+									      				};
+								       	        
+									      				}
+												});
+			         	        }});
+						}
+						
 					},
 					limpiarFiltro : function() {
 						Ext.getCmp('cmbCarrera').reset();

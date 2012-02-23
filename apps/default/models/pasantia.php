@@ -126,6 +126,24 @@ class Pasantia extends ActiveRecord {
 		$this->estatus = $x;
 	}
 
+	//-----------------------------------------------------------------------------------------
+	public function eliminarPasantia($id){
+		$success=false;
+		$pas = $this->findFirst("id='$id'");
+		if ($pas){
+			$pas->setEstatus('E');
+			$id = $pas->getOferta_id(); 
+			$success = $pas->update();
+			if ($success){
+				$oferta = new Oferta();
+				$oferta->actualizarCupoOferta($id);
+				$success = $oferta->update();
+			}
+		}
+		return $success;
+
+	}
+	//-----------------------------------------------------------------------------------------
 	/**
 	 * Cuenta el número de pasantías activas ( en estado no finalizado) a las cuales el tutor pasado como
 	 * parametro está asignado.
@@ -160,7 +178,7 @@ class Pasantia extends ActiveRecord {
 				case 'E':$condicion .=" tutorEmpresarial_id";
 				break;
 			}
-			$condicion .= "='$idTutor' AND lapsoacademico_id ='$lapsoId'";	
+			$condicion .= "='$idTutor' AND lapsoacademico_id ='$lapsoId'";
 			$nro =$this->count($condicion);
 		}
 		return $nro;
@@ -168,13 +186,13 @@ class Pasantia extends ActiveRecord {
 	}
 	/**
 	 * Cuenta las pasantias no finalizadas registradas en el sistema
-	 * @return int 
+	 * @return int
 	 */
 	public function contarPasantiasActivas(){
 		$condicion="estatus !='F'";
 		return $this->count($condicion);
 	}
-	
+
 	public function contarPasantiabyLapsoActivo($idDecanato){
 		$nro=0;
 		$lapso = new Lapsoacademico();
@@ -207,7 +225,7 @@ class Pasantia extends ActiveRecord {
 	public function getPasantias($id,$start,$limit,$estatus="'D'") {
 		$aux = array();
 		$i=0;
-		 
+			
 		$total = $this->count("estatus IN (".$estatus.")  AND empresa_id=".$id);
 		$sql = " SELECT p.id as id, titulo,cedula,nombre,apellido,p.fchInicioEst AS fchInicioEst ,p.fchFinEst AS fchFinEst,mp.descripcion AS modalidadPasantia, tp.descripcion AS tipoPasantia";
 		$sql .= " FROM pasantia p,pasante pa,oferta o ,modalidadPasantia mp, tipoPasantia tp";
@@ -234,7 +252,7 @@ class Pasantia extends ActiveRecord {
 	}
 
 
-	
+
 	/**
 	 * Busca si el pasante esta realizando pasantias, o ya la ha realizado, en caso afrimativo retorna informacion realcionada a la misma, en caso contrario arreglo vacio
 	 * @param int $idPasante
@@ -250,7 +268,7 @@ class Pasantia extends ActiveRecord {
 			
 		return $resultado;
 	}
-	
+
 	/**
 	 * Guarda los datos de una pasantia en modo 'inscrita'
 	 * @param int $lapsoAcademico_id
@@ -284,7 +302,7 @@ class Pasantia extends ActiveRecord {
 		return $success;
 
 	}
-	
+
 	public function registrarTutor($pasanteId,$idTutor) {
 		$success=false;
 		$pasantia = $this->findFirst("pasante_id='$pasanteId' AND estatus!='E'");
@@ -294,22 +312,22 @@ class Pasantia extends ActiveRecord {
 		}
 		return $success;
 	}
-	
+
 	public function contarPasantiasPorLapso($idLapso) {
-		$sql = " SELECT COUNT(*) AS rowcount FROM pasantia p ,pasante t "; 
+		$sql = " SELECT COUNT(*) AS rowcount FROM pasantia p ,pasante t ";
 		$sql .= " WHERE t.lapsoAcademico_id='$idLapso' AND p.estatus!='E'  AND p.pasante_id=t.id";
 		$db = Db::rawConnect();
-	 	$result = $db->query($sql);
-	 	if ($row = $db->fetchArray($result)){
+		$result = $db->query($sql);
+		if ($row = $db->fetchArray($result)){
 			$cantidad = $row['rowcount'];
-	 	}
-	 	return $cantidad;
+		}
+		return $cantidad;
 	}
-	
+
 	public function finalizarPasantias($idLapso){
 		return $this->updateAll("estatus='F'","lapsoAcademico_id='$idLapso'");
 	}
-	
+
 	public function buscarPasantiasSupervizadas($idTutorAcademico) {
 		$aux = array();
 		$auxDatos = array();
@@ -327,7 +345,7 @@ class Pasantia extends ActiveRecord {
 				if ($i!=-1){
 					$aux[$i]['datos'] = $auxDatos;
 					$auxDatos=array();
-				}	
+				}
 				$i++;
 				$aux[$i]['lapso'] = $row['lapso'];
 				$aux[$i]['fchInicio'] = Util::cambiarFechaDMY($row['fchInicio']);
@@ -343,7 +361,7 @@ class Pasantia extends ActiveRecord {
 		}
 		return $aux;
 	}
-	
+
 	public function getTextoEstatus($estatus){
 		$estatus= strtoupper($estatus);
 		$texto='';
@@ -363,10 +381,10 @@ class Pasantia extends ActiveRecord {
 			case 'S':
 				$texto='Suspendida';
 				break;
-			}
+		}
 		return $texto;
 	}
-	
+
 	public function getDetallePasantias($id) {
 		$aux = array();
 		$sql = " SELECT p.id as id,razonSocial, lapso,titulo,cedula,nombre,apellido,p.fchInicioEst AS fchInicioEst ,p.fchFinEst AS fchFinEst,mp.descripcion AS modalidadPasantia, tp.descripcion AS tipoPasantia";

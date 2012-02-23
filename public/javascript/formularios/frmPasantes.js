@@ -49,11 +49,13 @@ frmPasantes = Ext.extend(frmPasantesUi, {
         Ext.getCmp('btnAtrasAcceso').on('click', this.habilitar_AA);
        
         Ext.getCmp('txtUsuario').on('blur',this.usuarioUnico);
+        Ext.getCmp('txtCedula').focus();
     },
     
     habilitar_AP:function(){
     	Ext.getCmp('ptnPersonal').disable();
 		Ext.getCmp('ptnIdentificacion').enable();
+		Ext.getCmp('txtCedula').focus();
 		Ext.getCmp('panelPasante').setActiveTab(0);
     },
     
@@ -61,18 +63,21 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     	Ext.getCmp('ptnPersonal').disable();
 		Ext.getCmp('ptnIdentificacion').disable();
 		Ext.getCmp('ptnContacto').enable();
+		Ext.getCmp('txtDireccion').focus();
 		Ext.getCmp('panelPasante').setActiveTab(2);
     },
     
     habilitar_AdC:function(){
     	Ext.getCmp('ptnPersonal').disable();
 		Ext.getCmp('ptnAcceso').enable();
+    	Ext.getCmp('txtUsuario').focus();
 		Ext.getCmp('ptnContacto').disable();
 		Ext.getCmp('panelPasante').setActiveTab(3);
     },
     
     habilitar_AC:function(){
-    	Ext.getCmp('ptnPersonal').enable();    	
+    	Ext.getCmp('ptnPersonal').enable(); 
+    	Ext.getCmp('txtNombre').focus();
 		Ext.getCmp('ptnAcceso').disable();
 		Ext.getCmp('ptnContacto').disable();
 		Ext.getCmp('panelPasante').setActiveTab(1);
@@ -80,6 +85,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     
     habilitar_AA:function(){
     	Ext.getCmp('ptnContacto').enable();
+    	Ext.getCmp('txtDireccion').focus();
 		Ext.getCmp('ptnAcceso').disable();
 		Ext.getCmp('panelPasante').setActiveTab(2);
     },
