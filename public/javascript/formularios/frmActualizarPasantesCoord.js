@@ -1,5 +1,5 @@
 var sw = false;
-
+var idPasante = "-";
 Ext.apply(Ext.form.VTypes, {
 	password: function(val, field) {
 	if (field.campoInicialClave) {
@@ -36,14 +36,13 @@ frmActualizarPasantesCoord = Ext.extend(frmActualizarPasantesCoordUi, {
         frmActualizarPasantesCoord.superclass.initComponent.call(this);
         Ext.getCmp('cmbEstado').on('select',this.cargarCiudades);
         Ext.getCmp('cmbDecanato').on('select',this.buscarCarreras);
-        Ext.getCmp('cmbCarrera').on('select',this.cargarSemestres);
+        Ext.getCmp('cmbCarreraPas').on('select',this.cargarSemestres);
 
         Ext.getCmp('btnGuardar').on('click',this.registrar);
         
         Ext.getCmp('btnAdelantePersonal').on('click', this.habilitar_AdP);
         Ext.getCmp('btnAtrasContacto').on('click', this.habilitar_AC);
         
-        this.cargar();
         Ext.getCmp('txtNombre').focus();
     },
     
@@ -65,25 +64,26 @@ frmActualizarPasantesCoord = Ext.extend(frmActualizarPasantesCoordUi, {
     },
     
     buscarCarreras:function(){
-    	Ext.getCmp('cmbCarrera').clearValue();
-  	  	Ext.getCmp('cmbCarrera').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
+    	Ext.getCmp('cmbCarreraPas').clearValue();
+  	  	Ext.getCmp('cmbCarreraPas').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
     },
     
     cargarSemestres:function(){
     	Ext.getCmp('cmbSemestre').clearValue();
-  	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarrera').getValue()}});
+  	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarreraPas').getValue()}});
     },
     
-	cargar:function(){
-    	cargarPasante("-");
+	cargar:function(id){
+    	cargarPasante(id);
     },
     registrar:function(){
     	if (Ext.getCmp('actualizacionPasanteForm').getForm().isValid()){
 			 Ext.getCmp('actualizacionPasanteForm').getForm().submit(
 				  { waitMsg : 'Enviando datos...', 
-					params:{estado:Ext.getCmp('cmbEstado').getValue(),
+					params:{id: idPasante,
+					  		estado:Ext.getCmp('cmbEstado').getValue(),
 					  		ciudad:Ext.getCmp('cmbCiudad').getValue(),
-					  		carrera: Ext.getCmp('cmbCarrera').getValue(),
+					  		carrera: Ext.getCmp('cmbCarreraPas').getValue(),
 					  		decanato: Ext.getCmp('cmbDecanato').getValue(),
 					  		tipoPasantia: Ext.getCmp('cmbTipoPasantia').getValue(),
 					  		modalidad: Ext.getCmp('cmbModalidadPasantia').getValue(),
@@ -132,11 +132,12 @@ frmActualizarPasantesCoord = Ext.extend(frmActualizarPasantesCoordUi, {
     }
 });
 
-function cargarPasante(vCed){
+function cargarPasante(vId){
+	idPasante = vId;
 	Ext.Ajax.request({
 		url: '/SIGP/pasante/buscarPasanteExistente',
 		method: 'POST',
-		params: {id: vCed},
+		params: {id: vId},
 		success: function(respuesta, request) {
   			var jsonData = Ext.util.JSON.decode(respuesta.responseText);
   				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
@@ -154,7 +155,7 @@ function cargarPasante(vCed){
 	        			//Ext.getCmp('cmbDecanato').setValue(datos.decanato);
 	        			Ext.getCmp('txtIndice').setValue(datos.indiceAcademico);
 	        			Ext.getCmp('cmbSemestre').setValue(datos.semestre);
-	        			//Ext.getCmp('cmbCarrera').setValue(datos.carrera);
+	        			//Ext.getCmp('cmbCarreraPas').setValue(datos.carrera);
 	        			Ext.getCmp('txtDireccion').setValue(datos.direccion);
 	        			//Ext.getCmp('cmbEstado').setValue(datos.estado);
 	        			//Ext.getCmp('cmbCiudad').setValue(datos.ciudad);
@@ -173,7 +174,7 @@ function cargarPasante(vCed){
   					   }
   					});
   					
-  					var cmbCarr = Ext.getCmp('cmbCarrera');                          
+  					var cmbCarr = Ext.getCmp('cmbCarreraPas');                          
                     var storeDpto = cmbCarr.getStore();
                     storeDpto.load({
                        params: {idDecanato: datos.decanato},

@@ -36,7 +36,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
         frmPasantes.superclass.initComponent.call(this);
         Ext.getCmp('cmbEstado').on('select',this.cargarCiudades);
         Ext.getCmp('cmbDecanato').on('select',this.buscarCarreras);
-        Ext.getCmp('cmbCarrera').on('select',this.cargarSemestres);
+        Ext.getCmp('cmbCarreraPas').on('select',this.cargarSemestres);
 
         Ext.getCmp('btnBuscar').on('click',this.buscarPasante);
         
@@ -97,13 +97,13 @@ frmPasantes = Ext.extend(frmPasantesUi, {
     },
     
     buscarCarreras:function(){
-    	Ext.getCmp('cmbCarrera').clearValue();
-  	  	Ext.getCmp('cmbCarrera').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
+    	Ext.getCmp('cmbCarreraPas').clearValue();
+  	  	Ext.getCmp('cmbCarreraPas').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
     },
     
     cargarSemestres:function(){
     	Ext.getCmp('cmbSemestre').clearValue();
-  	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarrera').getValue()}});
+  	  	Ext.getCmp('cmbSemestre').store.reload({params: {idCarrera: Ext.getCmp('cmbCarreraPas').getValue()}});
     },
     registrar:function(){
     	if (Ext.getCmp('registroPasanteForm').getForm().isValid() && sw){
@@ -111,7 +111,7 @@ frmPasantes = Ext.extend(frmPasantesUi, {
 				  { waitMsg : 'Enviando datos...', 
 					params:{estado:Ext.getCmp('cmbEstado').getValue(),
 					  		ciudad:Ext.getCmp('cmbCiudad').getValue(),
-					  		carrera: Ext.getCmp('cmbCarrera').getValue(),
+					  		carrera: Ext.getCmp('cmbCarreraPas').getValue(),
 					  		decanato: Ext.getCmp('cmbDecanato').getValue(),
 					  		tipoPasantia: Ext.getCmp('cmbTipoPasantia').getValue(),
 					  		modalidad: Ext.getCmp('cmbModalidadPasantia').getValue(),
@@ -233,7 +233,7 @@ function habilitarCampos(flag){
 		Ext.getCmp('txtNombre').enable();
 		Ext.getCmp('txtApellido').enable();
 		Ext.getCmp('cmbDecanato').enable();
-		Ext.getCmp('cmbCarrera').enable();
+		Ext.getCmp('cmbCarreraPas').enable();
 		Ext.getCmp('txtIndice').enable();
      	Ext.getCmp('cmbSemestre').enable();
      	Ext.getCmp('opcFemenino').enable();

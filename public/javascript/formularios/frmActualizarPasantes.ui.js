@@ -162,7 +162,7 @@ frmActualizarPasantesUi = Ext
 																	x : 130,
 																	y : 145,
 																	width : 280,
-																	id : 'cmbCarrera',
+																	id : 'cmbCarreraPas',
 																	editable : false,
 																	store : 'stCarrera',
 																	displayField : 'nombre',

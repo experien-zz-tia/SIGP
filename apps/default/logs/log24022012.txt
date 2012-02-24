@@ -1,0 +1,2 @@
+[Fri, 24 Feb 12 12:26:28 -0500][ERROR] Error: 'Error al enviar correo: SMTP Error: Could not connect to SMTP host.'.
+				  Destinatario: robertarrieche@gmail.com

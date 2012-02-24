@@ -45,7 +45,7 @@ panelGestionPasantes = Ext
 								renderTo : Ext.getBody()
 							});
 							frmActP.show();
-							frmActP.cargarPasante(id);
+							frmActP.cargar(id);
 						}
 						
 					},

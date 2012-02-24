@@ -60,14 +60,14 @@ class PasanteController extends ApplicationController{
 		$cedula = 0;
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
 			$idPasante = $this->auth['idUsuario'];
-			$this->setResponse('ajax');
-				
-		}
-//		if (){
-//			
-//		}
-		$cedula = $pasante->buscarCedulaById($idPasante);
 
+		}
+
+		if (($this->getRequestParam('id')) != "-"){
+			$idPasante = $this->getRequestParam('id');
+		}
+		$this->setResponse('ajax');
+		$cedula = $pasante->buscarCedulaById($idPasante);
 		$fchNacimiento = $this->getRequestParam('dataFecha');
 		//$nombre = $this->getRequestParam('txtNombre');
 
@@ -112,7 +112,7 @@ class PasanteController extends ApplicationController{
 		}
 			
 
-		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante)));
+		$this->renderText(json_encode(array("success"=>$success, "pasante"=>$successPasante, "id"=>$idPasante)));
 	}
 	//-----------------------------------------------------------------------------------------
 	public function registrarPasanteAction(){
@@ -246,12 +246,17 @@ class PasanteController extends ApplicationController{
 		$resp['errorMsj']= '';
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_PASANTE){
 			$idPasante = $this->auth['idUsuario'];
-			$this->setResponse('ajax');
-			$cedula = $pasante->buscarCedulaById($idPasante);
-			if ($cedula != 0){
-				$resp = $pasante->buscarPasanteId($cedula);
-			}
 		}
+		if (($this->getRequestParam('id')) != "-"){
+			$idPasante = $this->getRequestParam('id');
+		}
+
+		$this->setResponse('ajax');
+		$cedula = $pasante->buscarCedulaById($idPasante);
+		if ($cedula != 0){
+			$resp = $pasante->buscarPasanteId($cedula);
+		}
+		
 		$this->renderText(json_encode($resp));
 	}
 	//-----------------------------------------------------------------------------------------
