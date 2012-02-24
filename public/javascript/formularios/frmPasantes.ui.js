@@ -79,6 +79,7 @@ frmPasantesUi = Ext
 														{
 															xtype : 'button',
 															text : 'Buscar',
+															iconCls: 'sigp-buscar',
 															width : 75,
 															height : 30,
 															x : 325,
@@ -349,6 +350,7 @@ frmPasantesUi = Ext
 														y : 335,
 														width : 90,
 														height : 30,
+														iconCls: 'sigp-atras',
 														id : 'btnAtrasPersonal'
 													},
 													{
@@ -358,6 +360,7 @@ frmPasantesUi = Ext
 														y : 335,
 														width : 90,
 														height : 30,
+														iconCls: 'sigp-adelante',
 														id : 'btnAdelantePersonal'
 													},
 													{
@@ -508,6 +511,7 @@ frmPasantesUi = Ext
 														y : 335,
 														width : 90,
 														height : 30,
+														iconCls: 'sigp-atras',
 														id : 'btnAtrasContacto'
 													},
 													{
@@ -517,6 +521,7 @@ frmPasantesUi = Ext
 														y : 335,
 														width : 90,
 														height : 30,
+														iconCls: 'sigp-adelante',
 														id : 'btnAdelanteContacto'
 													},
 													{
@@ -608,6 +613,7 @@ frmPasantesUi = Ext
 														y : 335,
 														width : 90,
 														height : 30,
+														iconCls: 'sigp-atras',
 														id : 'btnAtrasAcceso'
 													},
 													{

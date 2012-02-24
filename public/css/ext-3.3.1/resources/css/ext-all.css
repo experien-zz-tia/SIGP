@@ -7433,3 +7433,12 @@ pre.code{
 .sigp-empresa{  
         background: url(../images/default/sigpImagenes/empresa.png);  
   } 
+.sigp-adelante{  
+        background: url(../images/default/sigpImagenes/arrow_right_16.png);  
+  } 
+.sigp-atras{  
+        background: url(../images/default/sigpImagenes/arrow_left_16.png);  
+  } 
+.sigp-buscar{  
+        background: url(../images/default/sigpImagenes/search_button_16.png);  
+  }  

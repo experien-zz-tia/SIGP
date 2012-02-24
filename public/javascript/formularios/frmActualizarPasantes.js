@@ -146,19 +146,14 @@ function cargarPasante(vId){
  	        		var datos = jsonData.datos;
  	        		Ext.getCmp('actualizacionPasanteForm').getForm().reset();
 	        			
- 	        		Ext.getCmp('dataFecha').setValue(datos.fchNacimiento);
+ 	        			Ext.getCmp('dataFecha').setValue(datos.fchNacimiento);
 	        			Ext.getCmp('txtNombre').setValue(datos.nombre);
 	        			Ext.getCmp('txtApellido').setValue(datos.apellido);
 	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
 	        			Ext.getCmp('txtCorreo').setValue(datos.email);
 	        			Ext.getCmp('txtRepetirCorreo').setValue(datos.email);
-	        			//Ext.getCmp('cmbDecanato').setValue(datos.decanato);
 	        			Ext.getCmp('txtIndice').setValue(datos.indiceAcademico);
-	        			Ext.getCmp('cmbSemestre').setValue(datos.semestre);
-	        			//Ext.getCmp('cmbCarreraPas').setValue(datos.carrera);
 	        			Ext.getCmp('txtDireccion').setValue(datos.direccion);
-	        			//Ext.getCmp('cmbEstado').setValue(datos.estado);
-	        			//Ext.getCmp('cmbCiudad').setValue(datos.ciudad);
 	        			Ext.getCmp('txtTelefono').setValue(datos.telefono);
 	        			
 	        			if (datos.sexo=='F'){
@@ -192,13 +187,6 @@ function cargarPasante(vId){
                        }
                     });
                     
-                    var cmbModalidad = Ext.getCmp('cmbModalidadPasantia');      					
-  					var storeMod = cmbModalidad.getStore();
-  					storeMod.load({
-  					   callback: function() {
-  						cmbModalidad.setValue(datos.modalidadPasantia);
-  					   }
-  					});
   					
   					var cmbTipo = Ext.getCmp('cmbTipoPasantia');      					
   					var storeTipo = cmbTipo.getStore();
@@ -209,6 +197,14 @@ function cargarPasante(vId){
   					});
   					
 
+                    var cmbModalidad = Ext.getCmp('cmbModalidadPasantia');      					
+  					var storeMod = cmbModalidad.getStore();
+  					storeMod.load({
+  					   callback: function() {
+  						cmbModalidad.setValue(datos.modalidadPasantia);
+  					   }
+  					});
+  					
                     var cmbEstado = Ext.getCmp('cmbEstado');      					
   					var storeEst = cmbEstado.getStore();
   					storeEst.load({
@@ -227,8 +223,7 @@ function cargarPasante(vId){
                     });
   					
      	        	evento = "actualizar";
- 	        		
-// 	        		Ext.getCmp('txtDescripcion').focus();       				
+ 	        		Ext.getCmp('txtNombre').focus();       				
   				}
 		}
 });	

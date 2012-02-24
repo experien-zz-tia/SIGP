@@ -283,6 +283,7 @@ frmActualizarPasantesCoordUi = Ext
 														y : 335,
 														width: 90,
 						                                height: 30,
+						                                iconCls: 'sigp-adelante',
 														id : 'btnAdelantePersonal'
 													},
 													{
@@ -433,6 +434,7 @@ frmActualizarPasantesCoordUi = Ext
 														y : 335,
 														width: 90,
 						                                height: 30,
+						                                iconCls: 'sigp-atras',
 														id : 'btnAtrasContacto'
 													},
 													{

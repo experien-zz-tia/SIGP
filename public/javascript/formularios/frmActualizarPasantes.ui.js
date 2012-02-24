@@ -281,6 +281,7 @@ frmActualizarPasantesUi = Ext
 														y : 335,
 														width: 90,
 						                                height: 30,
+						                                iconCls: 'sigp-adelante',
 														id : 'btnAdelantePersonal'
 													},
 													{
@@ -431,6 +432,7 @@ frmActualizarPasantesUi = Ext
 														y : 335,
 														width: 90,
 						                                height: 30,
+						                                iconCls: 'sigp-atras',
 														id : 'btnAtrasContacto'
 													},
 													{
