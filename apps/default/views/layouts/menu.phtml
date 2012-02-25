@@ -20,8 +20,9 @@
 
 <table width="100%">
 	<tr>
-		<td valign="top" width="20%"><b>Men&uacute; Principal:</b>
-			<div id="accordion">
+		<td valign="top" width="20%" style="color:#fff" align="center" ><b>Men&uacute; Principal</b>
+		<br>
+			<div id="accordion"  align="left" >
 			<?php
 			$auth=Auth::getActiveIdentity();
 			$categoriaUsuario=$auth['categoriaUsuario_id']; 
@@ -33,8 +34,8 @@
 				echo Tag::linkTo( "#", $menus[$i][0]);
 				echo "</h3><div><ul>";
 				for ($j = 0; $j < count($menus[$i][1]['nombre']); $j++) {
-					echo "<li>";
-					echo "- ".Tag::linkTo( array($menus[$i][1]['ruta'][$j],"target"=>$menus[$i][1]['target'][$j],"text" =>$menus[$i][1]['nombre'][$j])) ;
+					echo "<li ' >";
+					echo "o ".Tag::linkTo( array($menus[$i][1]['ruta'][$j],"target"=>$menus[$i][1]['target'][$j],"text" =>$menus[$i][1]['nombre'][$j])) ;
 					echo "</li>";
 				}
 				echo "</ul></div>";
