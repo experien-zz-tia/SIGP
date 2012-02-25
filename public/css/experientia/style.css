@@ -11,12 +11,15 @@ li {
 q:before,q:after {
 	content: '';
 }
-
+.blanco {
+color: #fff;
+}
 body {
 	font-size: 62.5%;
 	background: rgb(230, 230, 230)
 		url("../../img/imagesExperientia/fondoAbsoluto.png") repeat-x;
 	font-family: arial, sans-serif;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -419,6 +422,7 @@ p:after {
 	padding: 10px 0;
 	position: absolute;
 	margin-left: 0px;
+	color: #000066;
 }
 
 .menu ul li:hover ul {
@@ -429,18 +433,18 @@ p:after {
 	display: block;
 	float: right;
 	position: relative;
-	color: #fff;
+	color: #000066;
 	line-height: normal;
 	margin-left: 20px;
 	border-right: 1px solid #999;
 }
 
 .menu ul li ul li a {
-	color: #FFF;
+	color: #000066;
 }
 
 .menu ul li ul li a:hover {
-	color: #ffcc99;
+	color: #000fff;
 }
 
 #menu_i {

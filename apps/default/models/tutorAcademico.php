@@ -275,7 +275,7 @@ class TutorAcademico extends Tutor {
 		$aux='';
 		$tutor = $this->findFirst("id='$id'");
 		if ($tutor){
-			$aux= "{$tutor->getNombre()}, {$tutor->getApellido()}";
+			$aux= "{$tutor->getNombre()} {$tutor->getApellido()}";
 		}
 		return $aux;
 	}

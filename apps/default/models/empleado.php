@@ -32,7 +32,7 @@ class Empleado extends ActiveRecord{
 		$aux='';
 		$empleado = $this->findFirst("id='$id'");
 		if ($empleado){
-			$aux= "{$empleado->getNombre()}, {$empleado->getApellido()}";
+			$aux= "{$empleado->getNombre()} {$empleado->getApellido()}";
 		}
 		return $aux;
 	}

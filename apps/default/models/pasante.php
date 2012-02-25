@@ -334,7 +334,7 @@ class Pasante extends ActiveRecord{
 		$aux='';
 		$pasante = $this->findFirst("id='$id'");
 		if ($pasante){
-			$aux= "{$pasante->getNombre()}, {$pasante->getApellido()}";
+			$aux= "{$pasante->getNombre()} {$pasante->getApellido()}";
 		}
 		return $aux;
 	}

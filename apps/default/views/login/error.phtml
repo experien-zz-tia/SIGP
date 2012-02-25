@@ -2,28 +2,29 @@
 	Ext.example.msg('Error', "Combinaci&oacute;n Usuario/Contrase&ntilde;a inv&aacute;lida.");
 	document.getElementById('menu').innerHTML = '';
 </script>
-<H2 align="center">Iniciar sesi&oacute;n en Experientia</H2>
-<?php //echo Tag::form(array("login/login","onsubmit"=>"return validaForm(this);","method"=>"post","name"=>"loginForm")); 
-	echo '<form name="loginForm" method="post" onsubmit="return validaForm(this);" action="/SIGP/login/login">';
+<H2 align="center" class="blanco" >Iniciar sesi&oacute;n en Experientia <br> <br> </H2>
+<?php //echo Tag::form(array("login/login","onsubmit"=>"return validaForm(this);","method"=>"post","name"=>"loginForm"));
+echo '<form name="loginForm" method="post" onsubmit="return validaForm(this);" action="/SIGP/login/login">';
 ?>
-<table align="center"  >
-
+<table align="center">
 	<tr align="center">
-		<td>Usuario: </td>
+		<td class="blanco">Usuario:</td>
 	</tr>
 	<tr align="center">
 		<td><input type="text" name="usuario" size="30"></input></td>
 	</tr>
 	<tr align="center">
-	<td>	Contrase&ntilde;a: </td>
+		<td class="blanco">Contrase&ntilde;a:</td>
 	</tr>
 	<tr align="center">
 		<td><input type="password" name="clave" size="30"></input></td>
-
 	</tr>
 	<tr align="center">
-		<td ><button type="submit" class="button">Login</button>
-		<button type="reset" class="button">Cancelar</button></td>
+		<td>
+		<br>
+		<button type="submit" style="width: 80px;" class="button">Login</button>
+		<button type="reset" style="width: 80px;" class="button">Cancelar</button>
+		</td>
 	</tr>
 </table>
 
