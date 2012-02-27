@@ -6,7 +6,7 @@ class Configuracion extends ActiveRecord{
 	 * @var int
 	 */
 	const SOLIC_TUTOR =1;
-	
+
 	/**
 	 * Numero maximo de postulaciones simultaneas que se pueden realizar
 	 * @var int
@@ -17,16 +17,16 @@ class Configuracion extends ActiveRecord{
 	 * @var int
 	 */
 	const SOLIC_RECIBIDAS_TUTOR = 30;
-	
+
 	const MAX_SOLIC_TUTOR =5;
-	
+
 	const MAX_POSTULACIONES_SIMULTANEAS =10;
-	
+
 	const MAX_SOLIC_RECIBIDAS_TUTOR = 50;
 	const MENSAJES_ALMACENADOS =10;
 	const MAX_MENSAJES_ALMACENADOS =20;
-	
-	
+
+
 	protected $id;
 	protected $decanato_id;
 	protected $nroMaxSolicitudTutor;
@@ -37,97 +37,97 @@ class Configuracion extends ActiveRecord{
 	protected $nroMaxMensajesAlmacenados;
 	protected $actualizacionCalificaciones;
 
-	
-	public function getId() { 
-		return $this->id; 
+
+	public function getId() {
+		return $this->id;
 	}
-	public function getDecanato_id() { 
-		return $this->decanato_id; 
+	public function getDecanato_id() {
+		return $this->decanato_id;
 	}
-	public function getNroMaxSolicitudTutor() { 
-		return $this->nroMaxSolicitudTutor; 
+	public function getNroMaxSolicitudTutor() {
+		return $this->nroMaxSolicitudTutor;
 	}
-	public function getNroMaxPostulacionOferta() { 
-		return $this->nroMaxPostulacionOferta; 
+	public function getNroMaxPostulacionOferta() {
+		return $this->nroMaxPostulacionOferta;
 	}
-	public function getNroMaxSolitudRecibidasTutor() { 
-		return $this->nroMaxSolitudRecibidasTutor; 
+	public function getNroMaxSolitudRecibidasTutor() {
+		return $this->nroMaxSolitudRecibidasTutor;
 	}
-	public function getInscripcionesAbiertas() { 
-		return $this->inscripcionesAbiertas; 
+	public function getInscripcionesAbiertas() {
+		return $this->inscripcionesAbiertas;
 	}
-	public function getConsultaCalificaciones() { 
-		return $this->consultaCalificaciones; 
+	public function getConsultaCalificaciones() {
+		return $this->consultaCalificaciones;
 	}
-	public function getNroMaxMensajesAlmacenados() { 
-		return $this->nroMaxMensajesAlmacenados; 
+	public function getNroMaxMensajesAlmacenados() {
+		return $this->nroMaxMensajesAlmacenados;
 	}
-	public function getActualizacionCalificaciones() { 
-		return $this->actualizacionCalificaciones; 
+	public function getActualizacionCalificaciones() {
+		return $this->actualizacionCalificaciones;
 	}
-	public function setActualizacionCalificaciones($x) { 
-		$this->actualizacionCalificaciones = $x; 
+	public function setActualizacionCalificaciones($x) {
+		$this->actualizacionCalificaciones = $x;
 	}
-	public function setNroMaxMensajesAlmacenados($x) { 
-		$this->nroMaxMensajesAlmacenados = $x; 
+	public function setNroMaxMensajesAlmacenados($x) {
+		$this->nroMaxMensajesAlmacenados = $x;
 	}
-	public function setConsultaCalificaciones($x) { 
-		$this->consultaCalificaciones = $x; 
+	public function setConsultaCalificaciones($x) {
+		$this->consultaCalificaciones = $x;
 	}
-	public function setInscripcionesAbiertas($x) { 
-		$this->inscripcionesAbiertas = $x; 
+	public function setInscripcionesAbiertas($x) {
+		$this->inscripcionesAbiertas = $x;
 	}
-	public function setNroMaxSolitudRecibidasTutor($x) { 
-		$this->nroMaxSolitudRecibidasTutor = $x; 
+	public function setNroMaxSolitudRecibidasTutor($x) {
+		$this->nroMaxSolitudRecibidasTutor = $x;
 	}
-	public function setId($x) { 
-		$this->id = $x; 
+	public function setId($x) {
+		$this->id = $x;
 	}
-	public function setDecanato_id($x) { 
-		$this->decanato_id = $x; 
+	public function setDecanato_id($x) {
+		$this->decanato_id = $x;
 	}
-	public function setNroMaxSolicitudTutor($x) { 
-		$this->nroMaxSolicitudTutor = $x; 
+	public function setNroMaxSolicitudTutor($x) {
+		$this->nroMaxSolicitudTutor = $x;
 	}
-	public function setNroMaxPostulacionOferta($x) { 
-		$this->nroMaxPostulacionOferta = $x; 
+	public function setNroMaxPostulacionOferta($x) {
+		$this->nroMaxPostulacionOferta = $x;
 	}
-	
+
 	/**
-	 * Obtiene el numero maximo de solicitudes que un pasante puede realizar de manera simultanea a un tutor academico en un decanato 
+	 * Obtiene el numero maximo de solicitudes que un pasante puede realizar de manera simultanea a un tutor academico en un decanato
 	 * @param int $decanatoId
 	 * @return number
 	 */
 	public function getNroMaxSolicTutorbyDecanato($decanatoId) {
-		$nro = Configuracion::SOLIC_TUTOR; 
+		$nro = Configuracion::SOLIC_TUTOR;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$nro=$config->getNroMaxSolicitudTutor();
 		}
 		return $nro;
 	}
-	
+
 	/**
 	 * Obtiene el numero maximo de postulaciones que un postulante puede realizar de manera simultanea en un decanato
 	 * @param int $decanatoId
 	 * @return number
 	 */
 	public function getNroMaxPostulacionesbyDecanato($decanatoId) {
-		$nro = Configuracion::POSTULACIONES_SIMULTANEAS; 
+		$nro = Configuracion::POSTULACIONES_SIMULTANEAS;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$nro=$config->getNroMaxPostulacionOferta();
 		}
 		return $nro;
 	}
-	
+
 	/**
 	 * Obtiene el numero maximo de postulaciones que puede recibir un tutor de manera simultanea en un decanato
 	 * @param int $decanatoId
 	 * @return number
 	 */
 	public function getNroMaxSolitudesRecibidasbyDecanato($decanatoId) {
-		$nro = Configuracion::SOLIC_RECIBIDAS_TUTOR; 
+		$nro = Configuracion::SOLIC_RECIBIDAS_TUTOR;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$nro=$config->getNroMaxSolitudRecibidasTutor();
@@ -135,16 +135,16 @@ class Configuracion extends ActiveRecord{
 		return $nro;
 	}
 	public function getNroMaxMensajesAlmacenadosbyDecanato($decanatoId) {
-		$nro = Configuracion::MENSAJES_ALMACENADOS; 
+		$nro = Configuracion::MENSAJES_ALMACENADOS;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$nro=$config->getNroMaxMensajesAlmacenados();
 		}
 		return $nro;
 	}
-	
+
 	public function getInscripcionesAbiertasbyDecanato($decanatoId) {
-		$default = 'C'; 
+		$default = 'C';
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$default=$config->getInscripcionesAbiertas();
@@ -152,7 +152,7 @@ class Configuracion extends ActiveRecord{
 		return $default;
 	}
 	public function cerrarInscripciones($decanatoId) {
-		$flag = false; 
+		$flag = false;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$config->setInscripcionesAbiertas('C');
@@ -160,9 +160,9 @@ class Configuracion extends ActiveRecord{
 		}
 		return $flag;
 	}
-	
+
 	public function abrirInscripciones($decanatoId) {
-		$flag = false; 
+		$flag = false;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$config->setInscripcionesAbiertas('A');
@@ -170,9 +170,9 @@ class Configuracion extends ActiveRecord{
 		}
 		return $flag;
 	}
-	
+
 	public function getConsultaCalificacionesbyDecanato($decanatoId) {
-		$default = 'N'; 
+		$default = 'N';
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$default=$config->getConsultaCalificaciones();
@@ -180,7 +180,7 @@ class Configuracion extends ActiveRecord{
 		return $default;
 	}
 	public function cerrarConsultaCalificaciones($decanatoId) {
-		$flag = false; 
+		$flag = false;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$config->setInscripcionesAbiertas('N');
@@ -188,9 +188,9 @@ class Configuracion extends ActiveRecord{
 		}
 		return $flag;
 	}
-	
+
 	public function abrirConsultaCalificaciones($decanatoId) {
-		$flag = false; 
+		$flag = false;
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$config->setInscripcionesAbiertas('S');
@@ -198,16 +198,16 @@ class Configuracion extends ActiveRecord{
 		}
 		return $flag;
 	}
-	
+
 	public function getActualizacionCalificacionesbyDecanato($decanatoId) {
-		$default = 'N'; 
+		$default = 'N';
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			$default=$config->getActualizacionCalificaciones();
 		}
 		return $default;
 	}
-	
+
 	public function getConfiguracionbyDecanato($decanatoId){
 		$aux=array();
 		$aux['maxSolicTutor']=$this->getNroMaxSolicTutorbyDecanato($decanatoId);
@@ -218,30 +218,30 @@ class Configuracion extends ActiveRecord{
 		$aux['calificaciones']=strtoupper($this->getConsultaCalificacionesbyDecanato($decanatoId));
 		$aux['actCalif']=strtoupper($this->getActualizacionCalificacionesbyDecanato($decanatoId));
 		return $aux;
-	
+
 	}
 	public function guardarConfiguracion($decanatoId,$pMaxRecSolicTutor,$pMaxSolicOferta,$pMaxSolicTutor,$pRadioInscrip,$pRadioCalif,$pMaxMensajes,$pRadioActCalif){
-		$flag = false; 
+		$flag = false;
 		$error='';
 		$config = $this->findFirst("decanato_id='$decanatoId'");
 		if ($config){
 			if ($pMaxRecSolicTutor<= Configuracion::MAX_SOLIC_RECIBIDAS_TUTOR and $pMaxRecSolicTutor>0){
-				$config->setNroMaxSolitudRecibidasTutor($pMaxRecSolicTutor);	
+				$config->setNroMaxSolitudRecibidasTutor($pMaxRecSolicTutor);
 			}else{
 				$error .= "Solicitudes recibidas por tutor: Debe estar en el rango [1,".Configuracion::MAX_SOLIC_RECIBIDAS_TUTOR."] <BR>";
 			}
 			if ($pMaxSolicOferta<= Configuracion::MAX_POSTULACIONES_SIMULTANEAS and $pMaxSolicOferta>0){
-				$config->setNroMaxPostulacionOferta($pMaxSolicOferta);	
+				$config->setNroMaxPostulacionOferta($pMaxSolicOferta);
 			}else{
 				$error .= "Postulaciones por pasante: Debe estar en el rango [1,".Configuracion::MAX_POSTULACIONES_SIMULTANEAS."]<BR>";
 			}
 			if ($pMaxSolicTutor<= Configuracion::MAX_SOLIC_TUTOR and $pMaxSolicTutor>0){
-				$config->setNroMaxSolicitudTutor($pMaxSolicTutor);	
+				$config->setNroMaxSolicitudTutor($pMaxSolicTutor);
 			}else{
 				$error .= "Solicitudes por pasante a tutor: Debe estar en el rango [1,".Configuracion::MAX_SOLIC_TUTOR."]<BR>";
 			}
 			if ($pMaxMensajes<= Configuracion::MAX_MENSAJES_ALMACENADOS and $pMaxMensajes>0){
-				$config->setNroMaxMensajesAlmacenados($pMaxMensajes);	
+				$config->setNroMaxMensajesAlmacenados($pMaxMensajes);
 			}else{
 				$error .= "Mensajes: Debe estar en el rango [1,".Configuracion::MAX_MENSAJES_ALMACENADOS."]<BR>";
 			}
@@ -250,7 +250,7 @@ class Configuracion extends ActiveRecord{
 			$pRadioInscrip= strtoupper($pRadioInscrip);
 			if ($pRadioInscrip=='A' OR $pRadioInscrip=='C'){
 				if ($lapsoActivo==1){
-					$config->setInscripcionesAbiertas($pRadioInscrip);	
+					$config->setInscripcionesAbiertas($pRadioInscrip);
 				}else{
 					$error .= "Inscripciones: No hay lapso académico activo, debe activar un lapso para poder habilitar las inscripciones.";
 				}
@@ -260,7 +260,7 @@ class Configuracion extends ActiveRecord{
 			$pRadioCalif= strtoupper($pRadioCalif);
 			if ($pRadioCalif=='S' OR $pRadioCalif=='N'){
 				if ($lapsoActivo==1){
-					$config->setConsultaCalificaciones($pRadioCalif);	
+					$config->setConsultaCalificaciones($pRadioCalif);
 				}else{
 					$error .= "Calificaciones: No hay lapso académico activo, debe activar un lapso para poder habilitar la consulta de Calificaciones.";
 				}
@@ -270,7 +270,7 @@ class Configuracion extends ActiveRecord{
 			$pRadioActCalif= strtoupper($pRadioActCalif);
 			if ($pRadioActCalif=='S' OR $pRadioActCalif=='N'){
 				if ($lapsoActivo==1){
-					$config->setActualizacionCalificaciones($pRadioActCalif);	
+					$config->setActualizacionCalificaciones($pRadioActCalif);
 				}else{
 					$error .= "Actualización Calificaciones: No hay lapso académico activo, debe activar un lapso para poder habilitar las inscripciones.";
 				}
@@ -283,6 +283,71 @@ class Configuracion extends ActiveRecord{
 		$aux['errores']=$error;
 		return $aux;
 	}
+
+
+	public  function backupTables($tables='*'){
+
+		$host= "localhost";
+		$user = "experientia";
+		$pass = "omega.1020";
+		$name = "bdpasantias";
+
+		$link = mysql_connect($host,$user,$pass);
+		mysql_select_db($name,$link);
+		$return='';
+		//get all of the tables
+		if($tables == '*')
+		{
+			$tables = array();
+			$result = mysql_query('SHOW TABLES');
+			while($row = mysql_fetch_row($result))
+			{
+				$tables[] = $row[0];
+			}
+		}
+		else
+		{
+			$tables = is_array($tables) ? $tables : explode(',',$tables);
+		}
+
+		//cycle through
+		foreach($tables as $table)
+		{
+			$result = mysql_query('SELECT * FROM '.$table);
+			$num_fields = mysql_num_fields($result);
+
+			//$return.= 'DROP TABLE '.$table.';';
+			$row2 = mysql_fetch_row(mysql_query('SHOW CREATE TABLE '.$table));
+			$return.= "\n\n".$row2[1].";\n\n";
+
+			for ($i = 0; $i < $num_fields; $i++)
+			{
+				while($row = mysql_fetch_row($result))
+				{
+					$return.= 'INSERT INTO '.$table.' VALUES(';
+					for($j=0; $j<$num_fields; $j++)
+					{
+						$row[$j] = addslashes($row[$j]);
+						$row[$j] = preg_replace("/\r\n/","\\r\\n",$row[$j]);
+						if (isset($row[$j])) { $return.= '"'.$row[$j].'"' ; } else { $return.= '""'; }
+						if ($j<($num_fields-1)) { $return.= ','; }
+					}
+					$return.= ");\n";
+				}
+			}
+			$return.="\n\n\n";
+		}
+
+		//save file
+		$gzdata = gzencode($return, 9);
+		$nombreArchivo='db-'.date("ymd").'.sql.gz';
+		$handle = fopen($nombreArchivo,'w+');
+		fwrite($handle, $gzdata);
+		fclose($handle);
+		return readfile($nombreArchivo);
+	}
+
+
 }
 
 ?>
