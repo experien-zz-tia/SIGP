@@ -37,13 +37,17 @@ class PasanteController extends ApplicationController{
 		$resp['errorMsj']= '';
 
 		$pasantia = new Pasantia();
-		if ($pasantia->eliminarPasantia($idPasantia)){
+		if ($pasantia->eliminarPasantia($idPasantia, $id)){
 			$pasante = new Pasante();
 			if ($pasante->eliminarPasante($id)){
 				$solicitud = new Solicitudtutoracademico();
 				if ($solicitud->retirarSolicitudes($id)){
 					$resp['success']=true;
 				} else $resp['errorMsj']= 'solicitudes';
+				
+				$usuario = new Usuario();
+				$usuario->buscarEliminarUserPasante($id);
+				
 			} else $resp['errorMsj']= 'pasante';
 		} else $resp['errorMsj']= 'pasantia';
 

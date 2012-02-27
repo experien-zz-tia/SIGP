@@ -130,25 +130,39 @@ class Pasantia extends ActiveRecord {
 	/**
 	 * Elimina la pasantia asociada a un pasante. Actualiza los cupos de las ofertas
 	 */
-	public function eliminarPasantia($id){
-		$success=false;
+	public function eliminarPasantia($id, $idPasante){
+		$success = false;
+		$respA = array();
+		$respP = array();
+		$pasante = new Pasante();
 		$pas = $this->findFirst("id='$id'");
 		if ($pas){
 			$pas->setEstatus('E');
-			$id = $pas->getOferta_id(); 
 			$success = $pas->update();
 			if ($success){
-				$oferta = new Oferta();
-				$oferta->actualizarCupoOferta($id);
-				$success = $oferta->update();
-			
-		/*	if ($solicitud->getEstatus() == 'R'){
-				$correo = new Correo();
-				$body ='Notificación. <BR/>
-			  	Le informamos que el estudiante '.$resp['datos']['nombre'].' '.$resp['datos']['apellido'].' ya no se encuentra registrado
+				$respP = $pasante->buscarPasanteId($pasante->buscarCedulaById($idPasante));
+				if($respP['success'] == true){
+
+					$tutorA = new TutorAcademico();
+					$respA = $tutorA->buscarTutorAcad($tutorA->buscarCedulaById($pas->getTutorAcademico_id()));
+					if($respA['success'] == true){
+						$correo = new Correo();
+						$body ='Notificación. <BR/>
+			  	Le informamos que '.$respP['datos']['nombre'].' '.$respP['datos']['apellido'].' estudiante de la Universidad Centroccidental "Lisandro Alvarado" ya no se encuentra registrado
 			  	como pasante por lo que no debe realizar evaluaciones relacionadas. Cualquier inquietud puede escribir a coord.pasantias@gmail.com. Gracias por su atención.<BR/>';
-				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
-			}*/
+						$correo->enviarCorreo($respA['datos']['email'], 'Eliminación de Pasante', $body);
+					}
+					
+					$tutorE = new TutorEmpresarial();
+					$respE = $tutorE->getTutorEmpresarialById($pas->getTutorEmpresarial_id());
+					if($respE['success'] == true){
+						$correo = new Correo();
+						$body ='Notificación. <BR/>
+			  	Le informamos que '.$respP['datos']['nombre'].' '.$respP['datos']['apellido'].' estudiante de la Universidad Centroccidental "Lisandro Alvarado" ya no se encuentra registrado
+			  	como pasante por lo que no debe realizar evaluaciones relacionadas. Cualquier inquietud puede escribir a coord.pasantias@gmail.com. Gracias por su atención.<BR/>';
+						$correo->enviarCorreo($respE['correo'], 'Eliminación de Pasante', $body);
+					}
+				}
 			}
 		}
 		return $success;

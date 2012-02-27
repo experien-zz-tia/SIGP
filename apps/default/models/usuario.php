@@ -243,19 +243,33 @@ class Usuario extends ActiveRecord {
 		}
 		return $success;
 	}
-	
+
 	public function reactivarUser($id){
 		$success=false;
 		$aux=$this->findFirst("id='$id' ");
 		if ($aux){
 			if ($aux->getEstatus()=='E'){
 				$aux->setEstatus('A');
-				$success= $aux->update();	
+				$success= $aux->update();
 			}
 		}
 		return $success;
 	}
 
+	//-----------------------------------------------------------------------------------------
+	public function buscarEliminarUserPasante($idPasante){
+		$success = false;
+		$tam = 0;
+		$usuariosPorPasante = $this->find("idUsuario = '$idPasante' AND categoriaUsuario_id = ".CAT_USUARIO_PASANTE );
+		foreach ($usuariosPorPasante as $usuario){
+			$success = $this->eliminarUser($usuario->getId());
+			if ($success == false){
+				return $success;
+				break;
+			}
+		}
+		return $success;
+	}
 }
 
 ?>

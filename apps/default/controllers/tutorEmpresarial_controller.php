@@ -5,7 +5,7 @@ require_once('utilities/constantes.php');
 class TutorEmpresarialController extends ApplicationController{
 
 	protected   $auth;
-	
+
 	protected function initialize(){
 		$this->setTemplateAfter("menu");
 		$this->auth=Auth::getActiveIdentity();
@@ -14,6 +14,8 @@ class TutorEmpresarialController extends ApplicationController{
 	public function indexAction(){
 		$this->routeTo('action: gestionar');
 	}
+
+	public function actualizarAction(){}
 
 	public function gestionarAction(){
 		$this->setParamToView('idUsuario', $this->auth['idUsuario']);
@@ -102,7 +104,7 @@ class TutorEmpresarialController extends ApplicationController{
 		$successRegistro= false;
 		$this->setResponse('ajax');
 		$idEmpresa=$this->auth['idUsuario'];
-		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_EMPRESA){			
+		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_EMPRESA){
 			$tutorE = new TutorEmpresarial();
 			$cedula=$this->getParametro('txtCedula','string','');
 			$nombre=utf8_decode($this->getParametro('txtNombre','string',''));
@@ -131,7 +133,25 @@ class TutorEmpresarialController extends ApplicationController{
 			}else{
 				$resp['errorMsj']= 'Parámetros incompletos.';
 			}
-		}else{
+		} else if ($this->auth['categoriaUsuario_id'] == CAT_USUARIO_TUTOR_EMP){
+			$idTutor = $this->auth['idUsuario'];
+			$respE = array();
+			$tutorE = new TutorEmpresarial();
+			$respE = $tutorE->getTutorEmpresarialById($idTutor);
+
+			$cedula= $respE['cedula'];
+			$idEmpresa = $respE['empresa'];
+			$nombre = utf8_decode($this->getParametro('txtNombre','string',''));
+			$apellido = utf8_decode($this->getParametro('txtApellido','string',''));
+			$telefono = $this->getParametro('txtTelefono','string','');
+			$correo = $this->getParametro('txtCorreo','string','');
+			$cargo= utf8_decode($this->getParametro('txtCargo','string',''));
+
+			if ($nombre!='' and $apellido!='' and $correo!='' and $cargo!=''){
+				$aux = $tutorE->guardarTutorE($idEmpresa,$cedula,$nombre,$apellido,$telefono,$correo,$cargo);
+			}
+
+		} else{
 			$resp['errorMsj']= 'Ud. no posee la permisologia para realizar esta operaci&oacute;n.';
 		}
 		$resp['errorMsj']=utf8_encode($resp['errorMsj']);
@@ -205,17 +225,29 @@ class TutorEmpresarialController extends ApplicationController{
 	 */
 	public function buscarTutorEmpresarialAction(){
 		$resp=array();
-		$pCedula = $this->getRequestParam('cedula');
-		$pEmpresa_id =$this->auth['idUsuario'];
-		$this->setResponse('ajax');
+		$pCedula = 0;
+		$pEmpresa_id = 0;
+		if ($this->auth['categoriaUsuario_id'] == CAT_USUARIO_TUTOR_EMP){
+			$idTutor = $this->auth['idUsuario'];
+			$respE = array();
+			$tutorEmp = new TutorEmpresarial();
+			$respE = $tutorEmp->getTutorEmpresarialById($idTutor);
+
+			$pCedula = $respE['cedula'];
+			$pEmpresa_id = $respE['empresa'];
+		} else {
+			$pCedula = $this->getRequestParam('cedula');
+			$pEmpresa_id =$this->auth['idUsuario'];
+			$this->setResponse('ajax');
+		}
+
 		$tutorE = new TutorEmpresarial();
 		$resp=$tutorE->buscarTutorEmpresarial($pCedula,$pEmpresa_id);
 		$this->renderText(json_encode($resp));
-
 	}
-	
+
 	/**
-	 * Obtiene los tutores emrpesariales de una empresa  
+	 * Obtiene los tutores emrpesariales de una empresa
 	 */
 	public function getTutoresAction(){
 		$this->setResponse('ajax');
@@ -223,7 +255,7 @@ class TutorEmpresarialController extends ApplicationController{
 		$pEmpresa_id =$this->auth['idUsuario'];
 		$this->renderText(json_encode($tutor->getTutores($pEmpresa_id)));
 	}
-	
-	
+
+
 }
 ?>

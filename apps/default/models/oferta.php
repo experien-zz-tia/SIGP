@@ -239,21 +239,6 @@ class Oferta extends ActiveRecord {
 
 	}
 
-	/**
-	 * Actualiza los cupos de las ofertas si se elimina un pasante
-	 */
-	public function actualizarCupoOferta($id){
-		$success=false;
-		$cupos = 0;
-		$oferta = $this->findFirst("id='$id'");
-		if ($oferta){
-			$cupos = $oferta->getCupos()+1;
-			$oferta->setCupos($cupos);
-			$success = $oferta->update();
-		}
-		return $success;
-	}
-
 	public function eliminarOferta($id){
 		$success=false;
 		$oferta = $this->findFirst("id='$id'");

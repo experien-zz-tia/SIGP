@@ -76,7 +76,16 @@ class ReportPDF extends FPDFv17{
 		// Salto de línea
 		$this->Ln(4);
 	}
-
+	
+	function imprimirFecha($titulo)	{
+		// Arial 12
+		$this->SetFont('Arial','B',12);
+		// Título
+		$this->Cell(-2,6,$titulo,0,1,'C',true);
+		// Salto de línea
+		$this->Ln(4);
+	}
+	
 	function Footer(){
 		// Posición a 2 cm del final
 		$this->SetY(-20);

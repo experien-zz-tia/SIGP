@@ -1,0 +1,14 @@
+<?php echo Tag::javascriptInclude('formularios/frmSolicitudCarta.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmSolicitudCarta') ?>
+
+<script type='text/javascript'>
+Ext.onReady(function() {
+	Ext.QuickTips.init();
+		var panel = new frmSolicitudCarta({
+	    	renderTo: 'panel'
+	
+	    });
+		panel.show();
+	});
+</script>
+<DIV align="center" id='panel'></DIV>

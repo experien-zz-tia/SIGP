@@ -151,6 +151,7 @@ class TutorEmpresarial extends Tutor {
 	public function getTutorEmpresarialById($id){
 		$resultado=array();
 		$tutor = $this->findFirst("id='$id'");
+		$resultado['success'] = false;
 		if ($tutor){
 			$resultado['id']=$tutor->getId();
 			$resultado['cedula']=utf8_encode($tutor->getCedula());
@@ -159,6 +160,8 @@ class TutorEmpresarial extends Tutor {
 			$resultado['correo']=$tutor->getEmail();
 			$resultado['cargo']=utf8_encode($this->adecuarTexto($tutor->getCargo()));
 			$resultado['telefono']=$tutor->getTelefono();
+			$resultado['empresa']=$tutor->getEmpresa_id();
+			$resultado['success'] = true;
 		}
 			
 		return $resultado;

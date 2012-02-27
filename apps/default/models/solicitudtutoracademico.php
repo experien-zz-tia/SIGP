@@ -254,17 +254,20 @@ class Solicitudtutoracademico extends ActiveRecord{
 	public function retirarSolicitudes($pasanteId) {
 		$success = true;
 		$resp = array();
+		$respA = array();
 		$solicitudes = $this->find("pasante_id='$pasanteId' ");
 		$pasante = new Pasante();
 		$resp = $pasante->buscarPasanteId($pasante->buscarCedulaById($pasanteId));
 
 		foreach ($solicitudes as $solicitud){
-			if ($solicitud->getEstatus() == 'P'){
+			$tutorA = new TutorAcademico();
+				$respA = $tutorA->buscarTutorAcad($tutorA->buscarCedulaById($solicitud->getTutorAcademico_id()));
+			if (($solicitud->getEstatus() == 'P') && ($respA['success'] == true)){				
 				$correo = new Correo();
 				$body ='Notificación. <BR/>
 			  	Le informamos que el estudiante '.$resp['datos']['nombre'].' '.$resp['datos']['apellido'].' ya no se encuentra registrado
 			  	como pasante por lo que la solicitud realizada a su persona el '.$solicitud->getFchSolicitud().' será descartada del sistema. Gracias por su atención.<BR/>';
-				$correo->enviarCorreo($resp['datos']['email'], 'Eliminación de Pasante', $body);
+				$correo->enviarCorreo($respA['datos']['email'], 'Eliminación de Pasante', $body);
 			}
 			$solicitud->setEstatus('E');
 			$success = $solicitud->update();
