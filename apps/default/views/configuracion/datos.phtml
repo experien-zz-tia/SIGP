@@ -1,0 +1,25 @@
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmEmpresa.ui') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/frmEmpresa') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptMinifiedInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+ 	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	Ext.get('btnRespaldar').on('click', function(e){
+    		window.open('/SIGP/configuracion/respaldar');
+    	});
+	});
+</script>
+
+<div class="textoRegistro"><b style="font-weight: bold;">Respaldo</b> <br />
+<BR>
+Para respaldar la base de datos actual haga click en el siguiente bot&oacute;n: <BR>
+<BR>
+<button id="btnRespaldar" class="button">Respaldar</button>
+<BR>
+<BR>
+
+</div>

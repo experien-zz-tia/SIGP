@@ -61,14 +61,13 @@ panelNoticiasUi = Ext.extend(Ext.Panel, {
                         tooltip: 'Contenido de la noticia'
                     },
                      {
-                        xtype: 'datecolumn',
+                        xtype: 'gridcolumn',
                         header: 'Fecha Publicaci&oacute;n',
                         sortable: true,
                         width: 100,
                         editable: false,
                         dataIndex: 'fchPublicacion',
-                        tooltip: 'Fecha de creaci&oacute;n de la oferta',
-                        format:'d/m/Y'
+                        tooltip: 'Fecha de creaci&oacute;n de la oferta'
                     },
                        {
                         xtype: 'gridcolumn',

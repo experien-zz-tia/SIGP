@@ -74,6 +74,22 @@ class ConfiguracionController extends ApplicationController {
 		$this->renderText(json_encode($resp));
 	}
 
+	public function datosAction(){
+		
+	}
+	public function respaldarAction(){
+		$config = new Configuracion();
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/zip');
+		header('Content-Disposition: attachment; filename=backup.sql.gz');
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		ob_clean();
+		flush();
+		$config->backupTables();		
+	}
 
 }
 ?>

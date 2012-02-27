@@ -24,7 +24,7 @@ stNoticias = Ext.extend(Ext.data.JsonStore, {
                 },
                 {
                     name: 'fchPublicacion',
-                    type: 'date'
+                    type: 'string'
                 },
                 {
                     name: 'autor',
