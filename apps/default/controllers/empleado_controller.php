@@ -11,8 +11,6 @@ class EmpleadoController extends ApplicationController{
 		$this->auth=Auth::getActiveIdentity();
 	}
 
-
-
 	/**
 	 * Busca la informacion, segun los parametros enviados en el request
 	 */
@@ -23,7 +21,6 @@ class EmpleadoController extends ApplicationController{
 		$empleado = new Empleado();
 		$resp=$empleado->buscar($pCedula);
 		$this->renderText(json_encode($resp));
-
 	}
 
 	public function registrarAction(){
