@@ -49,7 +49,7 @@ panelGestionEmpleados = Ext.extend(panelGestionEmpleadosUi, {
 				}
       		  habilitarCampos(true);
       		  Ext.getCmp('txtCedula').disable();
-      		  Ext.getCmp('radioTipo').disable();
+//      		  Ext.getCmp('radioTipo').disable();
         	  Ext.getCmp('btnActualizar').show();
         	  Ext.getCmp('btnRegistrar').hide();
         	 frm.show();

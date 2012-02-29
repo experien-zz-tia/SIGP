@@ -11,20 +11,40 @@ class EmpleadoController extends ApplicationController{
 		$this->auth=Auth::getActiveIdentity();
 	}
 
-
+	public function actualizarEmpleadoAction(){ }
 
 	/**
 	 * Busca la informacion, segun los parametros enviados en el request
 	 */
 	public function buscarAction(){
 		$resp=array();
+		$empleado = new Empleado();
 		$pCedula = $this->getRequestParam('pCedula');
 		$this->setResponse('ajax');
-		$empleado = new Empleado();
-		$resp=$empleado->buscar($pCedula);
+		$resp = $empleado->buscar($pCedula);
 		$this->renderText(json_encode($resp));
 
 	}
+
+	public function buscarExistenteAction(){
+		$resp=array();
+		$empleado = new Empleado();
+		$pCedula = '';
+		if (($this->auth['categoriaUsuario_id'] == CAT_USUARIO_COORDINADOR) or
+		($this->auth['categoriaUsuario_id'] == CAT_USUARIO_ADMINISTRADOR) or
+		($this->auth['categoriaUsuario_id'] == CAT_USUARIO_ANALISTA) ){
+			$id = $this->auth['idUsuario'];
+			$respEmpl = array();
+			$respEmpl = $empleado->buscarbyId($id);
+			$pCedula = $respEmpl['cedula'];
+		}
+
+		$this->setResponse('ajax');
+
+		$resp = $empleado->buscar($pCedula);
+		$this->renderText(json_encode($resp));
+	}
+
 
 	public function registrarAction(){
 		$resp=array();
@@ -152,6 +172,33 @@ class EmpleadoController extends ApplicationController{
 		$resp['errorMsj']= '';
 		$this->setResponse('ajax');
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_ADMINISTRADOR){
+			$empleado = new Empleado();
+			$nombre=utf8_decode($this->getParametro('txtNombre','string',''));
+			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
+			$correo = $this->getParametro('txtCorreo','string','');
+			$id = $this->getParametro('txtIdEmpleado', 'numerico', -1);
+			$decanato=DECANATO_CIENCIAS;
+			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1){
+				$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
+			}else{
+				$resp['errorMsj']= 'Parámetros incompletos.';
+			}
+		}else{
+			$resp['errorMsj']= 'Ud. no posee la permisologia para realizar esta operaci&oacute;n.';
+		}
+		$resp['errorMsj']=utf8_encode($resp['errorMsj']);
+		$this->renderText(json_encode($resp));
+
+	}
+
+	public function actualizarEmpleadosAction(){
+		$resp=array();
+		$resp['success']= false;
+		$resp['errorMsj']= '';
+		$this->setResponse('ajax');
+		if (($this->auth['categoriaUsuario_id'] == CAT_USUARIO_COORDINADOR) or
+		($this->auth['categoriaUsuario_id'] == CAT_USUARIO_ADMINISTRADOR) or
+		($this->auth['categoriaUsuario_id'] == CAT_USUARIO_ANALISTA) ){
 			$empleado = new Empleado();
 			$nombre=utf8_decode($this->getParametro('txtNombre','string',''));
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));

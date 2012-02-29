@@ -149,8 +149,9 @@ class TutorEmpresarialController extends ApplicationController{
 
 			if ($nombre!='' and $apellido!='' and $correo!='' and $cargo!=''){
 				$aux = $tutorE->guardarTutorE($idEmpresa,$cedula,$nombre,$apellido,$telefono,$correo,$cargo);
+				$resp['success']=true;
 			}
-
+				
 		} else{
 			$resp['errorMsj']= 'Ud. no posee la permisologia para realizar esta operaci&oacute;n.';
 		}
@@ -238,9 +239,9 @@ class TutorEmpresarialController extends ApplicationController{
 		} else {
 			$pCedula = $this->getRequestParam('cedula');
 			$pEmpresa_id =$this->auth['idUsuario'];
-			$this->setResponse('ajax');
-		}
 
+		}
+		$this->setResponse('ajax');
 		$tutorE = new TutorEmpresarial();
 		$resp=$tutorE->buscarTutorEmpresarial($pCedula,$pEmpresa_id);
 		$this->renderText(json_encode($resp));

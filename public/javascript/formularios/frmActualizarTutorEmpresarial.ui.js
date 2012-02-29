@@ -115,10 +115,8 @@ frmActualizarTutorEmpresarialUi = Ext.extend(Ext.Panel, {
 					id : 'txtCargo'
 				}, {
 					xtype : 'textfield',
-					name : 'txtCorreo',
 					x : 105,
 					y : 130,
-
 					width : 305,
 					maxLength : 40,
 					allowBlank : false,
@@ -130,7 +128,6 @@ frmActualizarTutorEmpresarialUi = Ext.extend(Ext.Panel, {
 					y : 160,
 					width : 305,
 					maxLength : 40,
-					name : 'txtCorreoRepetir',
 					allowBlank : false,
 					vtype : 'emailIguales',
 					campoInicial : 'txtCorreo',

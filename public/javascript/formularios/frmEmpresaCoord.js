@@ -67,7 +67,6 @@ frmEmpresaCoord = Ext.extend(frmEmpresaCoordUi, {
 	      			method: 'POST',
 	      			params: {pEmpresaId:Ext.getCmp('txtIdEmpresa').getValue(),
       					pRazonSocial:Ext.getCmp('txtRazonSocial').getValue(),
-	  					pRif:Ext.getCmp('txtRif').getValue(),
 	  					pDireccion:Ext.getCmp('txtDireccion').getValue(),
 	  					pCiudad:Ext.getCmp('cmbCiudad').getValue(),
 	  					pEstado:Ext.getCmp('cmbEstado').getValue(),
@@ -76,7 +75,8 @@ frmEmpresaCoord = Ext.extend(frmEmpresaCoordUi, {
 	  					pDescripcion:Ext.getCmp('txtDescripcion').getValue(),
 						pWeb:Ext.getCmp('txtWeb').getValue(),
 						pRepresentante:Ext.getCmp('txtRepresentante').getValue(),
-						pCargo:Ext.getCmp('txtCargo').getValue()
+						pCargo:Ext.getCmp('txtCargo').getValue(),
+						pCorreo: ''
 	      				},
 	      			success: function(respuesta, request) {
 	      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);

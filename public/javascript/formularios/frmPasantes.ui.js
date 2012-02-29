@@ -501,6 +501,8 @@ frmPasantesUi = Ext
 																	y : 185,
 																	width : 280,
 																	name : 'txtRepetirCorreo',
+																	vtype : 'emailIguales',
+																	campoInicial : 'txtCorreo',
 																	id : 'txtRepetirCorreo'
 																} ]
 													},

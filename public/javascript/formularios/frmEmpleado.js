@@ -112,7 +112,13 @@ frmEmpleado = Ext.extend(frmEmpleadoUi, {
 					 Ext.Ajax.request({
 	      			url: '/SIGP/empleado/actualizar',
 	      			method: 'POST',
-	      			params: {txtNombre:	Ext.getCmp('txtNombre').getValue(),
+	      			params: {pRadioTipo : Ext.getCmp('radioTipo')
+							.getValue().getId() == 'radioA'
+								? 'A'
+								: Ext.getCmp('radioTipo')
+								.getValue().getId() == 'radioC'?'C':'S',
+							txtCedula: Ext.getCmp('txtCedula').getValue(),
+							txtNombre:	Ext.getCmp('txtNombre').getValue(),
 							txtApellido: Ext.getCmp('txtApellido').getValue(),
 							txtCorreo: Ext.getCmp('txtCorreo').getValue(),
 	      					txtIdEmpleado: Ext.getCmp('txtIdEmpleado').getValue()

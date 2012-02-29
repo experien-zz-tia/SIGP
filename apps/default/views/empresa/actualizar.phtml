@@ -1,0 +1,19 @@
+<?php echo Tag::javascriptInclude('formularios/frmActualizarEmpresa.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarEmpresa') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptMinifiedInclude('formularios/validaciones/validaciones') ?>
+<?php echo Tag::javascriptMinifiedInclude('jshash-2.2/md5') ?>
+
+
+<DIV id="panel" ></DIV>
+
+<script type='text/javascript'>
+ 		Ext.onReady(function() {
+    		Ext.QuickTips.init();
+    		var formActEmp = new frmActualizarEmpresa({
+        		renderTo: 'panel'
+    	});
+    		formActEmp.show();
+		});
+</script>

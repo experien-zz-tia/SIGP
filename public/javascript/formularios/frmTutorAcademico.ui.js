@@ -236,6 +236,9 @@ frmTutorAcademicoUi = Ext.extend(Ext.Window, {
                                 y: 220,
                                 width: 305,
                                 name: 'txtRepetirCorreo',
+                                allowBlank: false,
+                                vtype: 'emailIguales',
+                                campoInicial: 'txtCorreo',
                                 id: 'txtRepetirCorreo'
                             },
                             {

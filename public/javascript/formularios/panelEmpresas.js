@@ -115,6 +115,7 @@ panelEmpresas = Ext.extend(panelEmpresasUi, {
       					var resultado= jsonData.resultado;
       					//Mostramos los valores obtenidos
       					Ext.getCmp('txtRif').setValue(resultado.rif);
+      					Ext.getCmp('txtRif').disable(true);
       					Ext.getCmp('txtRazonSocial').setValue(resultado.razonSocial);
       					Ext.getCmp('txtTelefono').setValue(resultado.telefono);
       					Ext.getCmp('txtTelefono2').setValue(resultado.telefono2);

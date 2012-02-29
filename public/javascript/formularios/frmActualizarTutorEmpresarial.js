@@ -34,7 +34,7 @@ frmActualizarTutorEmpresarial = Ext
 														Ext.MessageBox
 																.show( {
 																	title : 'Error',
-																	msg : 'Error al registrar.',
+																	msg : 'Error al actualizar',
 																	buttons : Ext.MessageBox.OK,
 																	icon : Ext.MessageBox.ERROR
 																});
@@ -44,22 +44,9 @@ frmActualizarTutorEmpresarial = Ext
 														Ext.MessageBox
 																.show( {
 																	title : 'Informaci&oacute;n',
-																	msg : 'Registro exitoso.',
+																	msg : 'Actualizaci&oacute;n exitosa',
 																	buttons : Ext.MessageBox.OK,
 																	icon : Ext.MessageBox.INFO,
-																	fn : function() {
-																		Ext
-																				.getCmp(
-																						'formActTutorEmpresarial')
-																				.getForm()
-																				.reset();
-																		Ext
-																				.getCmp(
-																						'frmActualizarTutorEmpresarial')
-																				.hide();
-																		stTutoresEmpresariales
-																				.reload();
-																	}
 																});
 													} // End Success
 												});
@@ -93,8 +80,10 @@ frmActualizarTutorEmpresarial = Ext
 												.decode(respuesta.responseText);
 										if (jsonData.success == true) {
 											Ext.getCmp('txtCedula').disable();
-											habilitarCampos(true);
+											
 											var datos = jsonData.datos;
+											Ext.getCmp('txtCedula').setValue(
+													datos.cedula);
 											Ext.getCmp('txtNombre').setValue(
 													datos.nombre);
 											Ext.getCmp('txtApellido').setValue(
@@ -103,12 +92,10 @@ frmActualizarTutorEmpresarial = Ext
 													datos.telefono);
 											Ext.getCmp('txtCorreo').setValue(
 													datos.email);
-											Ext.getCmp('txtCorreoRepetir')
-													.setValue(datos.email);
+											Ext.getCmp('txtCorreoRepetir').setValue(
+													datos.email);
 											Ext.getCmp('txtCargo').setValue(
 													datos.cargo);
-											Ext.getCmp('txtCedula').disable();
-
 										}
 									}
 								});

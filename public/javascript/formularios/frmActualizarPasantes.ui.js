@@ -202,7 +202,7 @@ frmActualizarPasantesUi = Ext
 																	loadingText : 'Cargando...',
 																	emptyText : '-',
 																	blankText : 'Seleccione una carrera.',
-																	mode : 'local'																	
+																	mode : 'local'
 																},
 																{
 																	xtype : 'label',
@@ -279,9 +279,9 @@ frmActualizarPasantesUi = Ext
 														text : 'Adelante',
 														x : 340,
 														y : 335,
-														width: 90,
-						                                height: 30,
-						                                iconCls: 'sigp-adelante',
+														width : 90,
+														height : 30,
+														iconCls : 'sigp-adelante',
 														id : 'btnAdelantePersonal'
 													},
 													{
@@ -413,6 +413,7 @@ frmActualizarPasantesUi = Ext
 																	x : 130,
 																	y : 155,
 																	width : 280,
+																	
 																	name : 'txtCorreo',
 																	id : 'txtCorreo'
 																},
@@ -422,6 +423,9 @@ frmActualizarPasantesUi = Ext
 																	y : 185,
 																	width : 280,
 																	name : 'txtRepetirCorreo',
+																	
+//																	vtype : 'emailIguales',
+//																	campoInicial : 'txtCorreo',
 																	id : 'txtRepetirCorreo'
 																} ]
 													},
@@ -430,19 +434,19 @@ frmActualizarPasantesUi = Ext
 														text : 'Atrás',
 														x : 250,
 														y : 335,
-														width: 90,
-						                                height: 30,
-						                                iconCls: 'sigp-atras',
+														width : 90,
+														height : 30,
+														iconCls : 'sigp-atras',
 														id : 'btnAtrasContacto'
 													},
 													{
 														xtype : 'button',
 														text : 'Guardar',
-														iconCls: 'sigp-guardar',
+														iconCls : 'sigp-guardar',
 														x : 340,
 														y : 335,
-														width: 90,
-						                                height: 30,
+														width : 90,
+														height : 30,
 														id : 'btnGuardar'
 													},
 													{
@@ -452,9 +456,10 @@ frmActualizarPasantesUi = Ext
 														y : 345,
 														width : 145
 													} ]
-										}]
+										} ]
 							} ]
 						} ];
-						frmActualizarPasantesUi.superclass.initComponent.call(this);
+						frmActualizarPasantesUi.superclass.initComponent
+								.call(this);
 					}
 				});

@@ -7,15 +7,15 @@ require_once('correo.php');
  *
  */
 class EmpresaController extends ApplicationController{
-	
+
 	protected function initialize(){
 		$this->setTemplateAfter("menu");
-		
+
 	}
 	public function indexAction(){
-		
+
 	}
-	
+	public function actualizarAction(){ }
 	/**
 	 * Obtiene el id y nombre de las empresas regisradas y activas
 	 */
@@ -35,23 +35,23 @@ class EmpresaController extends ApplicationController{
 		$this->renderText(json_encode(array("success"=>($resultado)?true:false,
 											"resultado"=>$resultado)));
 	}
-	
+
 	/**
 	 * Listado de empresas segun un estatus (o conjunto de ellos)
 	 */
-	public function getEmpresasbyEstatusAction(){	
+	public function getEmpresasbyEstatusAction(){
 		$start = isset($_REQUEST['start']) ? $_REQUEST['start'] : PAGINABLE_START;
 		$limit = isset($_REQUEST['limit']) ? $_REQUEST['limit'] : PAGINABLE_LIMIT;
 		$this->setResponse('ajax');
-		$pEstatus =$this->getRequestParam('pEstatus'); 
+		$pEstatus =$this->getRequestParam('pEstatus');
 		$empresa = new Empresa();
 		$this->renderText(json_encode($empresa->getEmpresasbyEstatus($pEstatus,$start,$limit)));
 	}
-	
+
 	public function sinValidarAction(){
-		
+
 	}
-	
+
 	/**
 	 * Cuenta las pasantias activas de la empresa indicada.
 	 * @param int $idEmpresa
@@ -63,7 +63,7 @@ class EmpresaController extends ApplicationController{
 		$nroPasantias = $pasantia->contarPasantiasActivasEmpresa($idEmpresa);
 		return $nroPasantias;
 	}
-	
+
 	/**
 	 * Visualiza los datos de una empresa
 	 */
@@ -77,7 +77,7 @@ class EmpresaController extends ApplicationController{
 		$resp['resultado']= $datos;
 		$this->renderText(json_encode($resp));
 	}
-	
+
 	/**
 	 * Elimina la empresa. Recibe un parametro a través del REQUEST
 	 */
@@ -96,17 +96,17 @@ class EmpresaController extends ApplicationController{
 				$tutorE= new TutorEmpresarial();
 				if ($tutorE->eliminarTutores($id)){
 					$resp['success']=true;
-				}else{ 
+				}else{
 					$resp['errorMsj']= utf8_encode('Error al eliminar los tutores.');
-				}			
+				}
 			}
 		}else{
 			$resp['errorMsj']= utf8_encode('La empresa tiene '.$nro.' pasantía(s) activa(s) asociada(s).');
 		}
 		$this->renderText(json_encode($resp));
 	}
-	
-	
+
+
 	/**
 	 * Activa la empresa y su usuario asociado. Recibe un parametro a través del REQUEST
 	 */
@@ -123,9 +123,9 @@ class EmpresaController extends ApplicationController{
 		}
 		$this->renderText(json_encode($resp));
 	}
-	
+
 	/**
-	 * Envia correo electronico a la cuenta del usuario para informar aprobacion 
+	 * Envia correo electronico a la cuenta del usuario para informar aprobacion
 	 * @param string $correo
 	 */
 	protected function noticarActivacion($correo){
@@ -135,15 +135,15 @@ class EmpresaController extends ApplicationController{
 		$body .='Visite el siguiente enlace: http://'. $this->getServer('SERVER_NAME').'/SIGP';
 		$mailer->enviarCorreo($correo, 'Registro en el sistema', $body);
 	}
-	
+
 	public function actualizarEmpresaAction(){
 		$success= false;
 		$this->setResponse('ajax');
 		$successEmpresa=$successUsuario=$successRegistro=false;
-		
+
 		$empresa = new Empresa();
 		$id= $this->getParametro('pEmpresaId','numerico',-1);
-		$rif= $this->getParametro('pRif','string','');
+
 		$razonSocial = utf8_decode($this->getParametro('pRazonSocial','string',''));
 		$direccion =utf8_decode($this->getParametro('pDireccion','string',''));
 		$estado=$this->getParametro('pEstado','numerico',-1);
@@ -154,15 +154,15 @@ class EmpresaController extends ApplicationController{
 		$web=utf8_decode($this->getParametro('pWeb','string',''));
 		$representante=utf8_decode($this->getParametro('pRepresentante','string',''));
 		$cargo=utf8_decode($this->getParametro('pCargo','string',''));
-		
-		if ($id!=-1 and $rif!='' and $razonSocial!='' and $direccion!='' and $estado!=-1 and $ciudad!=-1 and 
+		$correo = utf8_decode($this->getParametro('pCorreo','string',''));
+		if ($id!=-1 and $razonSocial!='' and $direccion!='' and $estado!=-1 and $ciudad!=-1 and
 		$telefono!='' and $descripcion!='' and $representante!='' and  $cargo!='' ){
-			$success = $empresa->actualizarEmpresa($id,$rif,$razonSocial,$direccion,$estado,$ciudad,$telefono,$telefono2,$descripcion,$web,$representante,$cargo);
-		
+			$success = $empresa->actualizarEmpresa($id,$razonSocial,$direccion,$estado,$ciudad,$telefono,$telefono2,$descripcion,$web,$representante,$cargo, $correo);
+
 		}
-	
+
 		$this->renderText(json_encode(array("success"=>$success)));
 	}
-	
+
 }
 ?>

@@ -116,6 +116,8 @@ class Empleado extends ActiveRecord{
 		$emp = $this->findFirst("cedula='$pCedula'");
 		if ($emp){
 			$errorMsj ='Empleado ya registrado.';
+			$resp['datos']['id']=$emp->getId();
+			$resp['datos']['cedula']=$emp->getCedula();
 			$resp['datos']['email']=$emp->getEmail();
 			$resp['datos']['tipo']=utf8_encode($emp->getTipo());
 			$resp['datos']['apellido']=utf8_encode($this->adecuarTexto($emp->getApellido()));
@@ -197,6 +199,7 @@ class Empleado extends ActiveRecord{
 		$resp=array();
 		$emp = $this->findFirst("id='$id'");
 		if ($emp){
+			$resp['cedula']=$emp->getCedula();
 			$resp['email']=$emp->getEmail();
 			$resp['tipo']=utf8_encode($emp->getTipo());
 			$resp['apellido']=utf8_encode($this->adecuarTexto($emp->getApellido()));

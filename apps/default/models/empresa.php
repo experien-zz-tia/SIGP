@@ -156,12 +156,11 @@ class Empresa extends ActiveRecord {
 			return $flag;
 
 	 }
- 	public function actualizarEmpresa($id,$rif,$razonSocial,$direccion,$estado,$ciudad,$telefono,$telefono2,$descripcion,$web,$representante,$cargo){
+ 	public function actualizarEmpresa($id,$razonSocial,$direccion,$estado,$ciudad,$telefono,$telefono2,$descripcion,$web,$representante,$cargo,$correo){
 	 	$success=false;
 	 	
 	 	$empresa = $this->findFirst("id='$id'");
 		if ($empresa){
-		 	$empresa->setRif($rif);
 		 	$empresa->setRazonSocial($razonSocial);
 		 	$empresa->setDireccion($direccion);
 		 	$empresa->setEstado_id($estado);
@@ -172,6 +171,9 @@ class Empresa extends ActiveRecord {
 		 	$empresa->setWeb(utf8_decode($web));
 		 	$empresa->setContacto($representante);
 		 	$empresa->setCargo($cargo);
+		 	if ($correo != ''){
+		 		$empresa->setEmail($correo);
+		 	}
 		 	$success= $empresa->update();
 		}
 		return $success;
@@ -310,6 +312,7 @@ class Empresa extends ActiveRecord {
 	 	$aux = array();
 	 	$empresa= $this->findFirst("id='$id'");
 	 	if ($empresa){
+	 		$aux['id'] = $empresa->getId();
 	 		$aux['razonSocial'] = utf8_encode($this->adecuarTexto($empresa->getRazonSocial()));
 	 		$aux['rif'] = utf8_encode($empresa->getRif());
 	 		$aux['direccion'] = utf8_encode($this->adecuarTexto($empresa->getDireccion()));

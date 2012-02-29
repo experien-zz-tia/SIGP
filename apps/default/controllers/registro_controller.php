@@ -11,7 +11,7 @@ class RegistroController extends ApplicationController{
 
 		$this->auth=Auth::getActiveIdentity();
 	}
-	
+
 	public function empresaAction(){
 
 	}
@@ -20,6 +20,7 @@ class RegistroController extends ApplicationController{
 	public function pasanteAction(){}
 
 	public function tutorAction(){}
+
 
 	public function redirectAction(){
 		$this->routeTo('controller: login','action: index');
@@ -90,7 +91,7 @@ class RegistroController extends ApplicationController{
 			}else{
 				Router::routeToURI('/registro/error/usuarioYaActivado');
 			}
-				
+
 		}else {
 			$this->routeTo('action: index');
 		}
@@ -285,6 +286,22 @@ class RegistroController extends ApplicationController{
 			Router::routeToURI('/registro/error/noEncontrado');
 		}
 			
+	}
+
+	public function empresaRegistradaAction(){
+		$resultado = array();
+		$this->setResponse('ajax');
+		$categoria=$this->auth['categoriaUsuario_id'];
+		if ($categoria == CAT_USUARIO_EMPRESA){
+			$id = $this->auth['idUsuario'];
+		}
+
+		if($id!=-1){
+			$empresa = new Empresa();
+			$resultado=$empresa->getEmpresa($id);
+		}
+		$this->renderText(json_encode(array("success"=>($resultado)?true:false,
+											"resultado"=>$resultado)));
 	}
 
 }

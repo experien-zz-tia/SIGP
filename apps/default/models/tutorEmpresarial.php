@@ -187,6 +187,7 @@ class TutorEmpresarial extends Tutor {
 		$tutorE = $this->findFirst("empresa_id='$pEmpresa_id' AND cedula='$pCedula'");
 		if ($tutorE){
 			$errorMsj ='Tutor ya registrado.';
+			$resp['datos']['cedula']=$pCedula;
 			$resp['datos']['email']=$tutorE->getEmail();
 			$resp['datos']['cargo']=utf8_encode($this->adecuarTexto($tutorE->getCargo()));
 			$resp['datos']['telefono']=$tutorE->getTelefono();

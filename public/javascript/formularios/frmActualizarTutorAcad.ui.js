@@ -100,7 +100,7 @@ frmActualizarTutorAcadUi = Ext
 										},
 										{
 											xtype : 'button',
-											text : 'Guardar',
+											text : 'Actualizar',
 											x : 220,
 											y : 290,
 											width : 90,
@@ -124,7 +124,7 @@ frmActualizarTutorAcadUi = Ext
 											y : 10,
 											width : 145,
 											enableKeyEvents : true,
-											readOnly: true,
+											readOnly : true,
 											name : 'txtCedula',
 											id : 'txtCedula',
 											listeners : {
@@ -215,6 +215,9 @@ frmActualizarTutorAcadUi = Ext
 											y : 220,
 											width : 305,
 											name : 'txtRepetirCorreo',
+											allowBlank : false,
+											vtype : 'emailIguales',
+											campoInicial : 'txtCorreo',
 											id : 'txtRepetirCorreo'
 										}, {
 											xtype : 'textfield',
