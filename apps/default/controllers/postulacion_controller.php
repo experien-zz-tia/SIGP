@@ -232,7 +232,7 @@ class PostulacionController extends ApplicationController{
 						}
 					}
 					else{
-						$errorMsj="Usuario sin permiso apra realiazr la operación.";
+						$errorMsj="Usuario sin permiso para  realizar la operación.";
 					}
 				}else{
 					$errorMsj='No se encuentra la postulación.';
