@@ -110,7 +110,7 @@ class OfertaController extends ApplicationController{
 
 
 	/**
-	 * Obtiene las ofertas por partes ( basado en parametros start y limit ). Puede retornar las ofertas de todas las emoresas o de una sola dependiendo de
+	 * Obtiene las ofertas por partes ( basado en parametros start y limit ). Puede retornar las ofertas de todas las empresas o de una sola dependiendo de
 	 * la categoria del usuario
 	 */
 	public function getOfertasAction(){

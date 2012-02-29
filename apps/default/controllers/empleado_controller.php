@@ -10,20 +10,19 @@ class EmpleadoController extends ApplicationController{
 		$this->setTemplateAfter("menu");
 		$this->auth=Auth::getActiveIdentity();
 	}
-
+	
 	public function actualizarEmpleadoAction(){ }
-
+	
 	/**
 	 * Busca la informacion, segun los parametros enviados en el request
 	 */
 	public function buscarAction(){
 		$resp=array();
-		$empleado = new Empleado();
 		$pCedula = $this->getRequestParam('pCedula');
 		$this->setResponse('ajax');
+		$empleado = new Empleado();
 		$resp = $empleado->buscar($pCedula);
 		$this->renderText(json_encode($resp));
-
 	}
 
 	public function buscarExistenteAction(){
