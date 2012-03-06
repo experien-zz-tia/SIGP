@@ -3,7 +3,7 @@
  */
 
 frmEmpresaResumenUi = Ext.extend(Ext.Window, {
-	title: 'Res&uacute;men Empresa',
+	title: 'Resumen Empresa',
 	width: 674,
 	height: 545,
 	modal: true,
