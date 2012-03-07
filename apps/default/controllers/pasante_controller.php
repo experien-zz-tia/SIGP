@@ -44,10 +44,10 @@ class PasanteController extends ApplicationController{
 				if ($solicitud->retirarSolicitudes($id)){
 					$resp['success']=true;
 				} else $resp['errorMsj']= 'solicitudes';
-				
+
 				$usuario = new Usuario();
 				$usuario->buscarEliminarUserPasante($id);
-				
+
 			} else $resp['errorMsj']= 'pasante';
 		} else $resp['errorMsj']= 'pasantia';
 
@@ -260,7 +260,7 @@ class PasanteController extends ApplicationController{
 		if ($cedula != 0){
 			$resp = $pasante->buscarPasanteId($cedula);
 		}
-		
+
 		$this->renderText(json_encode($resp));
 	}
 	//-----------------------------------------------------------------------------------------
@@ -443,11 +443,13 @@ class PasanteController extends ApplicationController{
 				$resultado= $pasante->getPasantebyId($id);
 				$aux =$pasante->getNotasPorTutor('',$resultado['cedula']);
 				if ($aux){
-					$aux=$aux['resultado'][0];
-					$resultado['notaInforme']=$aux['notaInforme'];
-					$resultado['notaEmpresaTE']=$aux['notaEmpresaTE'];
-					$resultado['notaEmpresaTA']=$aux['notaEmpresaTA'];
-					$resultado['acumulado']=$aux['acumulado'];
+					if ($aux['resultado']){
+						$aux=$aux['resultado'][0];
+						$resultado['notaInforme']=$aux['notaInforme'];
+						$resultado['notaEmpresaTE']=$aux['notaEmpresaTE'];
+						$resultado['notaEmpresaTA']=$aux['notaEmpresaTA'];
+						$resultado['acumulado']=$aux['acumulado'];
+					}
 				}
 			}
 		}
