@@ -203,7 +203,7 @@ class Solicitudtutoracademico extends ActiveRecord{
 		if ($solicitud){
 			$resultado['id']=$solicitud->getId();
 			$resultado['tutorAcademicoId']=$solicitud->getTutorAcademico_id();
-			$resultado['pasanteId']=$solicitud->getTutorAcademico_id();
+			$resultado['pasanteId']=$solicitud->getPasante_id();
 			$resultado['fchSolicitud']=Util::cambiarFechaDMY($solicitud->getFchSolicitud());
 			$resultado['fchRespuesta']=Util::cambiarFechaDMY($solicitud->getFchRespuesta());
 			$resultado['estatus']=$solicitud->getEstatus();
@@ -216,6 +216,10 @@ class Solicitudtutoracademico extends ActiveRecord{
 	public function aceptar($id, $pasanteId) {
 		$success=true;
 		$solicitudes = $this->find("pasante_id='$pasanteId'");
+		if (!$solicitudes){
+			$success=false;
+		}
+		
 		foreach ($solicitudes as $solicitud){
 			if ($solicitud->getId()==$id){
 				$solicitud->setEstatus('A');
@@ -224,6 +228,7 @@ class Solicitudtutoracademico extends ActiveRecord{
 			}
 			$solicitud->setFchRespuesta(date("Y/m/d"));
 			$flag=$solicitud->update();
+			
 			if (!$flag){
 				$success=false;
 			}

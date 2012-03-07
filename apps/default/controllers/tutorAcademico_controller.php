@@ -67,10 +67,7 @@ class TutorAcademicoController extends ApplicationController{
 	public function eliminarTutorAction(){
 		$this->setResponse('ajax');
 		$id = $this->getRequestParam('pTutor');
-		/*
-		 * WARNING:: El parametro no puede ser 'E', E es de Empresarial.
-		 */
-		$nro= $this->contarPasantiasActivas($id, 'E');
+		$nro= $this->contarPasantiasActivas($id, 'A');
 		$resp= array();
 		$resp['success']= false;
 		$resp['errorMsj']= $nro;

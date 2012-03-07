@@ -324,7 +324,7 @@ class Pasante extends ActiveRecord{
 			$i++;
 		}
 
-		return array('total'=>$sql,
+		return array('total'=>$total,
 					'resultado' => $aux);
 
 	}
