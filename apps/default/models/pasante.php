@@ -278,11 +278,15 @@ class Pasante extends ActiveRecord{
 		}
 		$sql  = " SELECT  p.id AS pasanteId, cedula, nombre, apellido, razonSocial ";
 		$sql .= $sqlNotas;
-		$sql .= " FROM pasante p, pasanteevaluacion pe, evaluacion e, aspectoevaluacion ap, empresa em, pasantia pa ";
-		$sql .= " WHERE p.id=pe.pasante_id  AND aspectoevaluacion_id=ap.id AND e.id=ap.evaluacion_id ";
-		$sql .= " AND p.id=pa.pasante_id AND pa.empresa_id= em.id AND NOT (pa.estatus='F' AND pa.estatus='S') ";
+		$sql .= " FROM  empresa em, pasantia pa,  pasante p ";
+		$sql .= " LEFT JOIN  pasanteevaluacion pe ON (  p.id =pe.pasante_id) ";
+		$sql .= " LEFT JOIN aspectoevaluacion ap ON (ap.id=pe.aspectoEvaluacion_id  ) ";
+		$sql .= " LEFT JOIN evaluacion e ON (e.id=ap.evaluacion_id) ";
+		$sql .= " WHERE  pa.empresa_id= em.id ";
+		$sql .= " AND  p.id=pa.pasante_id ";
+		$sql .= " AND NOT (pa.estatus='F' AND pa.estatus='S') ";
 		if ($carrera!='*'){
-			$sql .= " AND p.carrera_id='".$carrera."' ";	
+			$sql .= " AND p.carrera_id='".$carrera."' ";
 		}
 		$sql .= $sqlTutor;
 		if ($cedulaPasante!=''){
@@ -320,7 +324,7 @@ class Pasante extends ActiveRecord{
 			$i++;
 		}
 
-		return array('total'=>$total,
+		return array('total'=>$sql,
 					'resultado' => $aux);
 
 	}
