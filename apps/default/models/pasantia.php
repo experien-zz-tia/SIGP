@@ -18,9 +18,9 @@ class Pasantia extends ActiveRecord {
 	protected $fchFinEst;
 	protected $fchInicio;
 	protected $fchFin;
-	protected $tipoPasantia;
+	protected $tipoPasantia_id;
 	protected $areaPasantia_id;
-	protected $modalidadPasantia;
+	protected $modalidadPasantia_id;
 	protected $nota;
 	protected $estatus;
 
@@ -61,14 +61,14 @@ class Pasantia extends ActiveRecord {
 	public function getFchFin() {
 		return $this->fchFin;
 	}
-	public function getTipoPasantia() {
-		return $this->tipoPasantia;
+	public function getTipoPasantia_id() {
+		return $this->tipoPasantia_id;
 	}
 	public function getAreaPasantia_id() {
 		return $this->areaPasantia_id;
 	}
-	public function getModalidadPasantia() {
-		return $this->modalidadPasantia;
+	public function getModalidadPasantia_id() {
+		return $this->modalidadPasantia_id;
 	}
 	public function getNota() {
 		return $this->nota;
@@ -110,14 +110,14 @@ class Pasantia extends ActiveRecord {
 	public function setFchFin($x) {
 		$this->fchFin = $x;
 	}
-	public function setTipoPasantia($x) {
-		$this->tipoPasantia = $x;
+	public function setTipoPasantia_id($x) {
+		$this->tipoPasantia_id = $x;
 	}
 	public function setAreaPasantia_id($x) {
 		$this->areaPasantia_id = $x;
 	}
-	public function setModalidadPasantia($x) {
-		$this->modalidadPasantia = $x;
+	public function setModalidadPasantia_id($x) {
+		$this->modalidadPasantia_id = $x;
 	}
 	public function setNota($x) {
 		$this->nota = $x;
@@ -247,7 +247,7 @@ class Pasantia extends ActiveRecord {
 	 * @param string $estatus default 'D'
 	 * @return array <multitype:, string>
 	 */
-	public function getPasantias($id,$start,$limit,$estatus="'D'") {
+	public function getPasantias($id,$start,$limit,$estatus="'D', 'I'") {
 		$aux = array();
 		$i=0;
 			
@@ -319,8 +319,8 @@ class Pasantia extends ActiveRecord {
 		$this->setOferta_id($oferta_id);
 		$this->setFchInicioEst(Util::cambiarFechaMDYtoYMD($fchInicioEst,'/'));
 		$this->setFchFinEst(Util::cambiarFechaMDYtoYMD($fchFinEst,'/'));
-		$this->setModalidadPasantia($modalidadPasantia);
-		$this->setTipoPasantia($tipoPasantia);
+		$this->setModalidadPasantia_id($modalidadPasantia);
+		$this->setTipoPasantia_id($tipoPasantia);
 		$this->setAreaPasantia_id($areaPasantia_id);
 		$this->setEstatus('I');
 		$success= $this->save();

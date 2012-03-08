@@ -41,7 +41,7 @@ frmLapsoAcademicoUi = Ext.extend(Ext.Window, {
                             },
                              {
                                 xtype: 'datefield',
-                                fieldLabel: 'Fecha Finalizac&iacute;n*',
+                                fieldLabel: 'Fecha Finalizaci&iacute;n*',
                                 anchor: '100%',
                                 editable: false,
                                 allowBlank: false,

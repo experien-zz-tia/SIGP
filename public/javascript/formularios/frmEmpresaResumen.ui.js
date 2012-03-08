@@ -12,7 +12,7 @@ frmEmpresaResumenUi = Ext.extend(Ext.Window, {
 	initComponent: function() {
 		this.items = [{
 				xtype: 'fieldset',
-				title: 'Informaci&oacute;n Oferta',
+				title: 'Informaci&oacute;n Empresa',
 				width: 654,
 				items: [{
 					xtype: 'textfield',
