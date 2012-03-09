@@ -152,7 +152,7 @@ class Pasantia extends ActiveRecord {
 			  	como pasante por lo que no debe realizar evaluaciones relacionadas. Cualquier inquietud puede escribir a coord.pasantias@gmail.com. Gracias por su atención.<BR/>';
 						$correo->enviarCorreo($respA['datos']['email'], 'Eliminación de Pasante', $body);
 					}
-					
+
 					$tutorE = new TutorEmpresarial();
 					$respE = $tutorE->getTutorEmpresarialById($pas->getTutorEmpresarial_id());
 					if($respE['success'] == true){
@@ -193,20 +193,24 @@ class Pasantia extends ActiveRecord {
 	public function contarPasantiasActivasTutorbyLapso($idDecanato,$idTutor,$tipoTutor){
 		$nro=0;
 		$condicion ='';
-		$lapso = new Lapsoacademico();
-		$lapsoId=  $lapso->getLapsoActivobyDecanato($idDecanato);
-		if ($lapsoId) {
-			$lapsoId=$lapsoId['id'];
-			switch ($tipoTutor) {
-				case 'A':$condicion .=" tutorAcademico_id";
+		switch ($tipoTutor) {
+			case 'A':
+				$lapso = new Lapsoacademico();
+				$lapsoId=  $lapso->getLapsoActivobyDecanato($idDecanato);
+				if ($lapsoId) {
+					$lapsoId=$lapsoId['id'];
+					$condicion .=" lapsoacademico_id ='$lapsoId' AND tutorAcademico_id";
+				}
 				break;
-				case 'E':$condicion .=" tutorEmpresarial_id";
-				break;
-			}
-			$condicion .= "='$idTutor' AND lapsoacademico_id ='$lapsoId'";
+			case 'E':
+				$condicion .=" tutorEmpresarial_id ";
+			break;
+
+			$condicion .= "='$idTutor' AND (estatus!='E OR estatus!='F')";
 			$nro =$this->count($condicion);
 		}
 		return $nro;
+
 
 	}
 	/**

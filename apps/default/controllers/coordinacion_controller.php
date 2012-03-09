@@ -17,7 +17,7 @@ class CoordinacionController extends ApplicationController {
 		$resp['errorMsj']= '';
 		$resp['resultado']= array();
 		$this->setResponse('ajax');
-		$decanato= DECANATO_CIENCIAS;
+		$decanato=$this->auth['decanato_id'];
 		$coord = new Coordinacion();
 		$resp['resultado']=$coord->getDatosCoordinador($decanato);
 		if ($resp['resultado']){

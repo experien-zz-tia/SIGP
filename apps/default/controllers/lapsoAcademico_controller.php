@@ -19,7 +19,7 @@ class LapsoAcademicoController extends ApplicationController {
 	public function getLapsosAcademicosAction(){
 		$start = $this->obtenerParametroRequest('start');
 		$limit = $this->obtenerParametroRequest('limit');
-		$decanato= DECANATO_CIENCIAS;
+		$decanato=$this->auth['decanato_id'];
 		$this->setResponse('ajax');
 		$lapsos = new Lapsoacademico();
 		$resultado = array();
@@ -43,7 +43,7 @@ class LapsoAcademicoController extends ApplicationController {
 			$lapso= $this->getParametro('txtLapso', 'string', '');
 			if ($fechaFin!='' and $fechaInicio!='' and $lapso!=''){
 				if (Libreria::compararFechas($fechaInicio, $fechaFin)>0 ){
-					$decanato = DECANATO_CIENCIAS;
+					$decanato=$this->auth['decanato_id'];
 					$resp['success'] = $lapsoAcad->guardar($lapso,$fechaInicio,$fechaFin,$decanato);
 					if (!$resp['success']){
 						$resp['errorMsj']='No se ha podido registrar el lapso académico.';
@@ -71,7 +71,7 @@ class LapsoAcademicoController extends ApplicationController {
 			$lapsoAcad = new Lapsoacademico();
 			$idLapso = $this->getParametro('idLapso', 'number', -1);
 			if ( $idLapso!=-1){
-				$decanato = DECANATO_CIENCIAS;
+				$decanato=$this->auth['decanato_id'];
 				if ($lapsoAcad->hayLapsoActivobyDecanato($decanato)==0){
 					$resp['success'] = $lapsoAcad->activarLapso($idLapso);
 					if (!$resp['success']){
@@ -100,7 +100,7 @@ class LapsoAcademicoController extends ApplicationController {
 			$lapsoAcad = new Lapsoacademico();
 			$fechaInicio= $this->getParametro('dateFechaInicio', 'string', '');
 			if ($fechaInicio!=''){
-				$decanato = DECANATO_CIENCIAS;
+				$decanato=$this->auth['decanato_id'];
 				$anio= Libreria::obtenerAnio($fechaInicio);
 				$resp['lapso'] = $lapsoAcad->generarLapso($anio, $decanato);
 				if ($resp['lapso']!='')
@@ -245,7 +245,8 @@ public function finalizarAction(){
 		$this->setResponse('ajax');
 		$catUsuario=$this->auth['categoriaUsuario_id'];
 		if ($catUsuario==CAT_USUARIO_COORDINADOR){
-			$decanatoId= DECANATO_CIENCIAS;
+			//$decanatoId= DECANATO_CIENCIAS;
+			$decanatoId=$this->auth['decanato_id'];
 			$lapsoAcad = new Lapsoacademico();
 			$id= $this->getParametro('pLapsoId', 'number', -1);
 			$omitirSinEvaluar= $this->getParametro('pOmitirSE', 'string', '');

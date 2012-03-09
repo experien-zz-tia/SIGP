@@ -18,10 +18,10 @@ class Carrera extends ActiveRecord{
 		return $this->id;
 	}
 	//-----------------------------------------------------------------------------------------
-	public function setDecanatoId($valor){
+	public function setDecanato_id($valor){
 		$this->decanato_id = $valor;
 	}
-	public function getDecanatoId(){
+	public function getDecanato_id(){
 		return $this->decanato_id;
 	}
 	//-----------------------------------------------------------------------------------------

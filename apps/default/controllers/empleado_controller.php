@@ -60,7 +60,7 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$pRadioTipo = $this->getParametro('pRadioTipo', 'string', '');
-			$decanato=DECANATO_CIENCIAS;
+			$decanato=$this->auth['decanato_id'];
 			if ($cedula!='' and $nombre!='' and $apellido!='' and $correo!='' and $pRadioTipo!=''){
 				switch (strtoupper($pRadioTipo)) {
 					case 'A':
@@ -176,7 +176,7 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$id = $this->getParametro('txtIdEmpleado', 'numerico', -1);
-			$decanato=DECANATO_CIENCIAS;
+			$decanato=$this->auth['decanato_id'];
 			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1){
 				$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
 			}else{
@@ -203,7 +203,7 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$id = $this->getParametro('txtIdEmpleado', 'numerico', -1);
-			$decanato=DECANATO_CIENCIAS;
+			$decanato=$this->auth['decanato_id'];
 			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1){
 				$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
 			}else{
@@ -228,7 +228,7 @@ class EmpleadoController extends ApplicationController{
 			if ( $id!=-1){
 				if ($id!=$idUsuario){
 					$empleado = new Empleado();
-					$decanato=DECANATO_CIENCIAS;
+					$decanato=$this->auth['decanato_id'];
 					$datos=$empleado->buscarbyId($id);
 					if ($datos){
 						switch (strtoupper($datos['tipo'])) {

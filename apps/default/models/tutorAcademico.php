@@ -10,6 +10,7 @@ class TutorAcademico extends Tutor {
 	protected $dependencia_id;
 
 	protected function initialize(){
+		$this->belongsTo("departamento_id","departamento","id");
 	}
 	//-----------------------------------------------------------------------------------------
 	public function getDepartamento_id() {

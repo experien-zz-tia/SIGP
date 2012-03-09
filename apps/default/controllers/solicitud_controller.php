@@ -53,10 +53,12 @@ class SolicitudController extends ApplicationController{
 			if ($idTutor!=-1){
 				$conf = new Configuracion();
 				$solicitud = new Solicitudtutoracademico();
-				$nroMaxSolic= $conf->getNroMaxSolicTutorbyDecanato(DECANATO_CIENCIAS);
+				$decanato=$this->auth['decanato_id'];
+				//$nroMaxSolic= $conf->getNroMaxSolicTutorbyDecanato(DECANATO_CIENCIAS);
+				$nroMaxSolic= $conf->getNroMaxSolicTutorbyDecanato($decanato);
 				if ($nroMaxSolic>$solicitud->contarSolicitudesPasante($idPasante)){
 					if (!$solicitud->existeSolicitudPrevia($idPasante, $idTutor)){
-						if ($conf->getNroMaxSolitudesRecibidasbyDecanato(DECANATO_CIENCIAS)>$solicitud->contarSolicitudesTutor($idTutor)){
+						if ($conf->getNroMaxSolitudesRecibidasbyDecanato($decanato)>$solicitud->contarSolicitudesTutor($idTutor)){
 							if (!$solicitud->obtenerTutorAsignado($idPasante)) {
 								$resp['success']= $solicitud->solicitarTutor($idTutor,$idPasante);
 								if (!$resp['success']){

@@ -75,6 +75,7 @@ class LoginController extends ApplicationController{
 public function logoutAction(){
 	Auth::destroyIdentity();
 	Session::unsetData('nombre');
+	Session::unsetData('decanato_id');
 	Router::routeTo(array("controller" => "noticia", "action" => "index"));
 }
 
@@ -84,16 +85,18 @@ public function errorAction(){
 
 private function agregarIdentificacion($idUsuario,$categoria) {
 	$aux='';
+	$decanato=0;
 	switch ($categoria) {
 		case CAT_USUARIO_ADMINISTRADOR: 
 		case CAT_USUARIO_COORDINADOR: 
 		case CAT_USUARIO_ANALISTA: 
 			$empleado = new Empleado();
 			$aux=$empleado->getNombreApellido($idUsuario);
+			$decanato= $empleado->getDecanato_id();
 			break;
 		case CAT_USUARIO_EMPRESA: 
 			$empresa = new Empresa();
-			$aux=$empresa->getRazonSocialbyId($idUsuario);			
+			$aux=$empresa->getRazonSocialbyId($idUsuario);
 			break;
 		case CAT_USUARIO_TUTOR_EMP: 
 			$tutorE = new TutorEmpresarial();
@@ -102,12 +105,17 @@ private function agregarIdentificacion($idUsuario,$categoria) {
 		case CAT_USUARIO_PASANTE: 
 			$pasante = new Pasante();
 			$aux=$pasante->getNombreApellido($idUsuario);
+			$carrera= $pasante->getCarrera();
+			$decanato= $carrera->getDecanato_id();
 			break;
 		case CAT_USUARIO_TUTOR_ACAD: 
 			$tutorA = new TutorAcademico();
 			$aux=$tutorA->getNombreApellido($idUsuario);
+			$departamento= $tutorA->getDepartamento();
+			$decanato= $departamento->getDecanato_id();
 			break;		
 	}
+	Session::setData('decanato_id', $decanato);
 	Session::setData('nombre', (($aux=='')?'Visitante.':$aux.'.'));
 	
 }

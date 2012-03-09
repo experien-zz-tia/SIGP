@@ -391,12 +391,13 @@ class Pasante extends ActiveRecord{
 		return $this->count("lapsoAcademico_id='$idLapso' AND estatus!='E'");
 	}
 
-	public function consultaPasantias($carreraId='',$cedulaPasante='',$start='*',$limit='*') {
+	public function consultaPasantias($decanato, $carreraId='',$cedulaPasante='',$start='*',$limit='*') {
 		$aux = array();
 		$i=0;
 		$total=0;
 		$pasantia = new Pasantia();
-		$idDecanato= DECANATO_CIENCIAS;
+		//$idDecanato= DECANATO_CIENCIAS;
+		$idDecanato= $decanato;
 		$lapso = new Lapsoacademico();
 		$lapsoId=  $lapso->getLapsoActivobyDecanato($idDecanato);
 		if ($lapsoId) {
@@ -450,7 +451,8 @@ class Pasante extends ActiveRecord{
 		$i=0;
 		$total=0;
 		$pasantia = new Pasantia();
-		$idDecanato= DECANATO_CIENCIAS;
+		//$idDecanato= DECANATO_CIENCIAS;
+		$idDecanato= $decanato;
 		$lapso = new Lapsoacademico();
 		$lapsoId=  $lapso->getLapsoActivobyDecanato($idDecanato);
 		if ($lapsoId) {
@@ -504,7 +506,8 @@ class Pasante extends ActiveRecord{
 		$i=0;
 		$total=0;
 		$pasantia = new Pasantia();
-		$idDecanato= DECANATO_CIENCIAS;
+		//$idDecanato= DECANATO_CIENCIAS;
+		$idDecanato= $decanato;
 		$lapso = new Lapsoacademico();
 		$lapsoId=  $lapso->getLapsoActivobyDecanato($idDecanato);
 		if ($lapsoId) {

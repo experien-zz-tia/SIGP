@@ -22,7 +22,9 @@ class PostulacionController extends ApplicationController{
 			$pasantia = new Pasantia();
 			if (!$pasantia->estaEnPasantia($pasanteId)){
 				$conf = new Configuracion();
-				$nroMaximo= $conf->getNroMaxPostulacionesbyDecanato(DECANATO_CIENCIAS);
+				$decanato=$this->auth['decanato_id'];
+				$nroMaximo= $conf->getNroMaxPostulacionesbyDecanato($decanato);
+				//$nroMaximo= $conf->getNroMaxPostulacionesbyDecanato(DECANATO_CIENCIAS);
 				$postulacion= new Postulacion();
 				$nroPostulaciones = $postulacion->contarPostulacionesPasante($pasanteId);
 				if ($nroPostulaciones< $nroMaximo){
@@ -186,7 +188,9 @@ class PostulacionController extends ApplicationController{
 						$pasantia = new Pasantia();
 						if (!$pasantia->estaEnPasantia($idPasante)){
 							$lapso = new Lapsoacademico();
-							$datosLapso=$lapso->getLapsoActivobyDecanato(DECANATO_CIENCIAS);
+							$decanato=$this->auth['decanato_id'];
+							//$datosLapso=$lapso->getLapsoActivobyDecanato(DECANATO_CIENCIAS);
+							$datosLapso=$lapso->getLapsoActivobyDecanato($decanato);
 							$lapsoActivo = $datosLapso['id'];
 							$solicitud = new Solicitudtutoracademico();
 							$datosSolicitud = $solicitud->obtenerTutorAsignado($idPasante);

@@ -226,7 +226,9 @@ class ReporteController extends ApplicationController {
 		$idTutor=$this->auth['idUsuario'];
 		$datos  = $pasantia->buscarPasantiasSupervizadas($idTutor);
 		$coordinacion = new Coordinacion();
-		$coord=$coordinacion->getDatosCoordinador(DECANATO_CIENCIAS);
+		$decanato=$this->auth['decanato_id'];
+		//$coord=$coordinacion->getDatosCoordinador(DECANATO_CIENCIAS);
+		$coord=$coordinacion->getDatosCoordinador($decanato);
 		$tutorAcad= new TutorAcademico();
 		$tutor=$tutorAcad->getTutorAcademicoById($idTutor);
 		$html=$this->prepararPlantillaConstanciaTutorAcad($coord,$tutor,$datos);
@@ -263,7 +265,8 @@ class ReporteController extends ApplicationController {
 
 	public function constanciaNotasPasanteAction(){
 		$categoria=$this->auth['categoriaUsuario_id'];
-		$decanatoId= DECANATO_CIENCIAS;
+		$decanatoId=$this->auth['decanato_id'];
+		//$decanatoId= DECANATO_CIENCIAS;
 		if($categoria==CAT_USUARIO_PASANTE){
 			$conf= new Configuracion();
 			if ($conf->getConsultaCalificacionesbyDecanato($decanatoId)=='S'){
@@ -365,7 +368,8 @@ class ReporteController extends ApplicationController {
 		$datos = array();
 		$pasante= new Pasante();
 		$carrera=$this->getParametro('pCarrera', 'numerico', '');
-		$datos=$pasante->consultaPasantias($carrera,'','*','*');
+		$decanato=$this->auth['decanato_id'];
+		$datos=$pasante->consultaPasantias($decanato,$carrera,'','*','*');
 
 		$datos= $datos['resultado'];
 		$this->setResponse('view');

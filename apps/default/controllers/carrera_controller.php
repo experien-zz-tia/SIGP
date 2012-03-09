@@ -1,6 +1,12 @@
 <?php
 class CarreraController extends ApplicationController {
 
+	
+protected   $auth;
+	protected function initialize(){
+		$this->setTemplateAfter("menu");
+		$this->auth=Auth::getActiveIdentity();
+	}
 	public function indexAction(){}
 
 	public function getCarrerasAction(){
@@ -25,7 +31,7 @@ class CarreraController extends ApplicationController {
 	}
 
 	public function getCarrerasbyDecanatoLightAction(){
-		$id = DECANATO_CIENCIAS;
+		$id=$this->auth['decanato_id'];
 		$this->setResponse('ajax');
 		$carrera = new Carrera();
 		$this->renderText(json_encode($carrera->getCarrerasbyDecanato($id)));
