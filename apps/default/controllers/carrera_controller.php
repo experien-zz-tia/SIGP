@@ -9,9 +9,16 @@ class CarreraController extends ApplicationController {
 		$this->renderText(json_encode($carrera->getCarreras()));
 	}
 
-	public function getCarrerasbyDecanatoAction(){
-		$id = $this->getRequestParam('idDecanato');
+	public function getCarrerasFullAction(){
 		$this->setResponse('ajax');
+		$carrera = new Carrera();
+		$vId = $this->getRequestParam('idDecanato');
+		$this->renderText(json_encode($carrera->getCarrerasFull($vId)));
+	}
+
+	public function getCarrerasbyDecanatoAction(){
+		$this->setResponse('ajax');
+		$id = $this->getRequestParam('idDecanato');
 		$carrera = new Carrera();
 		$this->renderText(json_encode($carrera->getCarrerasbyDecanato($id)));
 	}
@@ -21,7 +28,7 @@ class CarreraController extends ApplicationController {
 		$this->setResponse('ajax');
 		$carrera = new Carrera();
 		$this->renderText(json_encode($carrera->getSemestres($id)));
-		
+
 	}
 
 	public function getCarrerasbyDecanatoLightAction(){

@@ -20,45 +20,24 @@ class ReporteController extends ApplicationController {
 
 	public function solCartaPostulacionAction(){
 		
-		$this->setResponse('view');
 		$categoria=$this->auth['categoriaUsuario_id'];
-		$encabezados= $this->crearEncabezadosNotas($categoria);
-		$pasante = new Pasante();
-		$carrera=$this->getParametro('pCarrera', 'numerico', '*');
-		$resultado = $pasante->getNotasPorTutor($categoria,'','*','*','*',$carrera);
-		$resultado = $resultado['resultado'];
-		$datos = $this->procesarDatosNotas($resultado,$categoria);
-		$pdf = new ReportPDF();
-		$pdf->AliasNbPages();
-		$pdf->AddPage();
-		$pdf->imprimirTitulo('Reporte de Calificaciones');
-		$nombreTutor=Session::getData('nombre');
-		$textoItem='';
-		$firma='';
-		$nombreReporte='';
-		switch ($categoria) {
-			case CAT_USUARIO_COORDINADOR:
-				$nombreReporte='reporteCalificaciones.pdf';
-				$nombreTutor='TODOS';
-				$textoItem='Tutores';
-				$firma='Coordinador de Pasantías';
-				break;
-			case CAT_USUARIO_TUTOR_ACAD:
-				$nombreReporte='reporteCalificacionesTA.pdf';
-				$textoItem='Tutor Academico';
-				$firma=$textoItem;
-				break;
-			case CAT_USUARIO_TUTOR_EMP:
-				$nombreReporte='reporteCalificacionesTE.pdf';
-				$textoItem='Tutor Empresarial';
-				$firma=$textoItem;
-				break;
+		$decanatoId= DECANATO_CIENCIAS;
+		
+		echo 'decanato: '.$decanatoId;
+		
+		if($categoria==CAT_USUARIO_PASANTE){
+			echo ' categoria'.$categoria;
+			$conf= new Configuracion();
+			if ($conf->getConsultaCalificacionesbyDecanato($decanatoId)=='S'){
+				echo ' if';
+				$id=$this->auth['idUsuario'];
+				$this->setResponse('view');
+				$this->setParamToView('documento', $this->crearConstanciaNotas($id));
+			}else{
+				echo ' else';
+//				$this->routeTo('controller: pasante','action: consultaSinHabilitar');
+			}
 		}
-		$pdf->imprimirItemTextoBasico($textoItem, $nombreTutor);
-		$pdf->tablaBasica($encabezados, $datos);
-		$pdf->imprimirFirma($firma);
-		$doc = $pdf->Output('', 'S');
-		$this->setParamToView('documento', $doc);
 	}
 
 	public function mostrarCalificacionesAction(){

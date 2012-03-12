@@ -28,7 +28,19 @@ class CoordinacionController extends ApplicationController {
 		$resp['errorMsj']=utf8_encode($resp['errorMsj']);
 		$this->renderText(json_encode($resp));
 	}
-
-
+	//-----------------------------------------------------------------------------------------
+	public function getCoordinacionesAction() {
+		$this->setResponse('ajax');
+		$coord = new Coordinacion();
+		$this->renderText(json_encode($coord->getCoordinaciones()));
+	}
+	//-----------------------------------------------------------------------------------------
+	public function buscarAction(){
+		$this->setResponse('ajax');
+		$coordinacion = new Coordinacion();
+		$id = $this->getRequestParam('id');
+		$this->renderText(json_encode($coordinacion->buscar($id)));
+	}
+	//-----------------------------------------------------------------------------------------
 }
 ?>

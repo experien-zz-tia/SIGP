@@ -69,7 +69,7 @@ body {
 }
 
 .main a {
-	color: rgb(70, 122, 167);
+	color: rgb(70, 122, 200);
 	font-weight: bold;
 	text-decoration: none;
 }
@@ -516,7 +516,7 @@ table.gris td {
 
 table.gris td.titulo {
 	color: #000066;
-	height: 36px;
+	
 	padding:10px;
 	text-align: left;
 	font-family: Geneva, Arial, Helvetica, sans-serif;

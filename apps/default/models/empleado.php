@@ -218,6 +218,20 @@ class Empleado extends ActiveRecord{
 		return $success;
 		
 	} 
+	
+	public function getEmpleadosByDecanato($idDecanato){
+		$arrEmpleados = array();
+		$i = 0;
+		$empleados = $this->find("estatus = 'A' AND tipo = 'C' AND decanato_id = ".$idDecanato);
+		foreach ($empleados as $empleado){
+			$arrEmpleados[$i]['id'] = $empleado->getId();
+			$arrEmpleados[$i]['nombre'] =$empleado->getNombre().' '.$empleado->getApellido();
+			$arrEmpleados[$i]['cedula'] = $empleado->getCedula();
+			$i++;
+		}
+		return $arrEmpleados;
+		
+	} 
 }
 
 ?>

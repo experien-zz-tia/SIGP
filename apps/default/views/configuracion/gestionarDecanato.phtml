@@ -1,0 +1,29 @@
+<?php echo Tag::javascriptInclude('formularios/panelGestionDecanatos.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/panelGestionDecanatos') ?>
+<?php echo Tag::javascriptInclude('formularios/frmDecanato.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarDecanato.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmActualizarDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanatos') ?>
+<?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stEstado') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCiudad') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stUniversidad') ?>
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var decan = new panelGestionDecanatos({
+        	renderTo: 'panel'
+	    });
+    	decan.show();
+	});
+	
+</script>
+
+<div id='panel'></div>
+<p class="blanco" >
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.
+</p>
