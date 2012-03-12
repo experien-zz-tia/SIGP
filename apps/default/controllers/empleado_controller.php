@@ -10,9 +10,9 @@ class EmpleadoController extends ApplicationController{
 		$this->setTemplateAfter("menu");
 		$this->auth=Auth::getActiveIdentity();
 	}
-	
+
 	public function actualizarEmpleadoAction(){ }
-	
+
 	/**
 	 * Busca la informacion, segun los parametros enviados en el request
 	 */
@@ -257,6 +257,15 @@ class EmpleadoController extends ApplicationController{
 		$resp['errorMsj']=utf8_encode($resp['errorMsj']);
 		$this->renderText(json_encode($resp));
 
+	}
+
+	public function getEmpleadosByDecanatoAction(){
+		$resp = array();
+		$this->setResponse('ajax');
+		$emp = new Empleado();
+		$idDecanato = $this->getRequestParam('idDecanato');
+		$resp = $emp->getEmpleadosByDecanato($idDecanato);
+		$this->renderText(json_encode($resp));
 	}
 
 }

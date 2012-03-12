@@ -67,6 +67,36 @@ class Carrera extends ActiveRecord{
 
 			$i++;
 		}
+		return $auxCarreras;
+	}
+
+	//-----------------------------------------------------------------------------------------
+	public function getCarrerasFull($vId){
+		$auxCarreras = array();
+		$i = 0;
+		if ($vId == '-1'){
+			$carreras = $this->find("estatus = 'A' ","order: nombre");
+		} else {
+			$carreras = $this->find("decanato_id = '$decan'", "order: nombre");
+		}
+		
+		foreach ($carreras as $carrera){
+			$auxCarreras[$i]['id'] = $carrera->id;
+			$auxCarreras[$i]['decanato_id'] = $carrera->decanato_id;
+			$decanato = new Decanato();
+			$dec = $decanato->findFirst("id = ".$carrera->decanato_id);
+			if ($dec != null){
+				$auxCarreras[$i]['decanato'] = $dec->getNombre();
+			}
+			$auxCarreras[$i]['nombre'] = $carrera->nombre;
+			$auxCarreras[$i]['regimen'] = $carrera->regimen;
+			$auxCarreras[$i]['duracion'] = $carrera->duracion;
+			$auxCarreras[$i]['estatus'] = $carrera->estatus;
+
+			$i++;
+		}
+		
+		return $auxCarreras;
 	}
 	//-----------------------------------------------------------------------------------------
 	public function getCarrerasbyDecanato($decan){
@@ -87,7 +117,7 @@ class Carrera extends ActiveRecord{
 	//-----------------------------------------------------------------------------------------
 	public function getSemestres($decan){
 		$auxCarrerasxDecanato = array();
-		
+
 		$tam = 0;
 		$carrerasXdecanato = $this->find("id = '$decan'");
 		foreach ($carrerasXdecanato as $carreraXdecanato){

@@ -87,32 +87,6 @@ panelTutorAcademico = Ext.extend(panelTutorAcademicoUi, {
       					//Mostramos los valores obtenidos
       					Ext.getCmp('txtCedula').setValue(index.get('cedula'));
       					frmTutorA.buscarTutor();
-/*      					Ext.getCmp('txtCedula').disable();
-      					Ext.getCmp('txtNombre').setValue(resultado.nombre);
-      					Ext.getCmp('txtApellido').setValue(resultado.apellido);
-      					Ext.getCmp('txtCargo').setValue(resultado.cargo);
-      					Ext.getCmp('txtCorreo').setValue(resultado.correo);
-      					Ext.getCmp('txtRepetirCorreo').setValue(resultado.correo);
- 	        			
-      					var cmbDecanato = Ext.getCmp('cmbDecanato');      					
-      					var storeDec = cmbDecanato.getStore();
-      					storeDec.load({
-      					   callback: function() {
-      					      cmbDecanato.setValue(resultado.decanatoId);
-      					   }
-      					});
-      					
-      					var cmbDpto = Ext.getCmp('cmbDepartamento');                          
-                        var storeDpto = cmbDpto.getStore();
-                        storeDpto.load({
-                           params: {decanato_id: resultado.decanatoId},
-                           callback: function() {
-                              cmbDpto.setValue(resultado.departamentoId);
-                           }
-                        });
-
-	        			Ext.getCmp('cmbDepartamento').setValue(resultado.departamento);
-      					Ext.getCmp('txtTelefono').setValue(resultado.telefono);*/
       				}else{
       					Ext.Msg.alert('Operaci&oacute;n no completada','No se pudo obtener los datos.');
       				}         				
