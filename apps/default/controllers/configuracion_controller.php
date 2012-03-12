@@ -17,7 +17,7 @@ class ConfiguracionController extends ApplicationController {
 		$this->setResponse('ajax');
 		$catUsuario=$this->auth['categoriaUsuario_id'];
 		if ($catUsuario==CAT_USUARIO_COORDINADOR){
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			$pClave = $this->getParametro('pClave', 'string', '');
 			$pMaxRecSolicTutor = $this->getParametro('pMaxRecSolicTutor', 'numerico', -1);
 			$pMaxSolicOferta = $this->getParametro('pMaxSolicOferta', 'numerico', -1);
@@ -60,7 +60,7 @@ class ConfiguracionController extends ApplicationController {
 		$catUsuario=$this->auth['categoriaUsuario_id'];
 		if ($catUsuario==CAT_USUARIO_COORDINADOR){
 			//$decanato= DECANATO_CIENCIAS;
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			$config = new Configuracion();
 			$resp['resultado']=$config->getConfiguracionbyDecanato($decanato);
 			if ($resp['resultado']){

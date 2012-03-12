@@ -24,7 +24,7 @@ class NotificacionController extends ApplicationController {
 			$usuarioId=$this->auth['idUsuario'];
 			if ($pasanteId!=-1 and $mensaje!='' ){
 				//$decanato = DECANATO_CIENCIAS;
-				$decanato=$this->auth['decanato_id'];
+				$decanato=Session::getData('decanato_id');
 				$resp['success'] = $notificacion->guardar($usuarioId, $catUsuario, $pasanteId, CAT_USUARIO_PASANTE, $mensaje);
 				if (!$resp['success']){
 					$resp['errorMsj']='No se ha enviado la notificación.';

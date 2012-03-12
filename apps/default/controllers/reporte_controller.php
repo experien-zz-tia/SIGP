@@ -226,7 +226,7 @@ class ReporteController extends ApplicationController {
 		$idTutor=$this->auth['idUsuario'];
 		$datos  = $pasantia->buscarPasantiasSupervizadas($idTutor);
 		$coordinacion = new Coordinacion();
-		$decanato=$this->auth['decanato_id'];
+		$decanato=Session::getData('decanato_id');
 		//$coord=$coordinacion->getDatosCoordinador(DECANATO_CIENCIAS);
 		$coord=$coordinacion->getDatosCoordinador($decanato);
 		$tutorAcad= new TutorAcademico();
@@ -265,7 +265,7 @@ class ReporteController extends ApplicationController {
 
 	public function constanciaNotasPasanteAction(){
 		$categoria=$this->auth['categoriaUsuario_id'];
-		$decanatoId=$this->auth['decanato_id'];
+		$decanatoId=Session::getData('decanato_id');
 		//$decanatoId= DECANATO_CIENCIAS;
 		if($categoria==CAT_USUARIO_PASANTE){
 			$conf= new Configuracion();
@@ -368,7 +368,7 @@ class ReporteController extends ApplicationController {
 		$datos = array();
 		$pasante= new Pasante();
 		$carrera=$this->getParametro('pCarrera', 'numerico', '');
-		$decanato=$this->auth['decanato_id'];
+		$decanato=Session::getData('decanato_id');
 		$datos=$pasante->consultaPasantias($decanato,$carrera,'','*','*');
 
 		$datos= $datos['resultado'];

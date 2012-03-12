@@ -31,7 +31,7 @@ protected   $auth;
 	}
 
 	public function getCarrerasbyDecanatoLightAction(){
-		$id=$this->auth['decanato_id'];
+		$id=Session::getData('decanato_id');
 		$this->setResponse('ajax');
 		$carrera = new Carrera();
 		$this->renderText(json_encode($carrera->getCarrerasbyDecanato($id)));

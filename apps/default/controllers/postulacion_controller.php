@@ -22,7 +22,7 @@ class PostulacionController extends ApplicationController{
 			$pasantia = new Pasantia();
 			if (!$pasantia->estaEnPasantia($pasanteId)){
 				$conf = new Configuracion();
-				$decanato=$this->auth['decanato_id'];
+				$decanato=Session::getData('decanato_id');
 				$nroMaximo= $conf->getNroMaxPostulacionesbyDecanato($decanato);
 				//$nroMaximo= $conf->getNroMaxPostulacionesbyDecanato(DECANATO_CIENCIAS);
 				$postulacion= new Postulacion();
@@ -188,7 +188,7 @@ class PostulacionController extends ApplicationController{
 						$pasantia = new Pasantia();
 						if (!$pasantia->estaEnPasantia($idPasante)){
 							$lapso = new Lapsoacademico();
-							$decanato=$this->auth['decanato_id'];
+							$decanato=Session::getData('decanato_id');
 							//$datosLapso=$lapso->getLapsoActivobyDecanato(DECANATO_CIENCIAS);
 							$datosLapso=$lapso->getLapsoActivobyDecanato($decanato);
 							$lapsoActivo = $datosLapso['id'];

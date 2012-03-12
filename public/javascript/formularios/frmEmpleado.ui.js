@@ -1,7 +1,7 @@
 frmEmpleadoUi = Ext.extend(Ext.Window, {
 	title : 'Empleado',
 	width : 500,
-	height : 310,
+	height : 340,
 	layout : 'form',
 	id : 'frmEmpleadoWin',
 	modal : true,
@@ -29,45 +29,60 @@ frmEmpleadoUi = Ext.extend(Ext.Window, {
 									maxLength : 45,
 									allowBlank : false,
 									id : 'txtCedula'
-								},new Ext.form.RadioGroup({
-										fieldLabel : 'Tipo*',
-										columns : 3,
-										id:'radioTipo',
-										items : [{
-													boxLabel : 'Administrador',
-													name : 'rTipo',
-													id: 'radioA'
-												},{
-													boxLabel : 'Coordinador',
-													name : 'rTipo',
-													id: 'radioC'
-												}, {
-													boxLabel : 'Analista',
-													name : 'rTipo',
-													id: 'radioS'
-												}],
-												disabled:true
-									}),
-								{
+								}, new Ext.form.RadioGroup({
+											fieldLabel : 'Tipo*',
+											columns : 3,
+											id : 'radioTipo',
+											items : [{
+														boxLabel : 'Administrador',
+														name : 'rTipo',
+														id : 'radioA'
+													}, {
+														boxLabel : 'Coordinador',
+														name : 'rTipo',
+														id : 'radioC'
+													}, {
+														boxLabel : 'Analista',
+														name : 'rTipo',
+														id : 'radioS'
+													}],
+											disabled : true
+										}), {
+									xtype : 'combo',
+									fieldLabel : 'Decanato*',
+									name : 'cmbDecanato',
+									triggerAction : 'all',
+									editable : false,
+									anchor : '100%',
+									store : 'stDecanato',
+									displayField : 'nombre',
+									valueField : 'id',
+									submitValue : false,
+									allowBlank : false,
+									disabled : true,
+									loadingText : 'Cargando...',
+									emptyText : '-Seleccione-',
+									blankText : 'Seleccione un decanato.',
+									id : 'cmbDecanato'
+								}, {
 									xtype : 'textfield',
-									maxLength : 12,
+									maxLength : 40,
 									anchor : '100%',
 									fieldLabel : 'Nombre*',
 									allowBlank : false,
 									id : 'txtNombre',
-									disabled:true
+									disabled : true
 								}, {
 									xtype : 'textfield',
 									name : 'txtApellido',
 									width : 284,
 									anchor : '100%',
 									fieldLabel : 'Apellido*',
-									maxLength : 45,
+									maxLength : 40,
 									allowBlank : false,
 									id : 'txtApellido',
-									disabled:true
-								},
-								 {
+									disabled : true
+								}, {
 									xtype : 'textfield',
 									fieldLabel : 'Correo electr&oacute;nico*',
 									anchor : '100%',
@@ -76,7 +91,7 @@ frmEmpleadoUi = Ext.extend(Ext.Window, {
 									allowBlank : false,
 									vtype : 'email',
 									id : 'txtCorreo',
-									disabled:true
+									disabled : true
 								}, {
 									xtype : 'textfield',
 									fieldLabel : 'Repetir correo electr&oacute;nico*',
@@ -88,9 +103,8 @@ frmEmpleadoUi = Ext.extend(Ext.Window, {
 									vtype : 'emailIguales',
 									campoInicial : 'txtCorreo',
 									id : 'txtCorreoRepetir',
-									disabled:true
-								},
-									{
+									disabled : true
+								}, {
 									xtype : 'textfield',
 									id : 'txtIdEmpleado',
 									hidden : true
@@ -108,30 +122,30 @@ frmEmpleadoUi = Ext.extend(Ext.Window, {
 						xtype : 'button',
 						text : 'Registrar',
 						type : 'submit',
-						width: 90,
-                        height: 30,
+						width : 90,
+						height : 30,
 						iconCls : 'sigp-guardar',
 						id : 'btnRegistrar'
 					}, {
 						xtype : 'button',
 						text : 'Actualizar',
-						width: 90,
-                        height: 30,
+						width : 90,
+						height : 30,
 						iconCls : 'sigp-publicar',
 						hidden : true,
 						id : 'btnActualizar'
 					}, {
 						xtype : 'button',
 						text : 'Limpiar',
-						width: 90,
-                        height: 30,
+						width : 90,
+						height : 30,
 						iconCls : 'sigp-limpiar',
 						id : 'btnLimpiar'
 					}, {
 						xtype : 'button',
 						text : 'Salir',
-						width: 90,
-                        height: 30,
+						width : 90,
+						height : 30,
 						iconCls : 'sigp-salir',
 						id : 'btnSalir'
 					}]

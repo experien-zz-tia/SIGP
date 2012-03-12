@@ -425,7 +425,7 @@ class PasanteController extends ApplicationController{
 	public function verNotasAction(){
 		$conf= new Configuracion();
 		//$decanatoId= DECANATO_CIENCIAS;
-		$decanatoId=$this->auth['decanato_id'];
+		$decanatoId=Session::getData('decanato_id');
 		if ($conf->getConsultaCalificacionesbyDecanato($decanatoId)!='S'){
 			$this->routeTo('controller: pasante','action: consultaSinHabilitar');
 		}
@@ -437,7 +437,7 @@ class PasanteController extends ApplicationController{
 		$categoria=$this->auth['categoriaUsuario_id'];
 		$success= false;
 		//$decanatoId= DECANATO_CIENCIAS;
-		$decanatoId=$this->auth['decanato_id'];
+		$decanatoId=Session::getData('decanato_id');
 		if ($conf->getConsultaCalificacionesbyDecanato($decanatoId)=='S'){
 			if($categoria==CAT_USUARIO_PASANTE){
 				$id=$this->auth['idUsuario'];
@@ -476,7 +476,7 @@ class PasanteController extends ApplicationController{
 			$cedula=$this->getParametro('query', 'string', '');
 			$start=$this->obtenerParametroRequest('start');
 			$limit=$this->obtenerParametroRequest('limit');
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			$resp['resultado']= $pasante->consultaPasantias($decanato,$carrera,$cedula,$start,$limit);
 		}else{
 			$errorMsj="Ud. no posee la permisología para realizar esta operación.";
@@ -507,7 +507,7 @@ class PasanteController extends ApplicationController{
 			$cedula=$this->getParametro('query', 'string', '');
 			$start=$this->obtenerParametroRequest('start');
 			$limit=$this->obtenerParametroRequest('limit');
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			$resp['resultado']= $pasante->consultaPasantiasTA($decanato,$id,$carrera,$cedula,$start,$limit);
 		}else{
 			$errorMsj="Ud. no posee la permisología para realizar esta operación.";
@@ -531,7 +531,7 @@ class PasanteController extends ApplicationController{
 			$cedula=$this->getParametro('query', 'string', '');
 			$start=$this->obtenerParametroRequest('start');
 			$limit=$this->obtenerParametroRequest('limit');
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			$resp['resultado']= $pasante->consultaPasantiasTE($decanato,$id,$carrera,$cedula,$start,$limit);
 		}else{
 			$errorMsj="Ud. no posee la permisología para realizar esta operación.";

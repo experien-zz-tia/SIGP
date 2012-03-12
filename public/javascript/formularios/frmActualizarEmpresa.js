@@ -89,7 +89,7 @@ frmActualizarEmpresa = Ext.extend(frmActualizarEmpresaUi, {
 			         title: 'Informaci&oacute;n',  
 			         msg: 'Actualizaci&oacute;n exitosa',  
 			         buttons: Ext.MessageBox.OK,  
-			         icon: Ext.MessageBox.INFO,
+			         icon: Ext.MessageBox.INFO
 			         });
 			         }
 			    }); 

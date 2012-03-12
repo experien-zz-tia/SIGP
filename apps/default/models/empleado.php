@@ -122,6 +122,7 @@ class Empleado extends ActiveRecord{
 			$resp['datos']['tipo']=utf8_encode($emp->getTipo());
 			$resp['datos']['apellido']=utf8_encode($this->adecuarTexto($emp->getApellido()));
 			$resp['datos']['nombre']=utf8_encode($this->adecuarTexto($emp->getNombre()));
+			$resp['datos']['decanatoId']=$emp->getDecanato_id();
 		}
 		$resp['errorMsj']= $errorMsj;
 		$resp['success']= true;
@@ -209,9 +210,9 @@ class Empleado extends ActiveRecord{
 	}
 	
 	
-	public function existeCoordinador(){
+	public function existeCoordinador($decanato){
 		$success=false;
-		$emp = $this->findFirst("estatus='A' AND tipo='C'");
+		$emp = $this->findFirst("estatus='A' AND tipo='C' AND decanato_id=$decanato");
 		if ($emp){
 			$success = true;
 		}

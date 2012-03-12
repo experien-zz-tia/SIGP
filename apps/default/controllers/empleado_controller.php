@@ -52,7 +52,6 @@ class EmpleadoController extends ApplicationController{
 		$successUser= false;
 		$successRegistro= false;
 		$this->setResponse('ajax');
-		$idEmpresa=$this->auth['idUsuario'];
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_ADMINISTRADOR){
 			$empleado = new Empleado();
 			$cedula=$this->getParametro('txtCedula','string','');
@@ -60,8 +59,10 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$pRadioTipo = $this->getParametro('pRadioTipo', 'string', '');
-			$decanato=$this->auth['decanato_id'];
-			if ($cedula!='' and $nombre!='' and $apellido!='' and $correo!='' and $pRadioTipo!=''){
+			
+			//recibir como parametro
+			$decanato=$this->getParametro('pDecanato', 'numerico', -1);
+			if ($cedula!='' and $nombre!='' and $apellido!='' and $correo!='' and $pRadioTipo!='' and $decanato!=-1){
 				switch (strtoupper($pRadioTipo)) {
 					case 'A':
 						$categoria= CAT_USUARIO_ADMINISTRADOR;
@@ -74,9 +75,8 @@ class EmpleadoController extends ApplicationController{
 						break;
 				}
 				$coordinacion = new Coordinacion();
-				//$existeCordinador = ($coordinacion->getDatosCoordinador($decanato))?true:false;
-				$existeCordinador = $empleado->existeCoordinador();
-				if (($categoria== CAT_USUARIO_COORDINADOR and !$existeCordinador)or $categoria!= CAT_USUARIO_COORDINADOR  ){
+				$existeCordinador = $empleado->existeCoordinador($decanato);
+				if ((($categoria==CAT_USUARIO_COORDINADOR) and !$existeCordinador)or $categoria!= CAT_USUARIO_COORDINADOR  ){
 					$aux = $empleado->guardar($cedula,$nombre,$apellido,$correo,strtoupper($pRadioTipo),$decanato);
 					if ($categoria== CAT_USUARIO_COORDINADOR){
 						$coordinacion->asignarCoordinador($decanato,$aux['id']);
@@ -176,7 +176,7 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$id = $this->getParametro('txtIdEmpleado', 'numerico', -1);
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1){
 				$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
 			}else{
@@ -203,7 +203,7 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$id = $this->getParametro('txtIdEmpleado', 'numerico', -1);
-			$decanato=$this->auth['decanato_id'];
+			$decanato=Session::getData('decanato_id');
 			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1){
 				$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
 			}else{
@@ -228,7 +228,6 @@ class EmpleadoController extends ApplicationController{
 			if ( $id!=-1){
 				if ($id!=$idUsuario){
 					$empleado = new Empleado();
-					$decanato=$this->auth['decanato_id'];
 					$datos=$empleado->buscarbyId($id);
 					if ($datos){
 						switch (strtoupper($datos['tipo'])) {

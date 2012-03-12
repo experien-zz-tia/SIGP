@@ -53,7 +53,7 @@ class SolicitudController extends ApplicationController{
 			if ($idTutor!=-1){
 				$conf = new Configuracion();
 				$solicitud = new Solicitudtutoracademico();
-				$decanato=$this->auth['decanato_id'];
+				$decanato=Session::getData('decanato_id');
 				//$nroMaxSolic= $conf->getNroMaxSolicTutorbyDecanato(DECANATO_CIENCIAS);
 				$nroMaxSolic= $conf->getNroMaxSolicTutorbyDecanato($decanato);
 				if ($nroMaxSolic>$solicitud->contarSolicitudesPasante($idPasante)){
