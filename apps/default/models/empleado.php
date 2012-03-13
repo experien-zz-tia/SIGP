@@ -43,7 +43,7 @@ class Empleado extends ActiveRecord{
 		$total=0;
 		$total= $this->count("estatus !='E'");
 
-		$sql  = " SELECT e.id AS empleadoId,cedula, e.nombre AS nombre ,apellido, email, ";
+		$sql  = " SELECT e.id AS empleadoId,cedula,e.decanato_id AS decanatoId, e.nombre AS nombre ,apellido, email, ";
 		$sql .= " e.estatus AS estatus,d.nombre AS decanato, tipo ";
 		$sql .= " FROM empleado e, decanato d ";
 		$sql .= " WHERE e.decanato_id=d.id AND e.estatus!='E' ";
@@ -62,6 +62,7 @@ class Empleado extends ActiveRecord{
 			$aux[$i]['nombre'] = utf8_encode($this->adecuarTexto($row['nombre']));
 			$aux[$i]['apellido'] = utf8_encode($this->adecuarTexto($row['apellido']));
 			$aux[$i]['correo'] = utf8_encode($row['email']);
+			$aux[$i]['decanatoId'] = $row['decanatoId'];
 			$aux[$i]['decanato'] = utf8_encode($row['decanato']);
 			$aux[$i]['estatus'] = utf8_encode($this->getTextoEstatus($row['estatus']));
 			$aux[$i]['tipo'] = utf8_encode($this->getTextoTipo($row['tipo']));

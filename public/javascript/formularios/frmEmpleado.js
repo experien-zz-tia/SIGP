@@ -157,7 +157,10 @@ frmEmpleado = Ext.extend(frmEmpleadoUi, {
 					txtNombre : Ext.getCmp('txtNombre').getValue(),
 					txtApellido : Ext.getCmp('txtApellido').getValue(),
 					txtCorreo : Ext.getCmp('txtCorreo').getValue(),
-					txtIdEmpleado : Ext.getCmp('txtIdEmpleado').getValue()
+					txtIdEmpleado : Ext.getCmp('txtIdEmpleado').getValue(),
+					pDecanato :Ext.getCmp('cmbDecanato').getValue()
+					
+					
 				},
 				success : function(respuesta, request) {
 					var jsonData = Ext.util.JSON.decode(respuesta.responseText);
@@ -174,7 +177,7 @@ frmEmpleado = Ext.extend(frmEmpleadoUi, {
 					} else {
 						Ext.MessageBox.show({
 									title : 'Actualizaci&oacute;n no completada.',
-									msg : 'No se  actualizaron los  campos.',
+									msg : 'No se  actualizaron los  campos.<BR>'+jsonData.errorMsj,
 									buttons : Ext.MessageBox.OK,
 									icon : Ext.MessageBox.ERROR
 								});
