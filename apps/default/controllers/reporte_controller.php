@@ -70,7 +70,8 @@ class ReporteController extends ApplicationController {
 		$resultado = $pasante->getNotasPorTutor($categoria,'','*','*','*',$carrera);
 		$resultado = $resultado['resultado'];
 		$datos = $this->procesarDatosNotas($resultado,$categoria);
-		$pdf = new ReportPDF();
+		$decanato=Session::getData('decanato_id');
+		$pdf = new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Reporte de Calificaciones');
@@ -217,7 +218,8 @@ class ReporteController extends ApplicationController {
 								"ancho"=>60,
 								"tipo"=>"string",
 								"alineacion"=>"L"));  
-		$pdf=new ReportPDF();
+		$decanato=Session::getData('decanato_id');
+		$pdf=new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Historial de asesorías - Tutor Académico');
@@ -227,7 +229,6 @@ class ReporteController extends ApplicationController {
 		$datos  = $pasantia->buscarPasantiasSupervizadas($idTutor);
 		$coordinacion = new Coordinacion();
 		$decanato=Session::getData('decanato_id');
-		//$coord=$coordinacion->getDatosCoordinador(DECANATO_CIENCIAS);
 		$coord=$coordinacion->getDatosCoordinador($decanato);
 		$tutorAcad= new TutorAcademico();
 		$tutor=$tutorAcad->getTutorAcademicoById($idTutor);
@@ -266,7 +267,6 @@ class ReporteController extends ApplicationController {
 	public function constanciaNotasPasanteAction(){
 		$categoria=$this->auth['categoriaUsuario_id'];
 		$decanatoId=Session::getData('decanato_id');
-		//$decanatoId= DECANATO_CIENCIAS;
 		if($categoria==CAT_USUARIO_PASANTE){
 			$conf= new Configuracion();
 			if ($conf->getConsultaCalificacionesbyDecanato($decanatoId)=='S'){
@@ -312,8 +312,9 @@ class ReporteController extends ApplicationController {
 		array("titulo"=>'Acumulado',
 											"ancho"=>50,
 											"tipo"=>"string",
-											"alineacion"=>"R"));    
-		$pdf=new ReportPDF();
+											"alineacion"=>"R"));
+		$decanato=Session::getData('decanato_id');    
+		$pdf=new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Constancia de Calificaciones');
@@ -396,7 +397,7 @@ class ReporteController extends ApplicationController {
 
 		);
 		$datos = $this->procesarDatosListadoPasante($datos);
-		$pdf = new ReportPDF();
+		$pdf = new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Reporte de Pasantes');
@@ -452,7 +453,8 @@ class ReporteController extends ApplicationController {
 											"alineacion"=>"L")
 
 		);
-		$pdf = new ReportPDF();
+		$decanato=Session::getData('decanato_id');
+		$pdf = new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Reporte de Ofertas');
@@ -523,8 +525,8 @@ class ReporteController extends ApplicationController {
 
 			);
 		}
-
-		$pdf = new ReportPDF();
+		$decanato=Session::getData('decanato_id');
+		$pdf = new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Reporte de Tutores '.($tipo=='A'?'Académicos':'Empresariales'));
@@ -562,7 +564,8 @@ class ReporteController extends ApplicationController {
 											"alineacion"=>"L")
 
 		);
-		$pdf = new ReportPDF();
+		$decanato=Session::getData('decanato_id');
+		$pdf = new ReportPDF($decanato);
 		$pdf->AliasNbPages();
 		$pdf->AddPage();
 		$pdf->imprimirTitulo('Reporte de Empresas');
