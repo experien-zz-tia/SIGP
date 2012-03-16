@@ -1,0 +1,31 @@
+<?php echo Tag::javascriptInclude('formularios/panelGestionCarreras.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/panelGestionCarreras') ?>
+<?php echo Tag::javascriptInclude('formularios/frmCarrera.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmCarrera') ?>
+
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCoordinacion') ?>
+<?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stEmpleadosDec') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stCarreras') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDuracion') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stPlan') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stRegimen') ?>
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var decan = new panelGestionCarreras({
+        	renderTo: 'panel'
+	    });
+    	decan.show();
+	});
+	
+</script>
+
+<div id='panel'></div>
+<p class="blanco" >
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.
+</p>

@@ -16,6 +16,7 @@ stUniversidad = Ext.extend(Ext.data.JsonStore, {
         stUniversidad.superclass.constructor.call(this, Ext.apply({
             storeId: 'stUniversidad',
             url: '/SIGP/universidad/getUniversidades',
+            autoLoad: true,
             fields: [
                 {
                     name: 'id',
@@ -26,6 +27,35 @@ stUniversidad = Ext.extend(Ext.data.JsonStore, {
                     name: 'nombre',
                     type: 'string',
                     mapping: 'nombre'
+                },{
+                    name: 'ciudad_id',
+                    type: 'string',
+                    mapping: 'ciudad_id'
+                },
+                {
+                    name: 'direccion',
+                    type: 'string',
+                    mapping: 'direccion'
+                },
+                {
+                    name: 'estado_id',
+                    type: 'string',
+                    mapping: 'estado_id'
+                },
+                {
+                    name: 'telefono',
+                    type: 'string',
+                    mapping: 'telefono'
+                },
+                {
+                    name: 'logo',
+                    type: 'binary',
+                    mapping: 'logo'
+                },
+                {
+                    name: 'estatus',
+                    type: 'string',
+                    mapping: 'estatus'
                 }
             ]
         }, cfg));

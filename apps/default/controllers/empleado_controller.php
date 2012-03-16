@@ -277,6 +277,15 @@ class EmpleadoController extends ApplicationController{
 
 	}
 
+	public function getEmpleadosByDecanatoAction(){
+		$resp = array();
+		$this->setResponse('ajax');
+		$emp = new Empleado();
+		$idDecanato = $this->getRequestParam('idDecanato');
+		$resp = $emp->getEmpleadosByDecanato($idDecanato);
+		$this->renderText(json_encode($resp));
+	}
+
 }
 ?>
 

@@ -126,8 +126,8 @@ class PasanteController extends ApplicationController{
 			
 		$cedula = $this->getRequestParam('txtCedula');
 		$fchNacimiento = $this->getRequestParam('dataFecha');
-		$nombre = $this->getRequestParam('txtNombre');
-		$apellido = $this->getRequestParam('txtApellido');
+		$nombre = utf8_decode($this->getRequestParam('txtNombre'));
+		$apellido = utf8_decode($this->getRequestParam('txtApellido'));
 		$opcF = $this->getRequestParam('opcF');
 
 		$sexo = '';
@@ -136,7 +136,7 @@ class PasanteController extends ApplicationController{
 		} else {$sexo = 'M';}
 
 		$telefono = $this->getRequestParam('txtTelefono');
-		$direccion = $this->getRequestParam('txtDireccion');
+		$direccion = utf8_decode($this->getRequestParam('txtDireccion'));
 		$decanato = $this->getRequestParam('decanato');
 		$carrera = $this->getRequestParam('carrera');
 		$semestre = $this->getRequestParam('cmbSemestre');
@@ -231,10 +231,8 @@ class PasanteController extends ApplicationController{
 	public function buscarPasanteAction(){
 		$resp=array();
 		$pCedula = $this->getRequestParam('cedula');
-		//$pFecha = $this->getRequestParam('fecha');
 		$this->setResponse('ajax');
 		$pasante = new Pasante();
-		//$resp = $pasante->buscarPasante($pCedula);
 		$resp = $pasante->buscarPasanteId($pCedula);
 		$this->renderText(json_encode($resp));
 	}
