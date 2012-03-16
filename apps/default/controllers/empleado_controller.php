@@ -59,7 +59,7 @@ class EmpleadoController extends ApplicationController{
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$pRadioTipo = $this->getParametro('pRadioTipo', 'string', '');
-			
+
 			//recibir como parametro
 			$decanato=$this->getParametro('pDecanato', 'numerico', -1);
 			if ($cedula!='' and $nombre!='' and $apellido!='' and $correo!='' and $pRadioTipo!='' and $decanato!=-1){
@@ -171,14 +171,32 @@ class EmpleadoController extends ApplicationController{
 		$resp['errorMsj']= '';
 		$this->setResponse('ajax');
 		if ($this->auth['categoriaUsuario_id']==CAT_USUARIO_ADMINISTRADOR){
+			$pRadioTipo = $this->getParametro('pRadioTipo', 'string', '');
+			$decanato=$this->getParametro('pDecanato', 'numerico', -1);
 			$empleado = new Empleado();
 			$nombre=utf8_decode($this->getParametro('txtNombre','string',''));
 			$apellido=utf8_decode($this->getParametro('txtApellido','string',''));
 			$correo = $this->getParametro('txtCorreo','string','');
 			$id = $this->getParametro('txtIdEmpleado', 'numerico', -1);
-			$decanato=Session::getData('decanato_id');
-			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1){
-				$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
+			if ( $nombre!='' and $apellido!='' and $correo!='' and $id!=-1 and $decanato!=-1 and $pRadioTipo!=''){
+				switch (strtoupper($pRadioTipo)) {
+					case 'A':
+						$categoria= CAT_USUARIO_ADMINISTRADOR;
+						break;
+					case 'C':
+						$categoria= CAT_USUARIO_COORDINADOR;
+						break;
+					default:
+						$categoria= CAT_USUARIO_ANALISTA;
+						break;
+				}
+				$coordinacion = new Coordinacion();
+				$existeCordinador = $empleado->existeCoordinador($decanato);
+				if ((($categoria==CAT_USUARIO_COORDINADOR) and !$existeCordinador)or $categoria!= CAT_USUARIO_COORDINADOR  ){
+					$resp['success']= $empleado->actualizar($id, $nombre, $apellido, $correo);
+				}else{
+					$resp['errorMsj']= 'Ya existe un coordinador registrado en el decanato seleccionado.';
+				}
 			}else{
 				$resp['errorMsj']= 'Parámetros incompletos.';
 			}

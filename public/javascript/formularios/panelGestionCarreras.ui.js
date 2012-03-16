@@ -30,7 +30,7 @@ panelGestionCarrerasUi = Ext.extend(Ext.Panel, {
 								xtype : 'gridcolumn',
 								header : 'Nombre',
 								sortable : true,
-								width : 150,
+								width : 200,
 								editable : false,
 								dataIndex : 'nombre',
 								tooltip : 'Nombre de la carrera.'
@@ -38,7 +38,7 @@ panelGestionCarrerasUi = Ext.extend(Ext.Panel, {
 								xtype : 'gridcolumn',
 								header : 'Decanato',
 								sortable : true,
-								width : 150,
+								width : 200,
 								editable : false,
 								dataIndex : 'decanato',
 								tooltip : 'Decanato al que se asocia'
@@ -51,6 +51,14 @@ panelGestionCarrerasUi = Ext.extend(Ext.Panel, {
 								editable : false,
 								dataIndex : 'regimen',
 								tooltip : 'Regimen asociado'
+							},{
+								xtype : 'gridcolumn',
+								header : 'Plan',
+								sortable : true,
+								width : 100,
+								editable : false,
+								dataIndex : 'plan',
+								tooltip : 'Plan asociado'
 							}, {
 								xtype : 'gridcolumn',
 								header : 'Duraci&oacute;n',
@@ -81,17 +89,22 @@ panelGestionCarrerasUi = Ext.extend(Ext.Panel, {
 						    iconCls: 'sigp-eliminar',
 						    id: 'btnEliminar'
 						}, {
+							xtype : 'button',
+							text : 'Limpiar Filtro',
+							iconCls : 'sigp-limpiar',
+							id : 'btnLimpiarFiltro'
+						},'Decanato: ',{
 							xtype : 'combo',
 //							x : 130,
 //							y : 65,
-							name : 'cmbDecanato',
+							name : 'cmbDecanatoCarr',
 							fieldLabel : 'Decanato*',
-							id : 'cmbDecanato',
+							id : 'cmbDecanatoCarr',
 							store : 'stDecanato',
 							editable : false,
 							displayField : 'nombre',
 							valueField : 'id',
-							emptyText : '-Seleccione-',
+							emptyText : '-Todos-',
 							triggerAction : 'all',
 							allowBlank : false,
 							forceSelection : true,

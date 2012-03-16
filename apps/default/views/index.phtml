@@ -38,7 +38,8 @@
 			<div class="menu">
 				<ul>
 					<li><?php echo Tag::linkTo('','Inicio');?></li>
-					<li><a href="#">Quienes somos</a>
+					
+				<!--	<li><a href="#">Quienes somos</a>
 						<ul>
 							<span></span>
 							<li><a href="#">Objetivos</a></li>
@@ -46,12 +47,10 @@
 							<li><a href="#">Misi&oacute;n&nbsp&nbsp</a></li>
 						</ul>
 					</li>
-					<li><a href="#">Recursos</a>
-						<ul>
-							<span></span>
-							<li><a href="#">Complemetarios</a></li>
-							<li><a href="#">Planillas&nbsp&nbsp</a></li>
-						</ul></li>
+					-->
+					<li><?php echo Tag::linkTo('recurso','Recursos') ?>
+					
+						</li>
 					<!-- <li><a href="#">Iniciar sesi&oacute;n</a> -->
 
 
@@ -67,7 +66,7 @@
 									<button type="reset" class="button" style="width: 80px;" >Cancelar</button> ';
 							echo Tag::endForm(); 
 						}else {
-							echo Tag::linkTo('/login/logout','Cerrar Sesi&oacute;n');
+							echo Tag::linkTo('login/logout','Cerrar Sesi&oacute;n');
 						}
 							?> 
 						

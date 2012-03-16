@@ -8,7 +8,7 @@ stEmpleados = Ext.extend(Ext.data.JsonStore, {
 									fields : [{
 												name : 'empleadoId',
 												type : 'int'
-											},  {
+											}, {
 												name : 'cedula',
 												type : 'string'
 											}, {
@@ -23,6 +23,9 @@ stEmpleados = Ext.extend(Ext.data.JsonStore, {
 											}, {
 												name : 'decanato',
 												type : 'string'
+											}, {
+												name : 'decanatoId',
+												type : 'int'
 											}, {
 												name : 'correo',
 												type : 'string'

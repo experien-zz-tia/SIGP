@@ -84,7 +84,16 @@ class Decanato extends ActiveRecord{
 		$decanatos = $this->find("estatus='A'","order: nombre");
 		foreach($decanatos as $decanato){
 			$auxDecanatos[$i]['id'] = $decanato->getId();
+			$auxDecanatos[$i]['universidad_id'] = $decanato->getUniverdidadId();
 			$auxDecanatos[$i]['nombre'] = utf8_encode($decanato->getNombre());
+			$auxDecanatos[$i]['direccion'] = $decanato->getDireccion();
+			$auxDecanatos[$i]['oficina'] = $decanato->getOficina();
+			$auxDecanatos[$i]['ciudad_id'] = $decanato->getCiudadId();
+			$auxDecanatos[$i]['estado_id'] = $decanato->getCiudadEstadoId();
+			$auxDecanatos[$i]['telefono'] = $decanato->getTelefono();
+			$auxDecanatos[$i]['logo'] = $decanato->getLogo();
+			$auxDecanatos[$i]['estatus'] = $decanato->getEstatus();
+			
 			$i++;
 		}
 
@@ -128,6 +137,7 @@ class Decanato extends ActiveRecord{
 		return $auxDecanatos;
 	}
 	//-----------------------------------------------------------------------------------------
+
 	public function getUniversidadByDecanato($idDecanato){
 		$auxDecanatos = array();
 		$encontrado = 0;
@@ -136,8 +146,12 @@ class Decanato extends ActiveRecord{
 		foreach($decanatos as $decanato){
 			$encontrado = $decanato->getUniverdidadId();
 		}
-
 		return $encontrado;
+	}
+	//-----------------------------------------------------------------------------------------
+	public function buscarDecanato($idDecanato){
+		$decanato = $this->findFirst("id = '$idDecanato'");
+		return $decanato;
 	}
 	//-----------------------------------------------------------------------------------------
 	public function registrar($vUniverdad, $vCiudad, $vDireccion, $vEstado, $vNombre, $vTelefono) {
@@ -174,7 +188,7 @@ class Decanato extends ActiveRecord{
 
 		return $success;
 	}
-	
+
 	//-----------------------------------------------------------------------------------------
 	public function eliminar($vId) {
 		$success = false;

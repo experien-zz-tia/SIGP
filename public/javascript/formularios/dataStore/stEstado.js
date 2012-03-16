@@ -31,4 +31,4 @@ stEstado = Ext.extend(Ext.data.JsonStore, {
         }, cfg));
     }
 });
-new stEstado();
+var stEstado  = new stEstado();

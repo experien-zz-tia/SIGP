@@ -1,35 +1,28 @@
+var cmb;
 Ext.QuickTips.init(); 
 frmCarrera = Ext.extend(frmCarreraUi, {
     initComponent: function() {
         frmCarrera.superclass.initComponent.call(this);
 		Ext.getCmp('btnRegistrar').on('click',this.registrar);
+		Ext.getCmp('cmbDecanato').on('select',this.actualizarVar);
+		Ext.getCmp('btnActualizar').on('click',this.actualizar);
 		Ext.getCmp('btnLimpiar').on('click',this.limpiar);
 		Ext.getCmp('btnSalir').on('click',this.salir);
 	},
-	buscar:function(){	
-		Ext.Ajax.request({
-			url: '/SIGP/carrera/buscar',
-			method: 'POST',
-			params: { },
-			success: function(respuesta, request) {
-	      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
-	      				if ((jsonData.success ==true) && (jsonData.errorMsj=='')){
-	      					
-	      				}else if((jsonData.success ==true) && (jsonData.errorMsj!='')){
-         	        		var datos = jsonData.datos;
-         	        		Ext.getCmp('txtNombre').setValue(datos.nombre);
-	      				}
-				}
-		});
-},
+	actualizarVar:function(){
+		cmb = Ext.getCmp('cmbDecanato').getValue();
+	},
 	registrar:function(){
 		// Se verifica que los campos marcados como obligatorios
 		// (allowBlank:false) esten llenos
 		if (Ext.getCmp('frmCarreraForm').getForm().isValid() ){
+			cmb = Ext.getCmp('cmbDecanato').getValue();
 			 Ext.getCmp('frmCarreraForm').getForm().submit({ waitMsg : 'Enviando datos...',
 				 params:{
 				 	decanato: Ext.getCmp('cmbDecanato').getValue(),
-				 	empleado: Ext.getCmp('cmbEmpleado').getValue()
+				 	regimen: Ext.getCmp('cmbRegimen').getValue(),
+				 	plan: Ext.getCmp('cmbPlan').getValue(),
+				 	duracion: Ext.getCmp('cmbDuracion').getValue()
 			  			},
 				 failure: function (form, action){
 					 Ext.MessageBox.show({  
@@ -46,9 +39,22 @@ frmCarrera = Ext.extend(frmCarreraUi, {
 							 buttons: Ext.MessageBox.OK,  
 							 icon: Ext.MessageBox.INFO,
 						fn: function (){
-							 Ext.getCmp('frmCarreraForm').getForm().reset();
-							 Ext.getCmp('frmCarreraWin').close();             
-							 //stCarreraes.reload();
+      						id = cmb;
+		      				if (id != null){
+		      					Ext.getCmp('gridGestionCarreras').store.setBaseParam('idDecanato', id);
+		      					Ext.getCmp('frmCarreraWin').close();
+	      						Ext.getCmp('gridGestionCarreras').store.load();
+	      						
+	      						var cmbDecanato = Ext.getCmp('cmbDecanatoCarr');      					
+	          					var storeDec = cmbDecanato.getStore();
+	          					storeDec.load({
+	          					   callback: function() {
+	          					      cmbDecanato.setValue(id);
+	          					   }
+	          					});
+		      				}  else {
+		      					Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: '-1'}});
+		      				}
 							 }
 						 });
 						 }  
@@ -81,34 +87,45 @@ frmCarrera = Ext.extend(frmCarreraUi, {
           					   }
           					});
           					
-          					var cmbEmpl = Ext.getCmp('cmbEmpleado');                          
-                            var storeEmpl = cmbEmpl.getStore();
-                            storeEmpl.load({
-                               params: {idDecanato: datos.decanato_id},
-                               callback: function() {
-                            	   cmbEmpl.setValue(datos.empleado_id);
-                               }
-                            });
-                            
-                            Ext.getCmp('txtDireccion').setValue(datos.direccion);
-         	        		Ext.getCmp('txtTelefono').setValue(datos.telefono);
-         	        		Ext.getCmp('txtEmail').setValue(datos.email);
+          					var cmbRegimen = Ext.getCmp('cmbRegimen');      					
+          					var storeReg = cmbRegimen.getStore();
+          					storeReg.load({
+          					   callback: function() {
+          					      cmbRegimen.setValue(datos.regimen);
+          					   }
+          					});
+          					
+          					var cmbPlan = Ext.getCmp('cmbPlan');      					
+          					var storeP = cmbPlan.getStore();
+          					storeP.load({
+          					   callback: function() {
+          					      cmbPlan.setValue(datos.plan);
+          					   }
+          					});
+          					
+          					var cmbDuracion = Ext.getCmp('cmbDuracion');      					
+          					var storeDur = cmbDuracion.getStore();
+          					storeDur.load({
+          					   callback: function() {
+          					      cmbDuracion.setValue(datos.duracion);
+          					   }
+          					});
+          					
 	      				}
 				}
 		});
 },
 actualizar:function(){
-	if (Ext.getCmp('frmActualizarCarreraForm').getForm().isValid()){
+	if (Ext.getCmp('frmCarreraForm').getForm().isValid()){
 				 Ext.Ajax.request({
       			url: '/SIGP/configuracion/actualizarCarrera',
       			method: 'POST',
       			params: {
 					 txtId: Ext.getCmp('txtId').getValue(),
 					 decanato: Ext.getCmp('cmbDecanato').getValue(),
-					 empleado: Ext.getCmp('cmbEmpleado').getValue(),
-					 txtEmail: Ext.getCmp('txtEmail').getValue(),
-					 txtTelefono: Ext.getCmp('txtTelefono').getValue(),
-					 txtDireccion: Ext.getCmp('txtDireccion').getValue(),
+					 regimen: Ext.getCmp('cmbRegimen').getValue(),
+					 plan: Ext.getCmp('cmbPlan').getValue(),
+					 duracion: Ext.getCmp('cmbDuracion').getValue(),
 					 txtNombre: Ext.getCmp('txtNombre').getValue()
       						},
       			success: function(respuesta, request) {
@@ -120,8 +137,23 @@ actualizar:function(){
       			           buttons: Ext.MessageBox.OK,  
       			           icon: Ext.MessageBox.INFO,
       			           fn: function (){
-      						Ext.getCmp('frmActualizarCarreraWin').close();
-//      			     	 	 stCarrera.reload();
+      						id = cmb;
+		      				if (id != null){
+		      					Ext.getCmp('gridGestionCarreras').store.setBaseParam('idDecanato', id);
+		      					Ext.getCmp('frmCarreraWin').close();
+		      					
+	      						Ext.getCmp('gridGestionCarreras').store.load();
+	      						var cmbDecanato = Ext.getCmp('cmbDecanatoCarr');      					
+	          					var storeDec = cmbDecanato.getStore();
+	          					storeDec.load({
+	          					   callback: function() {
+	          					      cmbDecanato.setValue(id);
+	          					   }
+	          					});
+		      				}  else {
+		      					Ext.getCmp('frmCarreraWin').close();
+		      					Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: '-1'}});
+		      				}
       			        	}
       			          });
       				}else{
@@ -154,7 +186,8 @@ actualizar:function(){
 	  }
 },
 	limpiar:function(){
-		Ext.getCmp('txtNombre').reset();
+		//Ext.getCmp('txtNombre').reset();
+		Ext.getCmp('frmCarreraForm').getForm().reset();
 	},
 	salir:function(){
         Ext.getCmp('frmCarreraForm').getForm().reset();

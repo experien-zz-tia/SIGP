@@ -4,12 +4,23 @@ panelGestionCarreras = Ext.extend(panelGestionCarrerasUi, {
 		Ext.getCmp('btnAgregar').on('click',this.agregar);
         Ext.getCmp('btnModificar').on('click',this.modificar);
         Ext.getCmp('btnEliminar').on('click',this.eliminar);
-        Ext.getCmp('cmbDecanato').on('select',this.cargarCarreras);
-        Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: '-1'}});
+       Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: '-1'}});
+       Ext.getCmp('cmbDecanatoCarr').on('select',
+				this.actualizarParametro);
+       Ext.getCmp('btnLimpiarFiltro').on('click',this.limpiarFiltro);
 	},
-	cargarCarreras:function(){
-		Ext.getCmp('gridGestionCarreras').clearValue();
-		Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: Ext.getCmp('cmbDecanato').getValue()}});
+	actualizarParametro : function() {
+		id = Ext.getCmp('cmbDecanatoCarr').getValue();
+		Ext.getCmp('gridGestionCarreras').store.setBaseParam('idDecanato', id);
+		Ext.getCmp('gridGestionCarreras').store.load();
+	},
+	limpiarFiltro : function() {
+		Ext.getCmp('cmbDecanatoCarr').reset();
+//		Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: '-1'}});
+//		Ext.getCmp('gridGestionCarreras').store.setBaseParam('idDecanato', null);
+		Ext.getCmp('gridGestionCarreras').store.setBaseParam('idDecanato', null);
+		Ext.getCmp('gridGestionCarreras').store.load();
+		//stCarreras.load();
 	},
     agregar:function(){
     	var frm = new frmCarrera({
@@ -32,11 +43,13 @@ panelGestionCarreras = Ext.extend(panelGestionCarrerasUi, {
       		    });
           }else{
         	 var id = index.get('id');
-        	 var frm = new frmActualizarCarrera({
+        	 var frm = new frmCarrera({
         		renderTo: Ext.getBody()
         	});
         	 Ext.getCmp('txtId').setValue(id);
         	 frm.buscar();
+        	 Ext.getCmp('btnActualizar').show();
+       	  	 Ext.getCmp('btnRegistrar').hide();
         	 frm.show();
           }
      },
@@ -64,8 +77,22 @@ panelGestionCarreras = Ext.extend(panelGestionCarrerasUi, {
 			      			success: function(respuesta, request) {
 			      				var jsonData = Ext.util.JSON.decode(respuesta.responseText);
 			      				if (jsonData.success == true){
-//			      					stCarreras.reload();
-				      				Ext.Msg.alert('Operaci&oacute;n exitosa','Se ha eliminado la Carrera: '+index.get('nombre'));
+				      				 Ext.MessageBox.show({  
+										 title: 'Operaci&oacute;n exitosa',  
+										 msg: 'Se ha eliminado la Carrera: '+index.get('nombre'),  
+										 buttons: Ext.MessageBox.OK,  
+										 icon: Ext.MessageBox.INFO,
+									fn: function (){
+				      					id = Ext.getCmp('cmbDecanatoCarr').getValue();
+					      				if (id != null){
+					      					Ext.getCmp('gridGestionCarreras').store.setBaseParam('idDecanato', id);
+				      						Ext.getCmp('gridGestionCarreras').store.load();
+					      				}  else {
+					      					Ext.getCmp('gridGestionCarreras').store.reload({params: {idDecanato: '-1'}});
+					      				}
+										 }
+									 });
+			      					
 			      				}else{
 			      					 Ext.MessageBox.show({  
 				      	                title: 'Error.',  

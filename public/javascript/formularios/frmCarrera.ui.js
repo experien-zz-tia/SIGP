@@ -32,8 +32,7 @@ frmCarreraUi = Ext.extend(Ext.Window, {
 									
 								},{
 									xtype : 'combo',
-//									x : 130,
-//									y : 65,
+									anchor : '100%',
 									name : 'cmbDecanato',
 									fieldLabel : 'Decanato*',
 									id : 'cmbDecanato',
@@ -48,22 +47,57 @@ frmCarreraUi = Ext.extend(Ext.Window, {
 									submitValue : false,
 									loadingText : 'Cargando...',
 									blankText : 'Seleccione un Decanato'
-								},
-								{
-									xtype : 'textfield',
-									name : 'txtRegimen',
-									anchor : '50%',
-									fieldLabel : 'Regimen',
-									maxLength : 45,
-									id : 'txtRegimen'
 								},{
-									xtype : 'textfield',
-									name : 'txtDuracion',
-									anchor : '100%',
-									fieldLabel : 'Duraci&oacute;n*',
+									xtype : 'combo',
+									anchor : '50%',
+									name : 'cmbRegimen',
+									fieldLabel : 'Regimen*',
+									id : 'cmbRegimen',
+									store : 'stRegimen',
+									editable : false,
+									displayField : 'nombre',
+									valueField : 'id',
+									emptyText : '-Seleccione-',
+									triggerAction : 'all',
 									allowBlank : false,
-									maxLength : 250,
-									id : 'txtDuracion'
+									forceSelection : true,
+									submitValue : false,
+									loadingText : 'Cargando...',
+									blankText : 'Seleccione el Regimen'
+								}, {
+									xtype : 'combo',
+									anchor : '75%',
+									name : 'cmbPlan',
+									fieldLabel : 'Plan*',
+									id : 'cmbPlan',
+									store : 'stPlan',
+									editable : false,
+									displayField : 'nombre',
+									valueField : 'id',
+									emptyText : '-Seleccione-',
+									triggerAction : 'all',
+									allowBlank : false,
+									forceSelection : true,
+									submitValue : false,
+									loadingText : 'Cargando...',
+									blankText : 'Seleccione el Plan de Regimen'
+								}, {
+									xtype : 'combo',
+									anchor : '35%',
+									name : 'cmbDuracion',
+									fieldLabel : 'Duraci&oacute;n*',
+									id : 'cmbDuracion',
+									store : 'stDuracion',
+									editable : false,
+									displayField : 'nombre',
+									valueField : 'id',
+									emptyText : '--',
+									triggerAction : 'all',
+									allowBlank : false,
+									forceSelection : true,
+									submitValue : false,
+									loadingText : 'Cargando...',
+									blankText : 'Seleccione la Duraci&oacute;n'
 								},
 								{
 									xtype : 'textfield',
@@ -95,7 +129,7 @@ frmCarreraUi = Ext.extend(Ext.Window, {
 						text : 'Actualizar',
 						width: 90,
                         height: 30,
-                        hidden : true
+                        hidden : true,
 						iconCls : 'sigp-publicar',
 						id : 'btnActualizar'
 					}, {

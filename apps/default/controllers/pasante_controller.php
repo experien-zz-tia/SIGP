@@ -80,9 +80,9 @@ class PasanteController extends ApplicationController{
 		$opcF = $this->getRequestParam('opcF');
 
 		$sexo = '';
-		if ($opcF==true){
+		if ($opcF=='true'){
 			$sexo = 'F';
-		} else {$sexo == 'M';}
+		} else {$sexo = 'M';}
 
 		$telefono = $this->getRequestParam('txtTelefono');
 		$direccion = $this->getRequestParam('txtDireccion');
@@ -100,7 +100,7 @@ class PasanteController extends ApplicationController{
 		$successRegistro = false;
 		$successUsuario = false;
 		$idUsuario = 0;
-		$successPasante = $pasante->ActualizarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
+		$successPasante = $pasante->actualizarPasante($cedula,$fchNacimiento,$nombre,$apellido,$sexo,
 		$carrera,$semestre,$indice,$tipoPasantia,$modalidad,$direccion,$estado,$ciudad,$telefono,
 		$email);
 

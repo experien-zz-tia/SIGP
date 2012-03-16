@@ -1,0 +1,27 @@
+<?php echo Tag::javascriptInclude('formularios/panelGestionDepartamentos.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/panelGestionDepartamentos') ?>
+<?php echo Tag::javascriptInclude('formularios/frmDepartamento.ui') ?>
+<?php echo Tag::javascriptInclude('formularios/frmDepartamento') ?>
+
+<?php echo Tag::javascriptInclude('ext-3.3.1/ux/SearchField') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDecanato') ?>
+<?php echo Tag::javascriptInclude('formularios/dataStore/stDepartamentos') ?>
+
+<?php echo Tag::javascriptInclude('jshash-2.2/md5') ?>
+
+
+<script type='text/javascript'>
+	Ext.onReady(function() {
+    	Ext.QuickTips.init();
+    	var decan = new panelGestionDepartamentos({
+        	renderTo: 'panel'
+	    });
+    	decan.show();
+	});
+	
+</script>
+
+<div id='panel'></div>
+<p class="blanco" >
+Seleccione una fila y luego la opci&oacute;n de la barra de men&uacute; del grid.
+</p>

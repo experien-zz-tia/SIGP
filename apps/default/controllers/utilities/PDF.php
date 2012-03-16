@@ -7,6 +7,58 @@ include_once('constantes.php');
  *
  */
 
+//Stream handler to read from global variables
+class VariableStream
+{
+	var $varname;
+	var $position;
+
+	function stream_open($path, $mode, $options, &$opened_path)
+	{
+		$url = parse_url($path);
+		$this->varname = $url['host'];
+		if(!isset($GLOBALS[$this->varname]))
+		{
+			trigger_error('Global variable '.$this->varname.' does not exist', E_USER_WARNING);
+			return false;
+		}
+		$this->position = 0;
+		return true;
+	}
+
+	function stream_read($count)
+	{
+		$ret = substr($GLOBALS[$this->varname], $this->position, $count);
+		$this->position += strlen($ret);
+		return $ret;
+	}
+
+	function stream_eof()
+	{
+		return $this->position >= strlen($GLOBALS[$this->varname]);
+	}
+
+	function stream_tell()
+	{
+		return $this->position;
+	}
+
+	function stream_seek($offset, $whence)
+	{
+		if($whence==SEEK_SET)
+		{
+			$this->position = $offset;
+			return true;
+		}
+		return false;
+	}
+
+	function stream_stat()
+	{
+		return array();
+	}
+}
+
 
 function hex2dec($couleur = "#000000"){
 	$R = substr($couleur, 1, 2);
@@ -41,8 +93,36 @@ class ReportPDF extends FPDFv17{
 	 * @var int
 	 */
 	const COLUMNA_ITEM = 30;
-	
+
 	const COLUMNA_ESPACIO = 70;
+
+	private  $logoDecanato;
+	private $nombreDecanato;
+
+	function __construct($idDecanato) {
+		parent::__construct();
+		stream_wrapper_register('var', 'VariableStream');
+		$decanato = new Decanato();
+		$datos= $decanato->buscarDecanato($idDecanato);
+		if ($datos){
+			$this->logoDecanato=$datos->getLogo();
+			$this->nombreDecanato=$datos->getNombre();
+		}
+	}
+
+	function MemImage($data, $x=null, $y=null, $w=0, $h=0, $link='')
+	{
+		//Display the image contained in $data
+		$v = 'img'.md5($data);
+		$GLOBALS[$v] = $data;
+		$a = getimagesize('var://'.$v);
+		if(!$a)
+		$this->Error('Invalid image data');
+		$type = substr(strstr($a['mime'],'/'),1);
+		$this->Image('var://'.$v, $x, $y, $w, $h, $type, $link);
+		unset($GLOBALS[$v]);
+	}
+
 
 	private function crearTituloEncabezado($titulo,$alineacion='C') {
 		// Calculamos ancho y posición del título.
@@ -55,9 +135,16 @@ class ReportPDF extends FPDFv17{
 		// Arial bold 12
 		$this->SetFont('Arial','B',10);
 		$this->Image(DIRECTORIO_IMAGENES.'/logoUcla.jpg',20,10);
-		$this->Image(DIRECTORIO_IMAGENES.'/logoDecanato.jpg',165,12);
+
+		//Load an image into a variable
+		$logo = $this->logoDecanato;
+		//Output it
+		$this->MemImage($logo, 165, 12);
+
+		//$this->Image(DIRECTORIO_IMAGENES.'/logoDecanato.jpg',165,12);
 		$titulo='Universidad Centroccidental Lisandro Alvarado';
-		$titulo2='Decanato de Ciencias y Tecnología';
+		//$titulo2='Decanato de Ciencias y Tecnología';
+		$titulo2=$this->nombreDecanato;
 		$titulo3='Coordinación de Pasantías';
 		$this->crearTituloEncabezado($titulo);
 		$this->crearTituloEncabezado($titulo2);
@@ -76,7 +163,7 @@ class ReportPDF extends FPDFv17{
 		// Salto de línea
 		$this->Ln(4);
 	}
-	
+
 	function imprimirFecha($titulo)	{
 		// Arial 12
 		$this->SetFont('Arial','B',12);
@@ -85,7 +172,7 @@ class ReportPDF extends FPDFv17{
 		// Salto de línea
 		$this->Ln(4);
 	}
-	
+
 	function Footer(){
 		// Posición a 2 cm del final
 		$this->SetY(-20);
@@ -97,8 +184,8 @@ class ReportPDF extends FPDFv17{
 		// Número de página
 		$fecha = date('d/m/Y h:i:s A');
 		$this->Cell(-200,5,"Sistema Experientia - Página {$this->PageNo()}/{nb} - $fecha",0,0,'C');
-	  
-	  
+			
+			
 	}
 
 	/**
@@ -144,15 +231,15 @@ class ReportPDF extends FPDFv17{
 	}
 
 	function imprimirItemTextoBasico($titulo, $descripcion) {
-		
-		
+
+
 		$this->SetFont('','B',10);
 		$this->Cell(6+10,10,utf8_decode($titulo),0,0);
 		//$w=(ReportPDF::COLUMNA_ITEM- $this->GetStringWidth(utf8_decode($titulo)));
 		$this->Cell(ReportPDF::COLUMNA_ITEM,10,' :',0,0,'R');
 		//$this->Cell($w,10,' :',0,0,'R');
 		$this->Cell(6,10,utf8_decode($descripcion),0,1);//1
-		
+
 	}
 
 	function imprimirFirmas($nombreUno, $nombreDos) {
